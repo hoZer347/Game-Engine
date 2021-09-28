@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Renderer.cpp" />
+    <ClCompile Include="Renderable.cpp">
+      <Filter>Renderables</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{d5f99b71-240c-43f2-8759-b4769b67c242}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderables">
+      <UniqueIdentifier>{34e4003e-2ed5-4bff-b4b7-a74fba828eeb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Renderer.h" />
+    <ClInclude Include="Renderable.h">
+      <Filter>Renderables</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="default.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="default.vert">
+      <Filter>Shaders</Filter>
+    </None>
+  </ItemGroup>
+</Project>

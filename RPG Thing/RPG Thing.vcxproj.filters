@@ -2,31 +2,47 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Renderable.cpp">
-      <Filter>Renderables</Filter>
+      <Filter>Engine\Renderables</Filter>
+    </ClCompile>
+    <ClCompile Include="Inputs.cpp">
+      <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Shaders">
+    <Filter Include="Engine">
+      <UniqueIdentifier>{2b3f819b-c12d-42a3-99d5-5fb46f501bab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Renderables">
+      <UniqueIdentifier>{34e4003e-2ed5-4bff-b4b7-a74fba828eeb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Shaders">
       <UniqueIdentifier>{d5f99b71-240c-43f2-8759-b4769b67c242}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Renderables">
-      <UniqueIdentifier>{34e4003e-2ed5-4bff-b4b7-a74fba828eeb}</UniqueIdentifier>
+    <Filter Include="Game">
+      <UniqueIdentifier>{32445464-5a9a-4c01-907e-6bc32351e588}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Renderer.h" />
     <ClInclude Include="Renderable.h">
-      <Filter>Renderables</Filter>
+      <Filter>Engine\Renderables</Filter>
+    </ClInclude>
+    <ClInclude Include="Inputs.h">
+      <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="default.frag">
-      <Filter>Shaders</Filter>
+      <Filter>Engine\Shaders</Filter>
     </None>
     <None Include="default.vert">
-      <Filter>Shaders</Filter>
+      <Filter>Engine\Shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

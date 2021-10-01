@@ -7,32 +7,17 @@ Renderer::Renderer() {
 void Renderer::load() {
     // LOADING WINDOW / OPENGL SETTINGS
 
-    // start GL context and O/S window using the GLFW helper library
-    if (!glfwInit()) {
-        fprintf(stderr, "ERROR: could not start GLFW3\n");
-    }
+    glfwInit();
 
-    window = glfwCreateWindow(640, 640, "", NULL, NULL);
-    if (!window) {
-        fprintf(stderr, "ERROR: could not open window with GLFW3\n");
-        glfwTerminate();
-    }
+    window = glfwCreateWindow(window_w, window_h, "", NULL, NULL);
     glfwMakeContextCurrent(window);
 
-    // start GLEW extension handler
     glewExperimental = GL_TRUE;
     glewInit();
 
-    // get version info
-    const GLubyte* renderer = glGetString(GL_RENDERER); // get renderer string
-    const GLubyte* version = glGetString(GL_VERSION); // version as a string
-    printf("Renderer: %s\n", renderer);
-    printf("OpenGL version supported %s\n", version);
-
-    // tell GL to only draw onto a pixel if the shape is closer to the viewer
-    glEnable(GL_DEPTH_TEST); // enable depth-testing
-    // glEnable(GL_CULL_FACE);
-    glDepthFunc(GL_LESS); // depth-testing interprets a smaller value as "closer"
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
+    glDepthFunc(GL_LESS);
     
     // LOADING SHADER BULLSHIT
 
@@ -79,20 +64,31 @@ void Renderer::load() {
     glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 7 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
 
-    glUniformMatrix4fv(glGetUniformLocation(shader_programme, "mode"), 1, GL_FALSE, value_ptr(mode));
-    glUniformMatrix4fv(glGetUniformLocation(shader_programme, "view"), 1, GL_FALSE, value_ptr(view));
-    glUniformMatrix4fv(glGetUniformLocation(shader_programme, "proj"), 1, GL_FALSE, value_ptr(proj));
-    glUniformMatrix4fv(glGetUniformLocation(shader_programme, "mvp"), 1, GL_FALSE, value_ptr(mvp));
+    glUniformMatrix4fv(glGetUniformLocation(shader_programme, "mode"), 1, GL_FALSE, value_ptr(c.mode));
+    glUniformMatrix4fv(glGetUniformLocation(shader_programme, "view"), 1, GL_FALSE, value_ptr(c.view));
+    glUniformMatrix4fv(glGetUniformLocation(shader_programme, "proj"), 1, GL_FALSE, value_ptr(c.proj));
+    glUniformMatrix4fv(glGetUniformLocation(shader_programme, "mvp"),  1, GL_FALSE, value_ptr(c.mvp));
 }
 
 void Renderer::update() {
-    mode = translate(mat4(1.0f), vec3(0, 0, -70));
-    view = lookAt(vec3(0, 0, 1), vec3(0, 0, 0), vec3(0, 1, 0));
-    proj = perspective(radians(100.0f), 1.0f, 0.1f, 100.0f);
-    mvp = proj * view * mode;
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glUseProgram(shader_programme);
+    glBindVertexArray(vao);
 
-    glUniformMatrix4fv(glGetUniformLocation(shader_programme, "mode"), 1, GL_FALSE, value_ptr(mode));
-    glUniformMatrix4fv(glGetUniformLocation(shader_programme, "view"), 1, GL_FALSE, value_ptr(view));
-    glUniformMatrix4fv(glGetUniformLocation(shader_programme, "proj"), 1, GL_FALSE, value_ptr(proj));
-    glUniformMatrix4fv(glGetUniformLocation(shader_programme, "mvp"), 1, GL_FALSE, value_ptr(mvp));
+    glfwGetWindowSize(window, &window_w, &window_h);
+    glViewport(0, 0, window_w, window_h);
+
+    c.proj = perspective(radians(45.0f), (float)window_w/(float)window_h, 0.1f, 100.0f);
+    
+    c.mvp = c.proj * c.view * c.mode;
+
+    glUniformMatrix4fv(glGetUniformLocation(shader_programme, "mode"), 1, GL_FALSE, value_ptr(c.mode));
+    glUniformMatrix4fv(glGetUniformLocation(shader_programme, "view"), 1, GL_FALSE, value_ptr(c.view));
+    glUniformMatrix4fv(glGetUniformLocation(shader_programme, "proj"), 1, GL_FALSE, value_ptr(c.proj));
+    glUniformMatrix4fv(glGetUniformLocation(shader_programme, "mvp"),  1, GL_FALSE, value_ptr(c.mvp));
+
+    glDrawArrays(GL_TRIANGLES, 0, vtxs.size());
+    glfwPollEvents();
+
+    glfwSwapBuffers(window);
 }

@@ -1,13 +1,16 @@
 #include <GL/glew.h>
 #include <GL/glfw3.h>
-#include <stdio.h>
+#include <iostream>
 
 #include "Renderer.h"
+#include "Inputs.h"
 
 using namespace glm;
 
 int main() {
     Renderer r;
+    Inputs _i(r.window);
+    Camera* c = r.get_cam();
 
     r.add(Vtx({ vec3(1, 1, 0) }));
     r.add(Vtx({ vec3(0, 1, 0) }));
@@ -16,17 +19,16 @@ int main() {
     r.add(Vtx({ vec3(0, 0, 1) }));
     r.add(Vtx({ vec3(0, 1, 1) }));
 
+    c->view = lookAt(vec3(0, 0, -1), vec3(0, 0, 0), c->up);
+    c->mode = translate(mat4(1.0f), vec3(0, 0, 5));
+    c->proj = perspective(radians(45.0f), 1.0f, 0.1f, 100.0f);
+
     while (!glfwWindowShouldClose(r.window)) {
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glUseProgram(r.shader_programme);
-        glBindVertexArray(r.vao);
 
+        c->mode = rotate(c->mode, radians(1.0f), c->up);
+
+        _i.update();
         r.update();
-
-        glDrawArrays(GL_TRIANGLES, 0, 6);
-        glfwPollEvents();
-
-        glfwSwapBuffers(r.window);
     }
 
     // close GL context and any other GLFW resources

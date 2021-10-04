@@ -5,6 +5,8 @@ Inputs::Inputs(GLFWwindow* w) {
 }
 
 void Inputs::update() {
+	glfwPollEvents();
+
 	output.clear();
 
 	for (auto& i : listeners)

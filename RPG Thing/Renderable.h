@@ -14,14 +14,10 @@ struct Vtx {
 };
 
 struct Tex {
-	vec3 pos;
-	vec2 cds;
+	std::vector<vec3> pos;
+	std::vector<vec2> cds;
 };
 
 struct Tri {
 	Vtx *v1=NULL, *v2=NULL, *v3=NULL;
-};
-
-struct Spr {
-	Tex *t1=NULL, *t2=NULL, *t3=NULL, *t4=NULL;
 };

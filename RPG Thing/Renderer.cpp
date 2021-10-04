@@ -14,10 +14,6 @@ void Renderer::load() {
 
     glewExperimental = GL_TRUE;
     glewInit();
-
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_CULL_FACE);
-    glDepthFunc(GL_LESS);
     
     // LOADING SHADER BULLSHIT
 
@@ -45,18 +41,15 @@ void Renderer::load() {
     glLinkProgram(shader_programme);
     glUseProgram(shader_programme);
 
-    // LOADING BUFFERS
+    // GENERATING VERTEX BUFFER
     
-    glGenBuffers(1, &vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, 0, 0, GL_STATIC_DRAW);
+    glGenBuffers(1, &_inds);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _inds);
 
-    glGenVertexArrays(1, &vao);
-    glBindVertexArray(vao);
-    glEnableVertexAttribArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glGenBuffers(1, &_vtxs);
+    glBindBuffer(GL_ARRAY_BUFFER, _vtxs);
 
-    // Position
+    // Vertex Position
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(float), NULL);
     glEnableVertexAttribArray(0);
 
@@ -64,16 +57,32 @@ void Renderer::load() {
     glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 7 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
 
-    glUniformMatrix4fv(glGetUniformLocation(shader_programme, "mode"), 1, GL_FALSE, value_ptr(c.mode));
-    glUniformMatrix4fv(glGetUniformLocation(shader_programme, "view"), 1, GL_FALSE, value_ptr(c.view));
-    glUniformMatrix4fv(glGetUniformLocation(shader_programme, "proj"), 1, GL_FALSE, value_ptr(c.proj));
-    glUniformMatrix4fv(glGetUniformLocation(shader_programme, "mvp"),  1, GL_FALSE, value_ptr(c.mvp));
+    //// GENERATING TEXTURE BUFFERS
+
+    //glGenBuffers(1, &_texs);
+    //glBindBuffer(GL_ARRAY_BUFFER, _texs);
+
+    //glGenBuffers(1, &_tnds);
+    //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _tnds);
+
+    //// Texture Position
+    //glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), NULL);
+    //glEnableVertexAttribArray(2);
+
+    //glGenBuffers(1, &_cdss);
+    //glBindBuffer(GL_ARRAY_BUFFER, _cdss);
+
+    //glGenBuffers(1, &_cnds);
+    //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _cnds);
+
+    //// Texture Coordinates
+    //glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    //glEnableVertexAttribArray(3);
 }
 
 void Renderer::update() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glUseProgram(shader_programme);
-    glBindVertexArray(vao);
 
     glfwGetWindowSize(window, &window_w, &window_h);
     glViewport(0, 0, window_w, window_h);
@@ -85,10 +94,31 @@ void Renderer::update() {
     glUniformMatrix4fv(glGetUniformLocation(shader_programme, "mode"), 1, GL_FALSE, value_ptr(c.mode));
     glUniformMatrix4fv(glGetUniformLocation(shader_programme, "view"), 1, GL_FALSE, value_ptr(c.view));
     glUniformMatrix4fv(glGetUniformLocation(shader_programme, "proj"), 1, GL_FALSE, value_ptr(c.proj));
-    glUniformMatrix4fv(glGetUniformLocation(shader_programme, "mvp"),  1, GL_FALSE, value_ptr(c.mvp));
+    glUniformMatrix4fv(glGetUniformLocation(shader_programme, "mvp"), 1, GL_FALSE, value_ptr(c.mvp));
 
-    glDrawArrays(GL_TRIANGLES, 0, vtxs.size());
-    glfwPollEvents();
+    // DRAWING VERTICES
+
+    glBindBuffer(GL_ARRAY_BUFFER, _vtxs);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _inds);
+
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, inds.size() * sizeof(GLuint), inds.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vtxs.size() * sizeof(Vtx), vtxs.data(), GL_STATIC_DRAW);
+
+    glDrawElements(GL_TRIANGLES, inds.size(), GL_UNSIGNED_INT, NULL);
+
+    // DRAWING TEXTURES
 
     glfwSwapBuffers(window);
+}
+
+void Renderer::add(std::string file_name) {
+    int img_w=0, img_h=0;
+    unsigned char* img = SOIL_load_image(file_name.c_str(), &img_w, &img_h, NULL, NULL);
+
+    glBindTexture(GL_TEXTURE_2D, num_tex);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, img_w, img_h, 0, GL_RGBA, GL_UNSIGNED_BYTE, img);
+
+    SOIL_free_image_data(img);
+
+    num_tex++;
 }

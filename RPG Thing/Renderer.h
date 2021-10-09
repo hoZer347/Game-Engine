@@ -43,18 +43,16 @@ public:
 
 	GLFWwindow* window = NULL;
 
+	GLuint vao=0;
 	GLuint shader_programme=0;
-	GLuint _inds=0, _tnds=0, _cdss=0, _vtxs=0, _texs=0, _cnds=0;
+	GLuint _inds=0, _vtxs=0;
 
 	std::vector<Vtx> vtxs;
+	std::vector<Vtx> texs;
 	std::vector<GLuint> inds;
-	
-	std::vector<vec3> texs;
-	std::vector<vec2> cdss;
 	std::vector<GLuint> tnds;
-	std::vector<GLuint> cnds;
 
-	int num_tex=0;
+	GLuint texture=0, texID=0, num_texs=0;
 
 	int window_w=640, window_h=640;
 

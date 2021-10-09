@@ -25,6 +25,9 @@
     <Filter Include="Game">
       <UniqueIdentifier>{32445464-5a9a-4c01-907e-6bc32351e588}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Images">
+      <UniqueIdentifier>{251230d3-ba35-451a-818a-52ac033665d6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Renderable.h">
@@ -44,5 +47,10 @@
     <None Include="default.vert">
       <Filter>Engine\Shaders</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Cpt.png">
+      <Filter>Images</Filter>
+    </Image>
   </ItemGroup>
 </Project>

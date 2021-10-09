@@ -43,46 +43,35 @@ void Renderer::load() {
 
     // GENERATING VERTEX BUFFER
     
+    glGenVertexArrays(1, &vao);
+
     glGenBuffers(1, &_inds);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _inds);
 
     glGenBuffers(1, &_vtxs);
     glBindBuffer(GL_ARRAY_BUFFER, _vtxs);
 
-    // Vertex Position
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 7 * sizeof(float), NULL);
+    // Position
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vtx), NULL);
     glEnableVertexAttribArray(0);
 
     // Color
-    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, 7 * sizeof(float), (void*)(3 * sizeof(float)));
+    glVertexAttribPointer(1, 4, GL_FLOAT, GL_FALSE, sizeof(Vtx), (void*)(3 * sizeof(GLfloat)));
     glEnableVertexAttribArray(1);
 
-    //// GENERATING TEXTURE BUFFERS
+    // Normal
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(Vtx), (void*)(7 * sizeof(GLfloat)));
+    glEnableVertexAttribArray(2);
 
-    //glGenBuffers(1, &_texs);
-    //glBindBuffer(GL_ARRAY_BUFFER, _texs);
-
-    //glGenBuffers(1, &_tnds);
-    //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _tnds);
-
-    //// Texture Position
-    //glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), NULL);
-    //glEnableVertexAttribArray(2);
-
-    //glGenBuffers(1, &_cdss);
-    //glBindBuffer(GL_ARRAY_BUFFER, _cdss);
-
-    //glGenBuffers(1, &_cnds);
-    //glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _cnds);
-
-    //// Texture Coordinates
-    //glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-    //glEnableVertexAttribArray(3);
+    // Texture Coordinates
+    glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(Vtx), (void*)(10 * sizeof(GLfloat)));
+    glEnableVertexAttribArray(3);
 }
 
 void Renderer::update() {
+    // INITIALIZING WINDOW
+
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glUseProgram(shader_programme);
 
     glfwGetWindowSize(window, &window_w, &window_h);
     glViewport(0, 0, window_w, window_h);
@@ -98,27 +87,41 @@ void Renderer::update() {
 
     // DRAWING VERTICES
 
+    glUniform1i(glGetUniformLocation(shader_programme, "type"), GL_FALSE);
+
     glBindBuffer(GL_ARRAY_BUFFER, _vtxs);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _inds);
 
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, inds.size() * sizeof(GLuint), inds.data(), GL_STATIC_DRAW);
     glBufferData(GL_ARRAY_BUFFER, vtxs.size() * sizeof(Vtx), vtxs.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, inds.size() * sizeof(GLuint), inds.data(), GL_STATIC_DRAW);
 
     glDrawElements(GL_TRIANGLES, inds.size(), GL_UNSIGNED_INT, NULL);
 
     // DRAWING TEXTURES
 
+    glUniform1i(glGetUniformLocation(shader_programme, "type"), GL_TRUE);
+
+    glBindBuffer(GL_ARRAY_BUFFER, _vtxs);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _inds);
+
+    glBufferData(GL_ARRAY_BUFFER, texs.size() * sizeof(Vtx), texs.data(), GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, tnds.size() * sizeof(GLuint), tnds.data(), GL_STATIC_DRAW);
+
+    glDrawElements(GL_QUADS, tnds.size(), GL_UNSIGNED_INT, NULL);
+    
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+    // REFRESHING WINDOW
+
     glfwSwapBuffers(window);
 }
 
 void Renderer::add(std::string file_name) {
-    int img_w=0, img_h=0;
-    unsigned char* img = SOIL_load_image(file_name.c_str(), &img_w, &img_h, NULL, NULL);
+    texture = SOIL_load_OGL_texture(file_name.c_str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_MULTIPLY_ALPHA);
+    glBindTexture(GL_TEXTURE_2D, texture);
+    glGenerateMipmap(GL_TEXTURE_2D);
+    glUniform1i(glGetUniformLocation(shader_programme, "tex"), num_texs);
 
-    glBindTexture(GL_TEXTURE_2D, num_tex);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, img_w, img_h, 0, GL_RGBA, GL_UNSIGNED_BYTE, img);
-
-    SOIL_free_image_data(img);
-
-    num_tex++;
+    num_texs++;
 }

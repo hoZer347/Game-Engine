@@ -1,16 +1,18 @@
 #version 400
 
+in vec3 fvertex;
 in vec4 fcolor;
+in vec3 fnormal;
 in vec2 ftexCoords;
 
-uniform bool type;
 uniform sampler2D tex;
+uniform bool type;
 
 out vec4 frag_colour;
 
 void main() {
-    if (type)
-        frag_colour = texture(tex, ftexCoords);
-    else
-        frag_colour = fcolor;
+	if (type)
+		frag_colour = texture2D(tex, ftexCoords);
+	else
+		frag_colour = fcolor;
 };

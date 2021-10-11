@@ -47,6 +47,15 @@
     <None Include="default.vert">
       <Filter>Engine\Shaders</Filter>
     </None>
+    <None Include="depth.frag">
+      <Filter>Engine\Shaders</Filter>
+    </None>
+    <None Include="depth.geom">
+      <Filter>Engine\Shaders</Filter>
+    </None>
+    <None Include="depth.vert">
+      <Filter>Engine\Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Cpt.png">

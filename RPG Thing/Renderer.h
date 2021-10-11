@@ -23,6 +23,7 @@ struct Camera {
 
 	mat4
 		mode = mat4(1.0f),
+		norm = mat4(1.0f),
 		view = mat4(1.0f),
 		proj = mat4(1.0f),
 		mvp = mat4(1.0f);
@@ -37,6 +38,8 @@ public:
 
 	Camera* get_cam() { return &c; };
 
+	void create_shader(std::string, std::string);
+	void create_shader(std::string, std::string, std::string);
 	void add(GLuint i) { inds.push_back(i); };
 	void add(std::string);
 	void add(Vtx v) { vtxs.push_back(v); };
@@ -44,7 +47,8 @@ public:
 	GLFWwindow* window = NULL;
 
 	GLuint vao=0;
-	GLuint shader_programme=0;
+	GLuint shader_programme=0, depth_shader=0;
+	GLuint depth_map=0;
 	GLuint _inds=0, _vtxs=0;
 
 	std::vector<Vtx> vtxs;

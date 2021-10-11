@@ -11,15 +11,17 @@ out vec3 fnormal;
 out vec2 ftexCoords;
 
 uniform mat4 mode;
+uniform mat4 norm;
 uniform mat4 view;
 uniform mat4 proj;
 uniform mat4 mvp;
 
 void main() {
-    fvertex = vertex;
+    vec4 vertPos4 = view * mode * vec4(vertex, 1.0);
+    fvertex = vec3(vertPos4) / vertPos4.w;
     fcolor = color;
-    fnormal = normal;
+    fnormal = vec3(norm * vec4(normal, 0.0));
     ftexCoords = texCoords;
 
-    gl_Position = mvp * vec4(vertex, 1.0);
+    gl_Position = proj * vertPos4;
 }

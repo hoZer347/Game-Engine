@@ -39,29 +39,6 @@ int main() {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
-    //r.add(Vtx({ vec3(0, 0, 0), vec4(1, 0, 0, 1) }));    // 0
-    //r.add(Vtx({ vec3(1, 0, 0) }));                      // 1
-    //r.add(Vtx({ vec3(0, 0, 1) }));                      // 2
-    //r.add(Vtx({ vec3(0, 1, 0) }));                      // 3
-    //r.add(Vtx({ vec3(1, 0, 1) }));                      // 4
-    //r.add(Vtx({ vec3(0, 1, 1) }));                      // 5
-    //r.add(Vtx({ vec3(1, 1, 0) }));                      // 6
-    //r.add(Vtx({ vec3(1, 1, 1), vec4(1, 0, 0, 1) }));    // 7
-    //
-    //r.add(6);
-    //r.add(1);
-    //r.add(0);
-    //r.add(0);
-    //r.add(3);
-    //r.add(6);
-
-    //r.add(2);
-    //r.add(4);
-    //r.add(7);
-    //r.add(7);
-    //r.add(5);
-    //r.add(2);
-
     r.add(Vtx({ vec3(-100, 0, -100) }));
     r.add(Vtx({ vec3(-100, 0,  100) }));
     r.add(Vtx({ vec3( 100, 0,  100) }));
@@ -83,39 +60,6 @@ int main() {
     r.tnds.push_back(1);
     r.tnds.push_back(2);
     r.tnds.push_back(3);
-
-    //r.texs.push_back({
-    //    vec3(0, 0, 0),
-    //    vec4(1),
-    //    vec3(),
-    //    vec2(0, 0)
-    //    });
-
-    //r.texs.push_back({
-    //    vec3(1, 0, 0),
-    //    vec4(1),
-    //    vec3(),
-    //    vec2(1, 0)
-    //    });
-
-    //r.texs.push_back({
-    //    vec3(1, 1, 0),
-    //    vec4(1),
-    //    vec3(),
-    //    vec2(1, 1)
-    //    });
-
-    //r.texs.push_back({
-    //    vec3(0, 1, 0),
-    //    vec4(1),
-    //    vec3(),
-    //    vec2(0, 1)
-    //    });
-
-    //r.tnds.push_back(0);
-    //r.tnds.push_back(1);
-    //r.tnds.push_back(2);
-    //r.tnds.push_back(3);
 
     r.add("Cpt.png");
 

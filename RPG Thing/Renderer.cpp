@@ -17,29 +17,12 @@ void Renderer::load() {
     
     // LOADING SHADER BULLSHIT
 
-    std::ifstream _v("default.vert");
-    std::string _vs((std::istreambuf_iterator<char>(_v)),
-        std::istreambuf_iterator<char>());
+    create_shader("default.vert", "default.frag");
+    create_shader("depth.vert", "depth.frag", "depth.geom");
 
-    std::ifstream _f("default.frag");
-    std::string _fs((std::istreambuf_iterator<char>(_f)),
-        std::istreambuf_iterator<char>());
+    // GENERATING DEPTH BUFFER
 
-    const char* vertex_shader = _vs.c_str();
-    const char* fragment_shader = _fs.c_str();
-
-    GLuint vs = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vs, 1, &vertex_shader, NULL);
-    glCompileShader(vs);
-    GLuint fs = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fs, 1, &fragment_shader, NULL);
-    glCompileShader(fs);
-     
-    shader_programme = glCreateProgram();
-    glAttachShader(shader_programme, fs);
-    glAttachShader(shader_programme, vs);
-    glLinkProgram(shader_programme);
-    glUseProgram(shader_programme);
+    glGenFramebuffers(1, &depth_map);
 
     // GENERATING VERTEX BUFFER
     
@@ -77,15 +60,22 @@ void Renderer::update() {
     glViewport(0, 0, window_w, window_h);
 
     c.proj = perspective(radians(45.0f), (float)window_w/(float)window_h, 0.1f, 100.0f);
-    
+    c.norm = transpose(inverse(c.mode));
     c.mvp = c.proj * c.view * c.mode;
 
+    // GENERATING SHADOWS
+
+    glUseProgram(depth_shader);
+
+    // DRAWING VERTICES
+
+    glUseProgram(shader_programme);
+
     glUniformMatrix4fv(glGetUniformLocation(shader_programme, "mode"), 1, GL_FALSE, value_ptr(c.mode));
+    glUniformMatrix4fv(glGetUniformLocation(shader_programme, "norm"), 1, GL_FALSE, value_ptr(c.norm));
     glUniformMatrix4fv(glGetUniformLocation(shader_programme, "view"), 1, GL_FALSE, value_ptr(c.view));
     glUniformMatrix4fv(glGetUniformLocation(shader_programme, "proj"), 1, GL_FALSE, value_ptr(c.proj));
     glUniformMatrix4fv(glGetUniformLocation(shader_programme, "mvp"), 1, GL_FALSE, value_ptr(c.mvp));
-
-    // DRAWING VERTICES
 
     glUniform1i(glGetUniformLocation(shader_programme, "type"), GL_FALSE);
 
@@ -124,4 +114,64 @@ void Renderer::add(std::string file_name) {
     glUniform1i(glGetUniformLocation(shader_programme, "tex"), num_texs);
 
     num_texs++;
+}
+
+void Renderer::create_shader(std::string f1, std::string f2) {
+    std::ifstream _v(f1.c_str());
+    std::string _vs((std::istreambuf_iterator<char>(_v)),
+        std::istreambuf_iterator<char>());
+
+    std::ifstream _f(f2.c_str());
+    std::string _fs((std::istreambuf_iterator<char>(_f)),
+        std::istreambuf_iterator<char>());
+
+    const char* vertex_shader = _vs.c_str();
+    const char* fragment_shader = _fs.c_str();
+
+    GLuint vs = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vs, 1, &vertex_shader, NULL);
+    glCompileShader(vs);
+    GLuint fs = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(fs, 1, &fragment_shader, NULL);
+    glCompileShader(fs);
+
+    shader_programme = glCreateProgram();
+    glAttachShader(shader_programme, fs);
+    glAttachShader(shader_programme, vs);
+    glLinkProgram(shader_programme);
+    glUseProgram(shader_programme);
+}
+void Renderer::create_shader(std::string f1, std::string f2, std::string f3) {
+    std::ifstream _v(f1.c_str());
+    std::string _vs((std::istreambuf_iterator<char>(_v)),
+        std::istreambuf_iterator<char>());
+
+    std::ifstream _f(f2.c_str());
+    std::string _fs((std::istreambuf_iterator<char>(_f)),
+        std::istreambuf_iterator<char>());
+
+    std::ifstream _g(f3.c_str());
+    std::string _gs((std::istreambuf_iterator<char>(_g)),
+        std::istreambuf_iterator<char>());
+
+    const char* vertex_shader = _vs.c_str();
+    const char* fragment_shader = _fs.c_str();
+    const char* geometry_shader = _gs.c_str();
+
+    GLuint vs = glCreateShader(GL_VERTEX_SHADER);
+    glShaderSource(vs, 1, &vertex_shader, NULL);
+    glCompileShader(vs);
+    GLuint fs = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(fs, 1, &fragment_shader, NULL);
+    glCompileShader(fs);
+    GLuint gs = glCreateShader(GL_FRAGMENT_SHADER);
+    glShaderSource(gs, 1, &geometry_shader, NULL);
+    glCompileShader(gs);
+
+    depth_shader = glCreateProgram();
+    glAttachShader(depth_shader, fs);
+    glAttachShader(depth_shader, vs);
+    glAttachShader(depth_shader, gs);
+    glLinkProgram(depth_shader);
+    glUseProgram(depth_shader);
 }

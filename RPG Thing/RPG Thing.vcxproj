@@ -164,6 +164,9 @@
   <ItemGroup>
     <None Include="default.frag" />
     <None Include="default.vert" />
+    <None Include="depth.frag" />
+    <None Include="depth.geom" />
+    <None Include="depth.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Cpt.png" />

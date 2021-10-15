@@ -8,10 +8,11 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-
-#include "Renderable.h"
 #include "SOIL/SOIL.h"
 
+#include "Renderable.h"
+
+#include <vector>
 #include <iostream>
 #include <fstream>
 
@@ -19,14 +20,18 @@ using namespace glm;
 
 struct Camera {
 	vec3
-		up = vec3(0, 1, 0);
+		up = vec3(0, 1, 0),
+		eye = vec3(0, 5, 5),
+		look = vec3(0, 0, 0);
 
 	mat4
+		trns = mat4(1.0f),
+		rotn = mat4(1.0f),
 		mode = mat4(1.0f),
 		norm = mat4(1.0f),
 		view = mat4(1.0f),
 		proj = mat4(1.0f),
-		mvp = mat4(1.0f);
+		mvp  = mat4(1.0f);
 };
 
 class Renderer {
@@ -35,30 +40,33 @@ public:
 
 	void load();
 	void update();
-
-	Camera* get_cam() { return &c; };
+	size_t size() { return vtxs.size(); };
 
 	void create_shader(std::string, std::string);
 	void create_shader(std::string, std::string, std::string);
-	void add(GLuint i) { inds.push_back(i); };
-	void add(std::string);
-	void add(Vtx v) { vtxs.push_back(v); };
+
+	void add(GLuint);
+	void add(int);
+	void add(const char*, GLuint=GL_TRIANGLES, GLuint=GL_UNSIGNED_INT);
+	void add(Vtx);
+
+	void bind(Renderable&);
+
+	void cur(const char* =NULL);
+	void del(const char* =NULL);
+	void del(Renderable&);
 
 	GLFWwindow* window = NULL;
-
+	Camera* c = new Camera();
+	
 	GLuint vao=0;
 	GLuint shader_programme=0, depth_shader=0;
 	GLuint depth_map=0;
-	GLuint _inds=0, _vtxs=0;
+	GLuint _vtxs=0;
 
 	std::vector<Vtx> vtxs;
-	std::vector<Vtx> texs;
-	std::vector<GLuint> inds;
-	std::vector<GLuint> tnds;
-
-	GLuint texture=0, texID=0, num_texs=0;
+	std::vector<IndexObj*> inds;
+	IndexObj* curr = NULL;
 
 	int window_w=640, window_h=640;
-
-	Camera c;
 };

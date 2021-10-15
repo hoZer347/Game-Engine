@@ -14,11 +14,11 @@ void Renderer::load() {
 
     glewExperimental = GL_TRUE;
     glewInit();
-    
+
     // LOADING SHADER BULLSHIT
 
-    create_shader("default.vert", "default.frag");
-    create_shader("depth.vert", "depth.frag", "depth.geom");
+    create_shader("Shaders/default.vert", "Shaders/default.frag");
+    create_shader("Shaders/depth.vert", "Shaders/depth.frag", "Shaders/depth.geom");
 
     // GENERATING DEPTH BUFFER
 
@@ -27,9 +27,6 @@ void Renderer::load() {
     // GENERATING VERTEX BUFFER
     
     glGenVertexArrays(1, &vao);
-
-    glGenBuffers(1, &_inds);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _inds);
 
     glGenBuffers(1, &_vtxs);
     glBindBuffer(GL_ARRAY_BUFFER, _vtxs);
@@ -59,9 +56,11 @@ void Renderer::update() {
     glfwGetWindowSize(window, &window_w, &window_h);
     glViewport(0, 0, window_w, window_h);
 
-    c.proj = perspective(radians(45.0f), (float)window_w/(float)window_h, 0.1f, 100.0f);
-    c.norm = transpose(inverse(c.mode));
-    c.mvp = c.proj * c.view * c.mode;
+    c->mode = c->rotn * c->trns;
+    c->view = lookAt(c->eye, c->look, c->up);
+    c->proj = perspective(radians(45.0f), (float)window_w/(float)window_h, 0.1f, 100.0f);
+    c->norm = transpose(inverse(c->mode));
+    c->mvp = c->proj * c->view * c->mode;
 
     // GENERATING SHADOWS
 
@@ -71,49 +70,105 @@ void Renderer::update() {
 
     glUseProgram(shader_programme);
 
-    glUniformMatrix4fv(glGetUniformLocation(shader_programme, "mode"), 1, GL_FALSE, value_ptr(c.mode));
-    glUniformMatrix4fv(glGetUniformLocation(shader_programme, "norm"), 1, GL_FALSE, value_ptr(c.norm));
-    glUniformMatrix4fv(glGetUniformLocation(shader_programme, "view"), 1, GL_FALSE, value_ptr(c.view));
-    glUniformMatrix4fv(glGetUniformLocation(shader_programme, "proj"), 1, GL_FALSE, value_ptr(c.proj));
-    glUniformMatrix4fv(glGetUniformLocation(shader_programme, "mvp"), 1, GL_FALSE, value_ptr(c.mvp));
+    glUniformMatrix4fv(glGetUniformLocation(shader_programme, "mode"), 1, GL_FALSE, value_ptr(c->mode));
+    glUniformMatrix4fv(glGetUniformLocation(shader_programme, "norm"), 1, GL_FALSE, value_ptr(c->norm));
+    glUniformMatrix4fv(glGetUniformLocation(shader_programme, "view"), 1, GL_FALSE, value_ptr(c->view));
+    glUniformMatrix4fv(glGetUniformLocation(shader_programme, "proj"), 1, GL_FALSE, value_ptr(c->proj));
+    glUniformMatrix4fv(glGetUniformLocation(shader_programme, "mvp"), 1, GL_FALSE, value_ptr(c->mvp));
 
-    glUniform1i(glGetUniformLocation(shader_programme, "type"), GL_FALSE);
-
+    // Updating Vertices
     glBindBuffer(GL_ARRAY_BUFFER, _vtxs);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _inds);
-
-    glBufferData(GL_ARRAY_BUFFER, vtxs.size() * sizeof(Vtx), vtxs.data(), GL_STATIC_DRAW);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, inds.size() * sizeof(GLuint), inds.data(), GL_STATIC_DRAW);
-
-    glDrawElements(GL_TRIANGLES, inds.size(), GL_UNSIGNED_INT, NULL);
-
-    // DRAWING TEXTURES
-
-    glUniform1i(glGetUniformLocation(shader_programme, "type"), GL_TRUE);
-
-    glBindBuffer(GL_ARRAY_BUFFER, _vtxs);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _inds);
-
-    glBufferData(GL_ARRAY_BUFFER, texs.size() * sizeof(Vtx), texs.data(), GL_STATIC_DRAW);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, tnds.size() * sizeof(GLuint), tnds.data(), GL_STATIC_DRAW);
-
-    glDrawElements(GL_QUADS, tnds.size(), GL_UNSIGNED_INT, NULL);
-    
+    glBufferData(GL_ARRAY_BUFFER, vtxs.size() * sizeof(Vtx), vtxs.data(), GL_DYNAMIC_DRAW);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+    for (auto& i : inds) {
+        if (i->gl_render_type == GL_LINES)
+            glUniform1i(glGetUniformLocation(shader_programme, "type"), 0);
+        else if (!i->texture)
+            glUniform1i(glGetUniformLocation(shader_programme, "type"), 1);
+        else
+            glUniform1i(glGetUniformLocation(shader_programme, "type"), 2);
+
+        glBindTexture(GL_TEXTURE_2D, i->texture);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, i->gl_buffer);
+        glUniform1i(glGetUniformLocation(shader_programme, "tex"), 0);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, i->inds.size() * sizeof(GLuint), i->inds.data(), GL_STATIC_DRAW);
+        glDrawElements(i->gl_render_type, i->inds.size(), i->gl_data_type, NULL);
+        glBindTexture(GL_TEXTURE_2D, 0);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    }
 
     // REFRESHING WINDOW
 
     glfwSwapBuffers(window);
 }
 
-void Renderer::add(std::string file_name) {
-    texture = SOIL_load_OGL_texture(file_name.c_str(), SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_MULTIPLY_ALPHA);
-    glBindTexture(GL_TEXTURE_2D, texture);
-    glGenerateMipmap(GL_TEXTURE_2D);
-    glUniform1i(glGetUniformLocation(shader_programme, "tex"), num_texs);
+void Renderer::add(Vtx v) {
+    vtxs.push_back(v);
+};
+void Renderer::add(GLuint i) {
+    if (curr)
+        curr->inds.push_back(i);
+}
+void Renderer::add(int i) { add((GLuint)i); }
+void Renderer::add(const char* file_name, GLuint rt, GLuint dt) {
+    GLuint texture = SOIL_load_OGL_texture(file_name, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_MULTIPLY_ALPHA);
 
-    num_texs++;
+    IndexObj* i = new IndexObj();
+    i->gl_data_type = dt;
+    i->gl_render_type = rt;
+    glGenBuffers(1, &i->gl_buffer);
+    i->texture = texture;
+    i->name = file_name;
+
+    if (texture) {
+        glBindTexture(GL_TEXTURE_2D, texture);
+        glGenerateMipmap(GL_TEXTURE_2D);
+        glBindTexture(GL_TEXTURE_2D, 0);
+    }
+
+    inds.push_back(i);
+    curr = i;
+}
+
+void Renderer::bind(Renderable& r) {
+    if (curr) {
+        r.i = curr;
+        r.vtxs = &vtxs;
+        r.inds = &curr->inds;
+    }
+}
+
+void Renderer::cur(const char* file_name) {
+    for (auto& i : inds)
+        if (i->name == file_name) {
+            curr = i;
+            return;
+        }
+};
+void Renderer::del(const char* file_name) {
+    if (!file_name)
+        if (curr)
+            file_name = curr->name;
+        else
+            return;
+
+    GLuint index = 0;
+    auto i = inds.begin();
+
+    while (i != inds.end()) {
+        if ((*i)->name = file_name) {
+            inds.erase(i);
+            glDeleteTextures(1, &index);
+            return;
+        }
+
+        index++;
+        i++;
+    }
+}
+void Renderer::del(Renderable& r) {
+    // TODO:
 }
 
 void Renderer::create_shader(std::string f1, std::string f2) {

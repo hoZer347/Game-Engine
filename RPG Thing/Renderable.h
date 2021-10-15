@@ -2,29 +2,84 @@
 
 #define GLM_FORCE_RADIANS
 
+#include <GLFW/glew.h>
 #include <glm/glm.hpp>
 
 #include <memory>
 #include <vector>
+#include <iostream>
 
 using namespace glm;
 
 struct Vtx {
-	vec3 pos;
+	vec3 pos = { 0, 0, 0 };
 	vec4 clr = { 1, 1, 1, 1 };
 	vec3 nrm = { 0, 1, 0 };
-	vec2 cds = { 1, 1 };
+	vec2 cds = { -1, -1 };
 };
 
-struct Tri {
-	std::shared_ptr<Vtx> v1, v2, v3;
+struct IndexObj {
+	std::vector<unsigned int> inds = {};
+	const char* name = "";
+
+	unsigned int
+		gl_render_type = GL_TRIANGLES,
+		gl_data_type = GL_UNSIGNED_INT,
+		gl_buffer = 0,
+		texture = 0;
 };
 
-struct Pln {
-	std::shared_ptr<Vtx> v1, v2, v3, v4;
+struct Renderable {
+	IndexObj* i = NULL;
+	std::vector<Vtx>* vtxs = NULL;
+	std::vector<unsigned int>* inds = NULL;
 };
 
-struct Rpsm {
-	std::shared_ptr<Tri> t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12;
-	std::shared_ptr<Pln> p1, p2, p3, p4, p5, p6;
-};
+static void translate(Renderable& r, vec3 v) {
+	for (auto& i : *r.inds)
+		(*r.vtxs)[i].pos += v;
+}
+
+static void create_planes(Renderable* faces, Renderable* lines, int x, int y) {
+	int index = 0;
+
+	if (faces && faces->vtxs)
+		index = faces->vtxs->size();
+	else if (lines && lines->vtxs)
+		index = lines->vtxs->size();
+	else
+		return;
+
+	if (faces && faces->vtxs) {
+		for (int i = 0; i <= x; i++)
+			for (int j = 0; j <= y; j++)
+				faces->vtxs->push_back(Vtx({ vec3(i, 0, -j), vec4(1, 1, 1, 1), vec3(0, 1, 0) }));
+
+		for (int i = 0; i < x; i++)
+			for (int j = 0; j < y; j++) {
+				faces->inds->push_back(index + i * y + i + j);
+				faces->inds->push_back(index + i * y + i + j + y + 1);
+				faces->inds->push_back(index + i * y + i + j + y + 2);
+				faces->inds->push_back(index + i * y + i + j + 1);
+			}
+	}
+
+	if (lines && lines->inds) {
+		if (!faces || !faces->vtxs)
+			for (int i = 0; i <= x; i++)
+				for (int j = 0; j <= y; j++)
+					lines->vtxs->push_back(Vtx({ vec3(i, 0, -j) }));
+
+		for (int i = 0; i <= x; i++)
+			for (int j = 0; j <= y; j++) {
+				if (j < y) {
+					lines->inds->push_back(index + i * y + i + j);
+					lines->inds->push_back(index + i * y + i + j + 1);
+				}
+				if (i < x) {
+					lines->inds->push_back(index + i * y + i + j);
+					lines->inds->push_back(index + i * y + i + j + y + 1);
+				}
+			}
+	}
+}

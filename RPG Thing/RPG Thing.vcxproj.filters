@@ -31,11 +31,11 @@
     <Filter Include="Engine\Renderables">
       <UniqueIdentifier>{34e4003e-2ed5-4bff-b4b7-a74fba828eeb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Shaders">
-      <UniqueIdentifier>{d5f99b71-240c-43f2-8759-b4769b67c242}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game">
       <UniqueIdentifier>{32445464-5a9a-4c01-907e-6bc32351e588}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Shaders">
+      <UniqueIdentifier>{6f6142ba-eaa8-47ff-a3cf-7230b6b58a4d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -65,19 +65,16 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="default.frag">
+    <None Include="Shaders\default.frag">
       <Filter>Engine\Shaders</Filter>
     </None>
-    <None Include="default.vert">
+    <None Include="Shaders\default.vert">
       <Filter>Engine\Shaders</Filter>
     </None>
-    <None Include="depth.frag">
+    <None Include="Shaders\depth.frag">
       <Filter>Engine\Shaders</Filter>
     </None>
-    <None Include="depth.geom">
-      <Filter>Engine\Shaders</Filter>
-    </None>
-    <None Include="depth.vert">
+    <None Include="Shaders\depth.vert">
       <Filter>Engine\Shaders</Filter>
     </None>
   </ItemGroup>

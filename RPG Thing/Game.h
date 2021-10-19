@@ -35,8 +35,13 @@ static auto wasd_do_nothing = [](Room* r) {
 // MOUSE THINGS
 
 static auto mouse_rotates_camera = [](Room* r) {
-	(*r->i)[GLFW_MOUSE_BUTTON_LEFT] = [](Room* r) { r->r->c->rotn = rotate(r->r->c->rotn, (float)r->i->_my / 100, vec3(vec4(1, 0, 0, 1) * r->r->c->rotn)); };
-	(*r->i)[GLFW_MOUSE_BUTTON_RIGHT] = [](Room* r) { r->r->c->rotn = rotate(r->r->c->rotn, (float)r->i->_mx / 100, vec3(0, 1, 0)); };
+	(*r->i)[GLFW_MOUSE_BUTTON_LEFT] = [](Room* r) {
+		r->r->c->rotn = rotate(r->r->c->rotn, (float)r->i->_my / 100, vec3(vec4(1, 0, 0, 1) * r->r->c->rotn));
+	};
+
+	(*r->i)[GLFW_MOUSE_BUTTON_RIGHT] = [](Room* r) { 
+		r->r->c->yaww = rotate(r->r->c->yaww, (float)r->i->_mx / 100, vec3(0, 1, 0));
+	};
 };
 
 // SCROLL THINGS

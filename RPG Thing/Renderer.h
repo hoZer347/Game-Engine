@@ -25,6 +25,9 @@ struct Camera {
 		look = vec3(0, 0, 0);
 
 	mat4
+		roll = mat4(1.0f), // X axis
+		ptch = mat4(1.0f), // Y axis
+		yaww = mat4(1.0f), // Z axis
 		trns = mat4(1.0f),
 		rotn = mat4(1.0f),
 		mode = mat4(1.0f),

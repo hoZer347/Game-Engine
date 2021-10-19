@@ -29,18 +29,16 @@ void Game::init() {
     while (!glfwWindowShouldClose(room->r->window)) {
         // Testing mouse-to-object stuff
         int w=0, h=0;
-        float d=0;
         glfwGetWindowSize(room->r->window, &w, &h);
         
-        vec4 v = vec4(1);
+        vec4 v = vec4(1, 1, 0, 1);
 
-        v = vec4(i->mx - w/2, 0, i->my - h/2, 0);
-        v = inverse(c->mode) * v;
+        v = inverse(c->view) * v;
 
         r->vtxs[r->curr->inds[0]].pos = vec3(v);
-        r->vtxs[r->curr->inds[1]].pos = vec3(v) + vec3(0, 0, 1);
-        r->vtxs[r->curr->inds[2]].pos = vec3(v) + vec3(1, 0, 1);
-        r->vtxs[r->curr->inds[3]].pos = vec3(v) + vec3(1, 0, 0);
+        r->vtxs[r->curr->inds[1]].pos = vec3(v) + vec3(1, 0, 0);
+        r->vtxs[r->curr->inds[2]].pos = vec3(v) + vec3(1, 0, -1);
+        r->vtxs[r->curr->inds[3]].pos = vec3(v) + vec3(0, 0, -1);
 
         std::cout << "( "
             << (int)v.x << ","

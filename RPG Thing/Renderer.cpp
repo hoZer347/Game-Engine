@@ -56,6 +56,7 @@ void Renderer::update() {
     glfwGetWindowSize(window, &window_w, &window_h);
     glViewport(0, 0, window_w, window_h);
 
+    c->rotn = c->roll * c->ptch * c->yaww;
     c->mode = c->rotn * c->trns;
     c->view = lookAt(c->eye, c->look, c->up);
     c->proj = perspective(radians(45.0f), (float)window_w/(float)window_h, 0.1f, 100.0f);

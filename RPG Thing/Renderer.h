@@ -21,8 +21,8 @@ using namespace glm;
 struct Camera {
 	vec3
 		up = vec3(0, 1, 0),
-		eye = vec3(0, 0, 1),
-		look = vec3(0, 0, -1);
+		eye = vec3(0, 0, 5),
+		look = vec3(0, 0, 0);
 
 	mat4
 		roll = mat4(1.0f), // X axis
@@ -43,21 +43,9 @@ public:
 
 	void load();
 	void update();
-	size_t size() { return vtxs.size(); };
 
 	void create_shader(std::string, std::string);
 	void create_shader(std::string, std::string, std::string);
-
-	void add(GLuint);
-	void add(int);
-	void add(const char*, GLuint=GL_TRIANGLES, GLuint=GL_UNSIGNED_INT);
-	void add(Vtx);
-
-	void bind(Renderable&);
-
-	void cur(const char* =NULL);
-	void del(const char* =NULL);
-	void del(Renderable&);
 
 	GLFWwindow* window = NULL;
 	Camera* c = new Camera();
@@ -65,11 +53,7 @@ public:
 	GLuint vao=0;
 	GLuint shader_programme=0, depth_shader=0;
 	GLuint depth_map=0;
-	GLuint _vtxs=0;
-
-	std::vector<Vtx> vtxs;
-	std::vector<IndexObj*> inds;
-	IndexObj* curr = NULL;
+	GLuint _vtxs=0, _inds=0;
 
 	int window_w=640, window_h=640;
 };

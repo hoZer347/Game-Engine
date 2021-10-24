@@ -1,6 +1,13 @@
 #include "Game.h"
 #include "glm/gtx/intersect.hpp"
 
+#include <chrono>
+
+using std::chrono::duration_cast;
+using std::chrono::milliseconds;
+using std::chrono::seconds;
+using std::chrono::system_clock;
+
 void Game::init() {
     Camera* c = room->r->c;
     Inputs* i = room->i;
@@ -8,51 +15,28 @@ void Game::init() {
 
     glfwSetWindowUserPointer(room->r->window, room);
 
-    wasd_strafes_camera(room);
-    mouse_rotates_camera(room);
+    free_camera(room);
     scroll_zooms_camera(room);
 
-    r->add("Textures/DK.png", GL_QUADS);
-
-    r->add(r->size());
-    r->add(Vtx({ vec3(0, 0,  0), vec4(1), vec3(0, 1, 0), vec2(0, 0) }));
-    r->add(r->size());
-    r->add(Vtx({ vec3(0, 0, -1), vec4(1), vec3(0, 1, 0), vec2(1, 0) }));
-    r->add(r->size());
-    r->add(Vtx({ vec3(1, 0, -1), vec4(1), vec3(0, 1, 0), vec2(1, 1) }));
-    r->add(r->size());
-    r->add(Vtx({ vec3(1, 0,  0), vec4(1), vec3(0, 1, 0), vec2(0, 1) }));
-
-    Renderable k;
-
-    r->bind(k);
-
     while (!glfwWindowShouldClose(room->r->window)) {
+        auto millisec_since_epoch = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
+
         // Testing mouse-to-object stuff
         int w=0, h=0;
         glfwGetWindowSize(room->r->window, &w, &h);
 
-        vec4 v = vec4((i->mx - w/2)/(0.5 * w), -(i->my - h/2)/(0.5 * h), 0, 0);
-
-        v = inverse(c->proj) * v;
-        v = inverse(c->view) * v;
-
-        v -= vec4(0.5, 0.5, 0, 0);
-        v = inverse(c->rotn) * v;
-
-        r->vtxs[r->curr->inds[0]].pos = vec3(v) + vec3(inverse(c->rotn) * vec4(0, 0, 0, 0));;
-        r->vtxs[r->curr->inds[1]].pos = vec3(v) + vec3(inverse(c->rotn) * vec4(1, 0, 0, 0));
-        r->vtxs[r->curr->inds[2]].pos = vec3(v) + vec3(inverse(c->rotn) * vec4(1, 1, 0, 0));
-        r->vtxs[r->curr->inds[3]].pos = vec3(v) + vec3(inverse(c->rotn) * vec4(0, 1, 0, 0));
-
-        std::cout << "( "
-            << (int)v.x << ","
-            << (int)v.y << ","
-            << (int)v.z << ","
-            << (int)v.w
-            << " )" << std::endl;
+        vec3 ray = vec3(-1.0f + (2.0f * i->mx)/w, 1.0f - (2.0f * i->my)/h, 1);
+        vec4 clp = vec4(ray.x, ray.y, -1, 1);
+        vec4 rye = inverse(c->proj) * clp;
+        vec4 eye = vec4(rye.x, rye.y, -1, 0);
+        vec3 wye = vec3(inverse(c->view) * rye);
+        wye = normalize(wye);
+        
 
         i->update();
         room->r->update();
+
+        millisec_since_epoch = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count() - millisec_since_epoch;
+        std::cout << millisec_since_epoch << std::endl;
     }
 }

@@ -24,7 +24,7 @@ public:
 
 	Cell* operator[](int i);
 
-	IndexObj *i=NULL;
+	Renderable *i=NULL;
 	Cell *_u=NULL, *_d=NULL, *_l=NULL, *_r=NULL;
 	CellData* d=NULL;
 	int x=0, y=0;
@@ -34,13 +34,13 @@ class Grid : public Container {
 public:
 	Grid(int=32, int=32);
 	
-	operator IndexObj*() const { return index; };
+	operator Renderable*() const { return index; };
 	operator std::vector<std::vector<Cell*>>& () { return grid; };
 
-	auto& operator[](int i) { if (i < grid.size()) return grid[i]; }
+	auto& operator[](size_t i) { if (i < grid.size()) return grid[i]; }
 
 private:
-	IndexObj* index=NULL;
+	Renderable* index=NULL;
 	std::vector<std::vector<Cell*>> grid;
 };
 

@@ -15,6 +15,32 @@ void Renderer::load() {
     glewExperimental = GL_TRUE;
     glewInit();
 
+    // Making textures work
+    glEnable(GL_TEXTURE_2D);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    //
+
+    // Anti-aliasing
+    glEnable(GL_MULTISAMPLE);
+    glfwWindowHint(GLFW_SAMPLES, 4);
+    //
+
+    // Blocking stuff that are behind opaque objects
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
+    glEnable(GL_BLEND);
+    //
+
+    // Alpha processing setup
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glAlphaFunc(GL_GREATER, 0.5);
+    glEnable(GL_ALPHA_TEST);
+    //
+
+    // Culling faces that don't face the camera
+    glEnable(GL_CULL_FACE);
+
     // LOADING SHADER BULLSHIT
 
     create_shader("Shaders/default.vert", "Shaders/default.frag");
@@ -30,6 +56,9 @@ void Renderer::load() {
 
     glGenBuffers(1, &_vtxs);
     glBindBuffer(GL_ARRAY_BUFFER, _vtxs);
+
+    glGenBuffers(1, &_inds);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _vtxs);
 
     // Position
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vtx), NULL);
@@ -52,9 +81,10 @@ void Renderer::update() {
     // INITIALIZING WINDOW
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
     glfwGetWindowSize(window, &window_w, &window_h);
     glViewport(0, 0, window_w, window_h);
+
+    // DOING MATRIX CALCULATIONS
 
     c->rotn = c->roll * c->ptch * c->yaww;
     c->mode = c->rotn * c->trns;
@@ -67,9 +97,11 @@ void Renderer::update() {
 
     glUseProgram(depth_shader);
 
-    // DRAWING VERTICES
+    // LOADING DEFAULT SHADER
 
     glUseProgram(shader_programme);
+
+    // LOADING MATRICES
 
     glUniformMatrix4fv(glGetUniformLocation(shader_programme, "mode"), 1, GL_FALSE, value_ptr(c->mode));
     glUniformMatrix4fv(glGetUniformLocation(shader_programme, "norm"), 1, GL_FALSE, value_ptr(c->norm));
@@ -77,99 +109,45 @@ void Renderer::update() {
     glUniformMatrix4fv(glGetUniformLocation(shader_programme, "proj"), 1, GL_FALSE, value_ptr(c->proj));
     glUniformMatrix4fv(glGetUniformLocation(shader_programme, "mvp"), 1, GL_FALSE, value_ptr(c->mvp));
 
-    // Updating Vertices
+    // UPDATING BUFFERS
+    
     glBindBuffer(GL_ARRAY_BUFFER, _vtxs);
-    glBufferData(GL_ARRAY_BUFFER, vtxs.size() * sizeof(Vtx), vtxs.data(), GL_DYNAMIC_DRAW);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBufferData(GL_ARRAY_BUFFER, VTXS.size() * sizeof(Vtx), VTXS.data(), GL_DYNAMIC_DRAW);
 
-    for (auto& i : inds) {
-        if (i->gl_render_type == GL_LINES)
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _inds);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, INDS.size() * sizeof(unsigned int), INDS.data(), GL_STATIC_DRAW);
+
+    // DRAWING OBJECTS
+
+    for (auto& i : MESH) {
+
+        // Determining how to draw
+        if (i.gl_render_type == GL_LINES)
             glUniform1i(glGetUniformLocation(shader_programme, "type"), 0);
-        else if (!i->texture)
+        else if (!i.gl_texture)
             glUniform1i(glGetUniformLocation(shader_programme, "type"), 1);
         else
             glUniform1i(glGetUniformLocation(shader_programme, "type"), 2);
 
-        glBindTexture(GL_TEXTURE_2D, i->texture);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, i->gl_buffer);
+        // Loading Texture
+        glBindTexture(GL_TEXTURE_2D, i.gl_texture);
         glUniform1i(glGetUniformLocation(shader_programme, "tex"), 0);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, i->inds.size() * sizeof(GLuint), i->inds.data(), GL_STATIC_DRAW);
-        glDrawElements(i->gl_render_type, i->inds.size(), i->gl_data_type, NULL);
+        
+        // Drawing
+        glDrawElements(i.gl_render_type, i.size, i.gl_data_type, (void*) (sizeof(unsigned int) * i.begin));    
+
+        // Unloading Texture
         glBindTexture(GL_TEXTURE_2D, 0);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     }
+
+    // UNLOADING BUFFERS
+
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 
     // REFRESHING WINDOW
 
     glfwSwapBuffers(window);
-}
-
-void Renderer::add(Vtx v) {
-    vtxs.push_back(v);
-};
-void Renderer::add(GLuint i) {
-    if (curr)
-        curr->inds.push_back(i);
-}
-void Renderer::add(int i) { add((GLuint)i); }
-void Renderer::add(const char* file_name, GLuint rt, GLuint dt) {
-    GLuint texture = SOIL_load_OGL_texture(file_name, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_MULTIPLY_ALPHA);
-
-    IndexObj* i = new IndexObj();
-    i->gl_data_type = dt;
-    i->gl_render_type = rt;
-    glGenBuffers(1, &i->gl_buffer);
-    i->texture = texture;
-    i->name = file_name;
-
-    if (texture) {
-        glBindTexture(GL_TEXTURE_2D, texture);
-        glGenerateMipmap(GL_TEXTURE_2D);
-        glBindTexture(GL_TEXTURE_2D, 0);
-    }
-
-    inds.push_back(i);
-    curr = i;
-}
-
-void Renderer::bind(Renderable& r) {
-    if (curr) {
-        r.i = curr;
-        r.vtxs = &vtxs;
-        r.inds = &curr->inds;
-    }
-}
-
-void Renderer::cur(const char* file_name) {
-    for (auto& i : inds)
-        if (i->name == file_name) {
-            curr = i;
-            return;
-        }
-};
-void Renderer::del(const char* file_name) {
-    if (!file_name)
-        if (curr)
-            file_name = curr->name;
-        else
-            return;
-
-    GLuint index = 0;
-    auto i = inds.begin();
-
-    while (i != inds.end()) {
-        if ((*i)->name = file_name) {
-            inds.erase(i);
-            glDeleteTextures(1, &index);
-            return;
-        }
-
-        index++;
-        i++;
-    }
-}
-void Renderer::del(Renderable& r) {
-    // TODO:
 }
 
 void Renderer::create_shader(std::string f1, std::string f2) {

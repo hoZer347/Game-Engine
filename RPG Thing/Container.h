@@ -18,7 +18,7 @@ class Container {
 public:
 	auto begin() { return objs.begin(); }
 	auto end()	 { return objs.end();	}
-	Object* operator[](int i) { if (i < objs.size()) return objs[i]; }
+	Object* operator[](size_t i) { if (i < objs.size()) return objs[i]; }
 
 private:
 	std::vector<Object*> objs;

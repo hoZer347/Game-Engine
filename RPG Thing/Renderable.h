@@ -32,7 +32,7 @@ struct IndexObj {
 struct Renderable {
 	IndexObj* i = NULL;
 	std::vector<Vtx>* vtxs = NULL;
-	std::vector<unsigned int>* inds = NULL;
+	std::vector<unsigned int>* inds;
 };
 
 static void translate(Renderable& r, vec3 v) {

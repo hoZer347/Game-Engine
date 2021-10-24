@@ -13,8 +13,6 @@ struct Room;
 
 typedef void (*Roomfunc) (Room* r);
 
-
-
 class Inputs {
 public:
 	Inputs(GLFWwindow*, Room*);

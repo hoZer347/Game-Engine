@@ -21,8 +21,8 @@ using namespace glm;
 struct Camera {
 	vec3
 		up = vec3(0, 1, 0),
-		eye = vec3(0, 5, 5),
-		look = vec3(0, 0, 0);
+		eye = vec3(0, 0, 1),
+		look = vec3(0, 0, -1);
 
 	mat4
 		roll = mat4(1.0f), // X axis

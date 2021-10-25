@@ -10,13 +10,18 @@ out vec4 fcolor;
 out vec3 fnormal;
 out vec2 ftexCoords;
 
+out vec3 lightPos;
+
 uniform mat4 mode;
 uniform mat4 norm;
 uniform mat4 view;
 uniform mat4 proj;
 uniform mat4 mvp;
 
+uniform vec3 L=vec3(100, 100, 100);
+
 void main() {
+    lightPos = vec3(mode * vec4(L, 1));
     vec4 vertPos4 = view * mode * vec4(vertex, 1.0);
     fvertex = vec3(vertPos4) / vertPos4.w;
     fcolor = color;

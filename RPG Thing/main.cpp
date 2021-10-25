@@ -8,18 +8,17 @@
 using namespace glm;
 
 int main() {
-    Room* room = create_room(new Grid(32, 32));
+    Room* room = create_room();
 
-    auto& m1 = create_square();
-    bind_texture("Textures/DK.png", m1);
+    auto m1 = create_plane(10, 10);
+    auto m2 = create_square();
 
-    auto& m2 = create_square();
-    m2.gl_render_type = GL_LINES;
+    bind_texture("Textures/DK.png", m2);
+    *m2 -= vec3(1, 0, 0);
 
-    auto& m3 = create_square();
-    m3 *= 10;
-    m3 *= rotate(mat4(1), radians(90.0f), vec3(1, 0, 0));
-    m3 += vec3(-5, 0, 5);
+    *m1 *= rotate(mat4(1), radians(90.f), vec3(1, 0, 0));
+
+    //change_rendering(m1, GL_LINES);
 
     Game game = Game(room);
 

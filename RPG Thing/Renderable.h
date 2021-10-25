@@ -7,180 +7,157 @@
 #include <SOIL/SOIL.h>
 
 #include <map>
-#include <memory>
 #include <vector>
+
+#include <memory>
 #include <iostream>
 
 using namespace glm;
 
-struct Vtx; struct Mesh;
+struct Mesh;
 
-extern std::vector<Vtx> VTXS;
-extern std::vector<unsigned int> INDS;
-extern std::vector<Mesh> MESH;
+extern std::vector<Mesh*> MESH;
 extern std::map<const char*, unsigned int> TEXS;
 
 // Represents a vertex in the world
 struct Vtx {
 	vec3 pos = vec3(0);
 	vec4 clr = vec4(1);
-	vec3 nrm = { 0, 1, 0 };
+	vec3 nrm = { 0, 0, 1 };
 	vec2 cds = vec2(-1);
 };
 
 // Represents a mesh of vertices, with rendering variables such as the way to render it + the texture location
 struct Mesh {
+	std::vector<Vtx> vtxs;
+	std::vector<unsigned int> inds;
+
 	unsigned int
 		index = 0,
-		begin = 0,
-		size = 0,
-		gl_render_type = GL_TRIANGLES,
+		gl_render_type = GL_QUADS,
 		gl_data_type = GL_UNSIGNED_INT,
 		gl_texture = 0,
 		gl_shader = 0;
 
 	void operator=(vec3 v) {
-		vec3 d = v - VTXS[begin].pos;
-		VTXS[begin].pos = v;
+		vec3 d = v - vtxs[0].pos;
+		vtxs[0].pos = v;
 
-		for (unsigned int i = begin+1; i < begin + size; i++)
-			VTXS[i].pos += d;
+		for (auto i : inds)
+			vtxs[i].pos += d;
 	}
 	void operator+=(vec3 v) {
-		for (unsigned int i = begin; i < begin + size; i++)
-			VTXS[i].pos += v;
+		for (auto i : inds)
+			vtxs[i].pos += v;
 	};
 	void operator-=(vec3 v) {
-		for (unsigned int i = begin; i < begin + size; i++)
-			VTXS[i].pos -= v;
+		for (auto i : inds)
+			vtxs[i].pos -= v;
 	};
 	void operator*=(int v) {
-		for (unsigned int i = begin; i < begin + size; i++)
-			VTXS[i].pos *= v;
+		for (auto i : inds)
+			vtxs[i].pos *= v;
 	};
 	void operator/=(int v) {
-		for (unsigned int i = begin; i < begin + size; i++)
-			VTXS[i].pos /= v;
+		for (auto i : inds)
+			vtxs[i].pos /= v;
 	};
 	void operator*=(mat4 m) {
-		for (unsigned int i = begin; i < begin + size; i++)
-			VTXS[i].pos = vec3(vec4(VTXS[i].pos, 1) * m);
+		for (auto i : inds)
+			vtxs[i].pos = vec3(vec4(vtxs[i].pos, 1) * m);
 	}
 };
 
-// Represents a series of meshes that all fall within one object
+// Represents a group of meshes
 struct Renderable {
 	const char* name = "";
 
-	unsigned int
-		begin = 0,
-		size = 0;
+	std::vector<unsigned int> inds;
+	std::vector<unsigned int> sub_rs;
 	
 	void operator=(vec3 v) {
-		for (unsigned int i = begin; i < begin + size; i++)
-			MESH[i] = v;
+		for (auto i : inds)
+			*MESH[i] = v;
 	};
 	void operator+=(vec3 v) {
-		for (unsigned int i = begin; i < begin + size; i++)
-			MESH[i] += v;
+		for (auto i : inds)
+			*MESH[i] += v;
 	};
 	void operator-=(vec3 v) {
-		for (unsigned int i = begin; i < begin + size; i++)
-			MESH[i] -= v;
+		for (auto i : inds)
+			*MESH[i] -= v;
 	};
 	void operator*=(int v) {
-		for (unsigned int i = begin; i < begin + size; i++)
-			MESH[i] *= v;
+		for (auto i : inds)
+			*MESH[i] *= v;
 	};
 	void operator/=(int v) {
-		for (unsigned int i = begin; i < begin + size; i++)
-			MESH[i] /= v;
+		for (auto i : inds)
+			*MESH[i] /= v;
 	};
 	void operator*=(mat4 m) {
-		for (unsigned int i = begin; i < begin + size; i++)
-			MESH[i] *= m;
+		for (auto i : inds)
+			*MESH[i] *= m;
 	}
 };
 
 // Generates a mesh object
-static Mesh& create_mesh(
+static Mesh* create_mesh(
 	std::vector<Vtx>& vtxs,
 	std::vector<unsigned int>& inds,
-	unsigned int gl_render_type = GL_TRIANGLES,
+	unsigned int gl_render_type = GL_QUADS,
 	unsigned int gl_data_type = GL_UNSIGNED_INT,
 	unsigned int gl_texture = 0,
 	unsigned int gl_shader = 0) {
 
-	Mesh m;
+	Mesh* m = new Mesh();
 
-	m.index = MESH.size();
-	m.begin = INDS.size();
+	m->index = MESH.size();
 
 	for (auto& i : vtxs)
-		VTXS.push_back(i);
+		m->vtxs.push_back(i);
 
 	for (auto& i : inds)
-		INDS.push_back(i + m.begin);
+		m->inds.push_back(i);
 
-	m.size = inds.size();
-
-	m.gl_render_type = gl_render_type;
-	m.gl_data_type = gl_data_type;
-	m.gl_texture = gl_texture;
-	m.gl_shader = gl_shader;
+	m->gl_render_type = gl_render_type;
+	m->gl_data_type = gl_data_type;
+	m->gl_texture = gl_texture;
+	m->gl_shader = gl_shader;
 
 	MESH.push_back(m);
 
 	return MESH.back();
 }
 
-// Safely deletes a mesh object
-static void delete_mesh(Mesh& m) {
+// Safely Deletes a Mesh
+static void delete_mesh(Mesh* m) {
+	MESH.erase(MESH.begin() + m->index);
 
-	// Decrementing greater indexed meshes
-	for (unsigned int i = m.index+1; i < MESH.size(); i++) {
-		MESH[i].index--;
-		MESH[i].begin -= m.size;
-	}
-
-	// Decrementing greater indices
-	for (unsigned int i = m.begin + m.size; i < INDS.size(); i++)
-		INDS[i] -= m.size;
-	
-	// Finding vertex deletion range
-	unsigned int min = VTXS.size(), max = 0;
-
-	for (unsigned int i = m.begin; i <= m.begin + m.size; i++) {
-		min = std::min(INDS[i], min);
-		max = std::max(INDS[i], max);
-	}
-
-	// Deleting stuff
-	VTXS.erase(VTXS.begin() + min, VTXS.begin() + max + 1);
-	INDS.erase(INDS.begin() + m.begin, INDS.begin() + m.begin + m.size);
-	MESH.erase(MESH.begin() + m.index);
+	for (auto i : MESH)
+		i->index--;
 }
 
 // Generates a texture and attaches it to the provided mesh
-static void bind_texture(const char* file_name, Mesh& m) {
+static void bind_texture(const char* file_name, Mesh* m) {
 	if (TEXS[file_name]) {
-		m.gl_texture = TEXS[file_name];
+		m->gl_texture = TEXS[file_name];
 		return;
 	}
 
-	m.gl_texture = SOIL_load_OGL_texture(file_name, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_MULTIPLY_ALPHA);
+	m->gl_texture = SOIL_load_OGL_texture(file_name, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_MULTIPLY_ALPHA);
 
-	if (m.gl_texture) {
-		glBindTexture(GL_TEXTURE_2D, m.gl_texture);
+	if (m->gl_texture) {
+		glBindTexture(GL_TEXTURE_2D, m->gl_texture);
 		glGenerateMipmap(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
-		TEXS[file_name] = m.gl_texture;
+		TEXS[file_name] = m->gl_texture;
 	}
 }
 
-// Generates a plane (0, 0, 0) -> (1, 1, 0), facing +Z, by default
-static Mesh& create_square() {
+// Generates a square (0, 0, 0) -> (1, 1, 0), facing +Z, by default
+static Mesh* create_square() {
 	std::vector<Vtx> vtxs = { Vtx(), Vtx(), Vtx(), Vtx() };
 
 	vtxs[0] = Vtx({ vec3(0, 0, 0), vec4(1), vec3(0, 0, 1), vec2(0, 0) });
@@ -190,7 +167,61 @@ static Mesh& create_square() {
 
 	std::vector<unsigned int> inds = { 0, 1, 2, 3 };
 
-	return create_mesh(vtxs, inds, GL_QUADS);
+	return create_mesh(vtxs, inds);
 }
 
+// Generates a plane of squares of the given dimensions with the default inner square dimensions
+static Mesh* create_plane(unsigned int x, unsigned int y) {
+	std::vector<Vtx> vtxs;
+	std::vector<unsigned int> inds;
 
+	unsigned int index = 0;
+
+	for (unsigned int i = 0; i < x; i++)
+		for (unsigned int j = 0; j < y; j++) {
+			vtxs.push_back(Vtx({ vec3(i    , j    , 0), vec4(1), vec3(0, 0, 1), vec2(0, 0) }));
+			vtxs.push_back(Vtx({ vec3(i + 1, j    , 0), vec4(1), vec3(0, 0, 1), vec2(1, 0) }));
+			vtxs.push_back(Vtx({ vec3(i + 1, j + 1, 0), vec4(1), vec3(0, 0, 1), vec2(1, 1) }));
+			vtxs.push_back(Vtx({ vec3(i    , j + 1, 0), vec4(1), vec3(0, 0, 1), vec2(0, 1) }));
+			inds.push_back(index++);
+			inds.push_back(index++);
+			inds.push_back(index++);
+			inds.push_back(index++);
+		}
+
+	return create_mesh(vtxs, inds);
+}
+
+// Changes how openGL will render the given mesh (GL_LINES, GL_TRIANGLES, etc.)
+static void change_rendering(Mesh* m, unsigned int gl_render_type) {
+	std::vector<unsigned int> new_inds;
+
+	unsigned int index = 0;
+
+	switch (m->gl_render_type) {
+
+		case GL_QUADS:
+			
+			switch (gl_render_type) {
+
+			case GL_LINES:
+
+				for (unsigned int i = 0; i < m->inds.size(); i+=4) {
+					new_inds.push_back(m->inds[index++]);
+					new_inds.push_back(m->inds[index]);
+					new_inds.push_back(m->inds[index++]);
+					new_inds.push_back(m->inds[index]);
+					new_inds.push_back(m->inds[index++]);
+					new_inds.push_back(m->inds[index]);
+					new_inds.push_back(m->inds[index++]);
+					new_inds.push_back(m->inds[index-4]);
+				}
+
+				break;
+			}
+			break;
+	}
+
+	m->inds = new_inds;
+	m->gl_render_type = gl_render_type;
+}

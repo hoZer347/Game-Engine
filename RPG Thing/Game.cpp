@@ -10,6 +10,7 @@ using std::chrono::system_clock;
 
 void Game::init() {
     Camera* c = room->r->c;
+    Container* g = room->c;
     Inputs* i = room->i;
     Renderer* r = room->r;
 
@@ -27,7 +28,7 @@ void Game::init() {
 
         // https://antongerdelan.net/opengl/raycasting.html
 
-       vec4 v = vec4(0);
+        vec4 v = vec4(0);
 
         vec3 ray_cds = vec3(-1.0f + (2.0f * i->mx)/w, 1.0f - (2.0f * i->my)/h, 1);
         vec4 ray_clp = vec4(ray_cds.x, ray_cds.y, -1, 1);
@@ -39,18 +40,19 @@ void Game::init() {
         
         v = vec4(ray_wld, 1);
 
-        std::cout <<
-            v.x << "," <<
-            v.y << "," <<
-            v.z << "," <<
-            std::endl;
+        //std::cout <<
+        //    v.x << "," <<
+        //    v.y << "," <<
+        //    v.z << "," <<
+        //    std::endl;
 
-        Mesh* m = &MESH[1];
+        //Mesh* m = MESH[0];
 
-        *m = vec3(v);
+        //*m = vec3(v);
 
         i->update();
-        room->r->update();
+        g->update();
+        r->update();
 
         millisec_since_epoch = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count() - millisec_since_epoch;
     }

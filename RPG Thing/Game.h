@@ -1,7 +1,5 @@
 #pragma once
 
-#include "Grid.h"
-#include "Renderer.h"
 #include "Room.h"
 
 class Game {

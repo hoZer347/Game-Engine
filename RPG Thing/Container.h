@@ -1,25 +1,21 @@
 #pragma once
 
-#include "Renderer.h"
+#include <vector>
 
-struct Object {
-
-};
+struct Object { };
 
 class Place {
 public:
-	friend class Container;
-
-	operator Object*() const { return o; }
 	Object* o = NULL;
 };
 
 class Container {
 public:
+	void update() { }
 	auto begin() { return objs.begin(); }
 	auto end()	 { return objs.end();	}
-	Object* operator[](size_t i) { if (i < objs.size()) return objs[i]; }
+	Object* operator[](size_t i) { if (i < objs.size()) return objs[i]->o; }
 
 private:
-	std::vector<Object*> objs;
+	std::vector<Place*> objs;
 };

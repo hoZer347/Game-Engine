@@ -109,32 +109,29 @@ void Renderer::update() {
     glUniformMatrix4fv(glGetUniformLocation(shader_programme, "proj"), 1, GL_FALSE, value_ptr(c->proj));
     glUniformMatrix4fv(glGetUniformLocation(shader_programme, "mvp"), 1, GL_FALSE, value_ptr(c->mvp));
 
-    // UPDATING BUFFERS
-    
-    glBindBuffer(GL_ARRAY_BUFFER, _vtxs);
-    glBufferData(GL_ARRAY_BUFFER, VTXS.size() * sizeof(Vtx), VTXS.data(), GL_DYNAMIC_DRAW);
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _inds);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, INDS.size() * sizeof(unsigned int), INDS.data(), GL_STATIC_DRAW);
-
     // DRAWING OBJECTS
 
     for (auto& i : MESH) {
+        glBindBuffer(GL_ARRAY_BUFFER, _vtxs);
+        glBufferData(GL_ARRAY_BUFFER, i->vtxs.size() * sizeof(Vtx), i->vtxs.data(), GL_DYNAMIC_DRAW);
+
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _inds);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, i->inds.size() * sizeof(unsigned int), i->inds.data(), GL_STATIC_DRAW);
 
         // Determining how to draw
-        if (i.gl_render_type == GL_LINES)
+        if (i->gl_render_type == GL_LINES)
             glUniform1i(glGetUniformLocation(shader_programme, "type"), 0);
-        else if (!i.gl_texture)
+        else if (!i->gl_texture)
             glUniform1i(glGetUniformLocation(shader_programme, "type"), 1);
         else
             glUniform1i(glGetUniformLocation(shader_programme, "type"), 2);
 
         // Loading Texture
-        glBindTexture(GL_TEXTURE_2D, i.gl_texture);
+        glBindTexture(GL_TEXTURE_2D, i->gl_texture);
         glUniform1i(glGetUniformLocation(shader_programme, "tex"), 0);
-        
+
         // Drawing
-        glDrawElements(i.gl_render_type, i.size, i.gl_data_type, (void*) (sizeof(unsigned int) * i.begin));    
+        glDrawElements(i->gl_render_type, i->inds.size(), i->gl_data_type, (void*)0);    
 
         // Unloading Texture
         glBindTexture(GL_TEXTURE_2D, 0);

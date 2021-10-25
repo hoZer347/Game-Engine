@@ -5,6 +5,8 @@ in vec4 fcolor;
 in vec3 fnormal;
 in vec2 ftexCoords;
 
+in vec3 lightPos;
+
 uniform int type;
 uniform sampler2D tex;
 
@@ -14,16 +16,15 @@ uniform float Ks=1.0;
 uniform float shininessVal=80;
 
 // Material color
-uniform vec3 ambientColor=vec3(1, 1, 1);
-uniform vec3 diffuseColor=vec3(1, 1, 1);
-uniform vec3 specularColor=vec3(1, 1, 1);
-uniform vec3 lightPos=vec3(100, 100, 100);
+uniform vec3 ambientColor=vec3(.5, .5, .5);
+uniform vec3 diffuseColor=vec3(.5, .5, .5);
+uniform vec3 specularColor=vec3(.5, .5, .5);
 
 void main() {
-    if (type == 0) {
+    if (type == 0)
         gl_FragColor = vec4(1, 0, 0, 1);
-        return;
-    } else {
+    
+    else {
         vec3 N = normalize(fnormal);
         vec3 L = normalize(lightPos - fvertex);
 
@@ -36,12 +37,14 @@ void main() {
             float specAngle = max(dot(R, V), 0.0);
             specular = pow(specAngle, shininessVal);
         }
+
         vec4 color = vec4(Ka * ambientColor +
                           Kd * lambertian * diffuseColor +
                           Ks * specular * specularColor, 1.0);
-    if (type == 1)
-        gl_FragColor = color * fcolor;
-    else if (type == 2)
-		gl_FragColor = color * texture(tex, ftexCoords);
+        
+        if (type == 1)
+            gl_FragColor = color * fcolor;
+        else if (type == 2)
+		    gl_FragColor = color * texture(tex, ftexCoords);
     }
 }

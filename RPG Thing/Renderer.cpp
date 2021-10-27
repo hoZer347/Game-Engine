@@ -118,6 +118,8 @@ void Renderer::update() {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _inds);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, i->inds.size() * sizeof(unsigned int), i->inds.data(), GL_STATIC_DRAW);
 
+        glUniformMatrix4fv(glGetUniformLocation(shader_programme, "mode"), 1, GL_FALSE, value_ptr(c->mode * i->trns));
+
         // Determining how to draw
         if (i->gl_render_type == GL_LINES)
             glUniform1i(glGetUniformLocation(shader_programme, "type"), 0);

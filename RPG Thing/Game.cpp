@@ -1,12 +1,8 @@
 #include "Game.h"
-#include "glm/gtx/intersect.hpp"
 
-#include <chrono>
+#include <glm/gtx/intersect.hpp>
 
-using std::chrono::duration_cast;
-using std::chrono::milliseconds;
-using std::chrono::seconds;
-using std::chrono::system_clock;
+#include "Sprite.h"
 
 void Game::init() {
     Camera* c = room->r->c;
@@ -20,7 +16,6 @@ void Game::init() {
     scroll_zooms_camera(room);
 
     while (!glfwWindowShouldClose(room->r->window)) {
-        auto millisec_since_epoch = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
 
         // Testing mouse-to-object stuff
         int w=0, h=0;
@@ -54,6 +49,9 @@ void Game::init() {
         g->update();
         r->update();
 
-        millisec_since_epoch = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count() - millisec_since_epoch;
+        update_timer();
+
+        for (auto& s : SPRS)
+            s->update();
     }
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Room.h"
+#include "Timer.h"
 
 class Game {
 public:

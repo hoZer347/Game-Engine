@@ -1,7 +1,8 @@
 #pragma once
 
 #include "Container.h"
-#include "Renderable.h"
+
+struct Renderable { };
 
 enum {
 	U = 0,
@@ -10,8 +11,8 @@ enum {
 	R = 3
 };
 
-struct Unit {};
-struct Terrain {};
+struct Unit { };
+struct Terrain { };
 
 struct CellData : Object {
 	Unit* u;

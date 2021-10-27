@@ -159,6 +159,8 @@
     <ClCompile Include="Renderable.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Room.cpp" />
+    <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Container.h" />
@@ -169,6 +171,8 @@
     <ClInclude Include="Renderable.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Room.h" />
+    <ClInclude Include="Sprite.h" />
+    <ClInclude Include="Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\default.frag" />

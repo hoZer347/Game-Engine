@@ -4,6 +4,7 @@
 
 #include <GLFW/glew.h>
 #include <glm/glm.hpp>
+#include <glm/gtx/transform.hpp>
 #include <SOIL/SOIL.h>
 
 #include <map>
@@ -31,6 +32,7 @@ struct Vtx {
 struct Mesh {
 	std::vector<Vtx> vtxs;
 	std::vector<unsigned int> inds;
+	mat4 trns = mat4(1);
 
 	unsigned int
 		index = 0,
@@ -38,67 +40,6 @@ struct Mesh {
 		gl_data_type = GL_UNSIGNED_INT,
 		gl_texture = 0,
 		gl_shader = 0;
-
-	void operator=(vec3 v) {
-		vec3 d = v - vtxs[0].pos;
-		vtxs[0].pos = v;
-
-		for (auto i : inds)
-			vtxs[i].pos += d;
-	}
-	void operator+=(vec3 v) {
-		for (auto i : inds)
-			vtxs[i].pos += v;
-	};
-	void operator-=(vec3 v) {
-		for (auto i : inds)
-			vtxs[i].pos -= v;
-	};
-	void operator*=(int v) {
-		for (auto i : inds)
-			vtxs[i].pos *= v;
-	};
-	void operator/=(int v) {
-		for (auto i : inds)
-			vtxs[i].pos /= v;
-	};
-	void operator*=(mat4 m) {
-		for (auto i : inds)
-			vtxs[i].pos = vec3(vec4(vtxs[i].pos, 1) * m);
-	}
-};
-
-// Represents a group of meshes
-struct Renderable {
-	const char* name = "";
-
-	std::vector<unsigned int> inds;
-	std::vector<unsigned int> sub_rs;
-	
-	void operator=(vec3 v) {
-		for (auto i : inds)
-			*MESH[i] = v;
-	};
-	void operator+=(vec3 v) {
-		for (auto i : inds)
-			*MESH[i] += v;
-	};
-	void operator-=(vec3 v) {
-		for (auto i : inds)
-			*MESH[i] -= v;
-	};
-	void operator*=(int v) {
-		for (auto i : inds)
-			*MESH[i] *= v;
-	};
-	void operator/=(int v) {
-		for (auto i : inds)
-			*MESH[i] /= v;
-	};
-	void operator*=(mat4 m) {
-		for (auto i : inds)
-			*MESH[i] *= m;
-	}
 };
 
 // Generates a mesh object
@@ -130,30 +71,15 @@ static Mesh* create_mesh(
 	return MESH.back();
 }
 
+// CREATION / DELETION FUNCTIONS
+
 // Safely Deletes a Mesh
 static void delete_mesh(Mesh* m) {
+	for (auto& i : MESH)
+		if (m->index > m->index)
+			i->index--;
+
 	MESH.erase(MESH.begin() + m->index);
-
-	for (auto i : MESH)
-		i->index--;
-}
-
-// Generates a texture and attaches it to the provided mesh
-static void bind_texture(const char* file_name, Mesh* m) {
-	if (TEXS[file_name]) {
-		m->gl_texture = TEXS[file_name];
-		return;
-	}
-
-	m->gl_texture = SOIL_load_OGL_texture(file_name, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_MULTIPLY_ALPHA);
-
-	if (m->gl_texture) {
-		glBindTexture(GL_TEXTURE_2D, m->gl_texture);
-		glGenerateMipmap(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, 0);
-
-		TEXS[file_name] = m->gl_texture;
-	}
 }
 
 // Generates a square (0, 0, 0) -> (1, 1, 0), facing +Z, by default
@@ -191,6 +117,28 @@ static Mesh* create_plane(unsigned int x, unsigned int y) {
 
 	return create_mesh(vtxs, inds);
 }
+
+// TEXTURE FUNCTIONS
+
+// Generates a texture and attaches it to the provided mesh
+static void bind_texture(const char* file_name, Mesh* m) {
+	if (TEXS[file_name]) {
+		m->gl_texture = TEXS[file_name];
+		return;
+	}
+
+	m->gl_texture = SOIL_load_OGL_texture(file_name, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_MULTIPLY_ALPHA);
+
+	if (m->gl_texture) {
+		glBindTexture(GL_TEXTURE_2D, m->gl_texture);
+		glGenerateMipmap(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		TEXS[file_name] = m->gl_texture;
+	}
+}
+
+// RENDERING FUNCTIONS
 
 // Changes how openGL will render the given mesh (GL_LINES, GL_TRIANGLES, etc.)
 static void change_rendering(Mesh* m, unsigned int gl_render_type) {

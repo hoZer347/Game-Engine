@@ -5,22 +5,26 @@
     <ClCompile Include="Renderable.cpp">
       <Filter>Engine\Renderables</Filter>
     </ClCompile>
-    <ClCompile Include="Inputs.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Room.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Container.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
     <ClCompile Include="Grid.cpp">
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Container.cpp">
+      <Filter>Engine\Room\Container</Filter>
+    </ClCompile>
+    <ClCompile Include="Inputs.cpp">
+      <Filter>Engine\Room\Inputs</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Engine\Room\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Room.cpp">
+      <Filter>Engine\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="Sprite.cpp">
       <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
@@ -37,24 +41,24 @@
     <Filter Include="Engine\Shaders">
       <UniqueIdentifier>{6f6142ba-eaa8-47ff-a3cf-7230b6b58a4d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Room">
+      <UniqueIdentifier>{763729cc-88b9-4a8f-94f0-527b0fe794c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Room\Inputs">
+      <UniqueIdentifier>{6622e211-293d-4347-b842-83262d862633}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Room\Container">
+      <UniqueIdentifier>{ab839e97-dc64-4c7f-8c34-03e2fed64f8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Room\Renderer">
+      <UniqueIdentifier>{616178ba-a699-41c2-ba28-5e98abfbfd7c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Renderable.h">
       <Filter>Engine\Renderables</Filter>
     </ClInclude>
-    <ClInclude Include="Inputs.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Room.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
     <ClInclude Include="HelpfulStuff.h">
-      <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Container.h">
       <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="Grid.h">
@@ -63,6 +67,20 @@
     <ClInclude Include="Game.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="Container.h">
+      <Filter>Engine\Room\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="Inputs.h">
+      <Filter>Engine\Room\Inputs</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Engine\Room\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Room.h">
+      <Filter>Engine\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h" />
+    <ClInclude Include="Sprite.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\default.frag">

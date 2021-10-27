@@ -38,8 +38,7 @@ struct Mesh {
 		index = 0,
 		gl_render_type = GL_QUADS,
 		gl_data_type = GL_UNSIGNED_INT,
-		gl_texture = 0,
-		gl_shader = 0;
+		gl_texture = 0;
 };
 
 // Generates a mesh object
@@ -48,8 +47,7 @@ static Mesh* create_mesh(
 	std::vector<unsigned int>& inds,
 	unsigned int gl_render_type = GL_QUADS,
 	unsigned int gl_data_type = GL_UNSIGNED_INT,
-	unsigned int gl_texture = 0,
-	unsigned int gl_shader = 0) {
+	unsigned int gl_texture = 0) {
 
 	Mesh* m = new Mesh();
 
@@ -64,7 +62,6 @@ static Mesh* create_mesh(
 	m->gl_render_type = gl_render_type;
 	m->gl_data_type = gl_data_type;
 	m->gl_texture = gl_texture;
-	m->gl_shader = gl_shader;
 
 	MESH.push_back(m);
 

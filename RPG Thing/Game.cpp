@@ -18,32 +18,35 @@ void Game::init() {
     while (!glfwWindowShouldClose(room->r->window)) {
 
         // Testing mouse-to-object stuff
-        int w=0, h=0;
+        int w = 0, h = 0;
         glfwGetWindowSize(room->r->window, &w, &h);
 
         // https://antongerdelan.net/opengl/raycasting.html
 
         vec4 v = vec4(0);
 
-        vec3 ray_cds = vec3(-1.0f + (2.0f * i->mx)/w, 1.0f - (2.0f * i->my)/h, 1);
+        vec3 ray_cds = vec3(-1.0f + (2.0f * i->mx) / w, 1.0f - (2.0f * i->my) / h, 1);
         vec4 ray_clp = vec4(ray_cds.x, ray_cds.y, -1, 1);
 
         vec4 ray_eye = inverse(c->proj) * ray_clp;
         ray_eye = vec4(ray_eye.x, ray_eye.y, -1, 0);
         vec3 ray_wld = vec3(inverse(c->view) * ray_eye);
         ray_wld = normalize(ray_wld);
-        
-        v = vec4(ray_wld, 1);
 
-        //std::cout <<
-        //    v.x << "," <<
-        //    v.y << "," <<
-        //    v.z << "," <<
-        //    std::endl;
+        v = inverse(c->mode) * vec4(ray_wld, 1);
 
-        //Mesh* m = MESH[0];
+        std::cout <<
+            v.x << "," <<
+            v.y << "," <<
+            v.z << "," <<
+            std::endl;
 
-        //*m = vec3(v);
+        Mesh* m = MESH[1];
+
+        m->vtxs[0].pos = vec3(v) + vec3(inverse(c->rotn) * vec4(0, 0, .99, 1));
+        m->vtxs[1].pos = vec3(v) + vec3(inverse(c->rotn) * vec4(1, 0, .99, 1));
+        m->vtxs[2].pos = vec3(v) + vec3(inverse(c->rotn) * vec4(1, 1, .99, 1));
+        m->vtxs[3].pos = vec3(v) + vec3(inverse(c->rotn) * vec4(0, 1, .99, 1));
 
         i->update();
         g->update();

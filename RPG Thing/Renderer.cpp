@@ -39,7 +39,7 @@ void Renderer::load() {
     //
 
     // Culling faces that don't face the camera
-    glEnable(GL_CULL_FACE);
+     glEnable(GL_CULL_FACE);
 
     // LOADING SHADER BULLSHIT
 

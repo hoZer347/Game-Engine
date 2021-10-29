@@ -21,9 +21,11 @@ int main() {
     Room* room = create_room();
 
     auto m1 = create_plane(10, 10);
-    Sprite* s1 = create_sprite();
+    auto m2 = create_square();
+    auto m3 = create_square();
 
-    bind_texture("Textures/Anna.png", s1);
+    change_rendering(m2, GL_LINES);
+    bind_texture("Textures/DK.png", m3);
 
     m1->trns *= rotate(mat4(1), radians(-90.f), vec3(1, 0, 0));
 

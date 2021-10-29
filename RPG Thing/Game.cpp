@@ -23,38 +23,48 @@ void Game::init() {
 
         // https://antongerdelan.net/opengl/raycasting.html
 
-        vec4 v = vec4(0);
+        vec4 v = vec4(1);
 
-        vec3 ray_cds = vec3(-1.0f + (2.0f * i->mx) / w, 1.0f - (2.0f * i->my) / h, 1);
-        vec4 ray_clp = vec4(ray_cds.x, ray_cds.y, -1, 1);
+        vec4 eye = vec4((i->mx - w/2) / (w/2), (-i->my + h/2) / (h/2), 0, 1);
+             eye = inverse(c->mvp) * eye;
+             eye /= eye.w;
+        
+        vec4 ray = vec4(c->look - c->eye, 1);
+             ray = inverse(c->mode) * ray;
+             ray /= ray.w;
 
-        vec4 ray_eye = inverse(c->proj) * ray_clp;
-        ray_eye = vec4(ray_eye.x, ray_eye.y, -1, 0);
-        vec3 ray_wld = vec3(inverse(c->view) * ray_eye);
-        ray_wld = normalize(ray_wld);
-
-        v = inverse(c->mode) * vec4(ray_wld, 1);
-
+        v = eye;
+   
         std::cout <<
             v.x << "," <<
             v.y << "," <<
             v.z << "," <<
+            v.w << "," <<
             std::endl;
 
         Mesh* m = MESH[1];
 
-        m->vtxs[0].pos = vec3(v) + vec3(inverse(c->rotn) * vec4(0, 0, .99, 1));
-        m->vtxs[1].pos = vec3(v) + vec3(inverse(c->rotn) * vec4(1, 0, .99, 1));
-        m->vtxs[2].pos = vec3(v) + vec3(inverse(c->rotn) * vec4(1, 1, .99, 1));
-        m->vtxs[3].pos = vec3(v) + vec3(inverse(c->rotn) * vec4(0, 1, .99, 1));
+        m->vtxs[0].pos = vec3(v) + vec3(vec4(0, 0, 0, 0));
+        m->vtxs[1].pos = vec3(v) + vec3(vec4(1, 0, 0, 0));
+        m->vtxs[2].pos = vec3(v) + vec3(vec4(1, 1, 0, 0));
+        m->vtxs[3].pos = vec3(v) + vec3(vec4(0, 1, 0, 0));
+
+        v = ray;
+
+        m = MESH[2];
+
+        m->vtxs[0].pos = vec3(v) + vec3(vec4(0, 0, 0, 0));
+        m->vtxs[1].pos = vec3(v) + vec3(vec4(1, 0, 0, 0));
+        m->vtxs[2].pos = vec3(v) + vec3(vec4(1, 1, 0, 0));
+        m->vtxs[3].pos = vec3(v) + vec3(vec4(0, 1, 0, 0));
+
+        for (auto& s : SPRS)
+            s->update();
 
         i->update();
         g->update();
         r->update();
 
         update_timer();
-
-        for (auto& s : SPRS)
-            s->update();
     }
 }

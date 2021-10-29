@@ -39,8 +39,8 @@ static auto free_camera = [](Room* r) {
 static auto ScrollFunc = [](GLFWwindow* w, double x, double y) {
 	Room* r = (Room*)glfwGetWindowUserPointer(w);
 	Camera* c = r->r->c;
-
-	c->eye += vec3(0, 0, -y);
+	
+	r->r->c->trns = translate(r->r->c->trns, vec3(vec4(0, 0, y, 1) * r->r->c->rotn));
 };
 
 static auto scroll_zooms_camera = [](Room* r) {

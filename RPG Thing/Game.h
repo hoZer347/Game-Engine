@@ -46,3 +46,57 @@ static auto ScrollFunc = [](GLFWwindow* w, double x, double y) {
 static auto scroll_zooms_camera = [](Room* r) {
 	glfwSetScrollCallback(r->r->window, ScrollFunc);
 };
+
+// RAYS AND STUFF
+
+enum {
+	EYE = 0,
+	RAY = 1,
+	LOOK = 2
+};
+
+static auto get_cam_ray = [](Room* r, std::function<void(Vtx&)> func = default_func) {
+	int w = 0, h = 0;
+	glfwGetWindowSize(r->r->window, &w, &h);
+
+	vec4 mv = vec4((r->i->mx - w / 2) / (w / 2), (-r->i->my + h / 2) / (h / 2), 0, 1);
+
+	Vtx v;
+
+	vec4 eye = mv + vec4(r->r->c->eye, 0);
+		 eye = inverse(r->r->c->mvp) * eye;
+		 eye /= eye.w;
+		 v.pos = vec3(eye);
+		 func(v);
+		 eye = vec4(v.pos, 1);
+
+	vec4 look = mv + vec4(r->r->c->look, 0);
+		 look = inverse(r->r->c->mvp) * look;
+		 look /= look.w;
+		 v.pos = vec3(look);
+		 func(v);
+		 look = vec4(v.pos, 1);
+
+	vec4 ray = (look - eye);
+		 ray = normalize(ray);
+
+	mat3 ret = { vec3(eye), vec3(ray), vec3(look) };
+
+	return ret;
+};
+
+// EYE + w * RAY = COL
+// COL = x, y, sinx + cosy
+
+static auto collide_ray_field(mat3 ray, std::function<void(Vtx&)> func) {
+	Vtx v;
+	v.pos = ray[EYE];
+	func(v);
+	v.pos += ray[EYE];
+
+	float w = (-v.pos.z) / ray[RAY].z;
+
+	vec3 r = ray[RAY];
+	
+	return (vec3)((vec3)v.pos + r *= w);
+};

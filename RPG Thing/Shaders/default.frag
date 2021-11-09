@@ -22,7 +22,7 @@ uniform vec3 specularColor=vec3(.5, .5, .5);
 
 void main() {
     if (type == 0)
-        gl_FragColor = vec4(1, 0, 0, 1);
+        gl_FragColor = fcolor;
     
     else {
         vec3 N = normalize(fnormal);

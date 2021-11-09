@@ -94,7 +94,7 @@ static Mesh* create_square() {
 }
 
 // Generates a plane of squares of the given dimensions with the default inner square dimensions
-static Mesh* create_plane(unsigned int x, unsigned int y) {
+static Mesh* create_plane(unsigned int x, unsigned int y, unsigned int z) {
 	std::vector<Vtx> vtxs;
 	std::vector<unsigned int> inds;
 
@@ -170,3 +170,31 @@ static void change_rendering(Mesh* m, unsigned int gl_render_type) {
 	m->inds = new_inds;
 	m->gl_render_type = gl_render_type;
 }
+
+// PLANE FUNCTIONS
+
+auto default_func = [](Vtx& v) {
+	return;
+};
+
+auto y_is_negz = [](Vtx& v) {
+	float z = v.pos.z;
+	float y = v.pos.y;
+
+	v.pos.y = -z;
+	v.pos.z = -y;
+
+	return;
+};
+
+auto x_plus_y = [](Vtx& v) {
+	v.pos.z = v.pos.x + v.pos.y;
+
+	return;
+};
+
+auto sinx_cosy = [](Vtx& v) {
+	v.pos.z = sin(v.pos.x) + cos(v.pos.y);
+
+	return;
+};

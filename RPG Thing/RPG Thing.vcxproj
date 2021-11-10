@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Container.cpp" />
+    <ClCompile Include="FTL.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Inputs.cpp" />
@@ -164,6 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Container.h" />
+    <ClInclude Include="FTL.h" />
     <ClInclude Include="HelpfulStuff.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Grid.h" />

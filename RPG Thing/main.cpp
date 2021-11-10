@@ -3,16 +3,15 @@
 
 #include <iostream>
 
-#include "Game.h"
+#include "FTL.h"
 
 #include "Sprite.h"
 
-// Currently doing: Sprite + Timer implementation
+// Currently doing: Object selection
 // TODO: Add shadows
 // TODO: Add sound
 // TODO: Sprite Implementation
 // TODO: Timer Implementation
-// TODO: Get object selection working
 // TODO: Find out the normal of a 3D function
 
 using namespace glm;
@@ -33,7 +32,7 @@ int main() {
     for (auto& i : m1->vtxs)
         y_is_negz(i);
 
-    Game game = Game(room);
+    FTL game(room);
 
     game.init();
 

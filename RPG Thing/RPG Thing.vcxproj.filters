@@ -5,9 +5,12 @@
     <ClCompile Include="Mesh.cpp">
       <Filter>Engine\Renderables</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Game.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+=======
+>>>>>>> 6934b17e924fed4f164fa36a3387acb003af0a0a
     <ClCompile Include="Container.cpp">
       <Filter>Engine\Room\Container</Filter>
     </ClCompile>
@@ -20,6 +23,7 @@
     <ClCompile Include="Room.cpp">
       <Filter>Engine\Room</Filter>
     </ClCompile>
+<<<<<<< HEAD
     <ClCompile Include="Grid.cpp">
       <Filter>Game\Grid</Filter>
     </ClCompile>
@@ -37,6 +41,22 @@
     </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>Engine\Timer</Filter>
+=======
+    <ClCompile Include="Game.cpp">
+      <Filter>Engine\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Engine\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="FTL.cpp">
+      <Filter>Game Instance\FTL</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Game Instance\Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Game Instance\Sprite</Filter>
+>>>>>>> 6934b17e924fed4f164fa36a3387acb003af0a0a
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -45,9 +65,6 @@
     </Filter>
     <Filter Include="Engine\Renderables">
       <UniqueIdentifier>{34e4003e-2ed5-4bff-b4b7-a74fba828eeb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game">
-      <UniqueIdentifier>{32445464-5a9a-4c01-907e-6bc32351e588}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Shaders">
       <UniqueIdentifier>{6f6142ba-eaa8-47ff-a3cf-7230b6b58a4d}</UniqueIdentifier>
@@ -64,6 +81,7 @@
     <Filter Include="Engine\Room\Renderer">
       <UniqueIdentifier>{616178ba-a699-41c2-ba28-5e98abfbfd7c}</UniqueIdentifier>
     </Filter>
+<<<<<<< HEAD
     <Filter Include="Game\Grid">
       <UniqueIdentifier>{592d920c-aad9-4aeb-aa1a-90e092ace1cb}</UniqueIdentifier>
     </Filter>
@@ -81,6 +99,25 @@
     </Filter>
     <Filter Include="Engine\Timer">
       <UniqueIdentifier>{5f535fd4-7900-4784-a6d7-0a8f4879d70b}</UniqueIdentifier>
+=======
+    <Filter Include="Game Instance">
+      <UniqueIdentifier>{32445464-5a9a-4c01-907e-6bc32351e588}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Controller">
+      <UniqueIdentifier>{b82b25e1-a269-45d3-8dd5-53c325f2fb2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Timer">
+      <UniqueIdentifier>{56530b07-d305-4ed1-83d6-cf4754edb142}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Instance\FTL">
+      <UniqueIdentifier>{f605ff1e-8500-47d6-b6fd-86fbfd6e4bb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Instance\Grid">
+      <UniqueIdentifier>{94138b18-8c9b-4145-8aca-16b6d85213fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Instance\Sprite">
+      <UniqueIdentifier>{b6b54cd8-45b8-4a28-83fa-0ff7c88c3ab7}</UniqueIdentifier>
+>>>>>>> 6934b17e924fed4f164fa36a3387acb003af0a0a
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -90,9 +127,12 @@
     <ClInclude Include="HelpfulStuff.h">
       <Filter>Engine</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Game.h">
       <Filter>Game</Filter>
     </ClInclude>
+=======
+>>>>>>> 6934b17e924fed4f164fa36a3387acb003af0a0a
     <ClInclude Include="Container.h">
       <Filter>Engine\Room\Container</Filter>
     </ClInclude>
@@ -105,6 +145,7 @@
     <ClInclude Include="Room.h">
       <Filter>Engine\Room</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="Grid.h">
       <Filter>Game\Grid</Filter>
     </ClInclude>
@@ -122,6 +163,22 @@
     </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>Engine\Timer</Filter>
+=======
+    <ClInclude Include="Game.h">
+      <Filter>Engine\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Engine\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="FTL.h">
+      <Filter>Game Instance\FTL</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Game Instance\Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Game Instance\Sprite</Filter>
+>>>>>>> 6934b17e924fed4f164fa36a3387acb003af0a0a
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

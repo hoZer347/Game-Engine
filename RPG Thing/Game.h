@@ -86,19 +86,3 @@ static auto get_cam_ray = [](Room* r, std::function<void(Vtx&)> func = default_f
 
 	return ret;
 };
-
-// EYE + w * RAY = COL
-// COL = x, y, sinx + cosy
-
-static auto collide_ray_field(mat3 ray, std::function<void(Vtx&)> func) {
-	Vtx v;
-	v.pos = ray[EYE];
-	func(v);
-	v.pos += ray[EYE];
-
-	float w = (-v.pos.z) / ray[RAY].z;
-
-	vec3 r = ray[RAY];
-	
-	return (vec3)((vec3)v.pos + r *= w);
-};

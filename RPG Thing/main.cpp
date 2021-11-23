@@ -3,15 +3,11 @@
 
 #include <iostream>
 
-#include "FTL.h"
-
-<<<<<<< HEAD
-// Currently doing: Sprite + Timer implementation
-=======
+#include "Game.h"
+#include "Text.h"
 #include "Sprite.h"
 
 // Currently doing: Object selection
->>>>>>> 6934b17e924fed4f164fa36a3387acb003af0a0a
 // TODO: Add shadows
 // TODO: Add sound
 // TODO: Sprite Implementation

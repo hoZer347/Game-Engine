@@ -2,6 +2,8 @@
 
 #include "Room.h"
 #include "Timer.h"
+#include "Text.h"
+#include "Sprite.h"
 
 class Game {
 public:
@@ -11,7 +13,7 @@ public:
 	Room* room = NULL;
 };
 
-// Does Nothing (Used to "delete" functionality)
+// Does Nothing
 static auto null = [](Room*){
 	
 };

@@ -5,8 +5,6 @@
 
 #include "Game.h"
 
-#include "Sprite.h"
-
 // Currently doing: Sprite + Timer implementation
 // TODO: Add shadows
 // TODO: Add sound
@@ -18,17 +16,19 @@
 using namespace glm;
 
 int main() {
+    FT_Init_FreeType(&lib);
+
     Room* room = create_room();
 
-    std::vector<Vtx> vtxs = { Vtx(), Vtx() };
-    std::vector<unsigned int> inds = { 0, 1 };
+    auto sprite = create_sprite();
+    bind_texture(sprite);
 
-    auto m1 = create_plane(10, 10, 10);
-    auto m2 = create_square();
-    auto m3 = create_plane(10, 10, 10);
+    auto f = create_font();
+
+    auto m1 = create_plane(10, 10);
+    auto t = create_text("\nTesting", f);
 
     change_rendering(m1, GL_LINES);
-    change_rendering(m3, GL_LINES);
 
     for (auto& i : m1->vtxs)
         y_is_negz(i);

@@ -45,6 +45,6 @@ void main() {
         if (type == 1)
             gl_FragColor = color * fcolor;
         else if (type == 2)
-		    gl_FragColor = color * texture(tex, ftexCoords);
+		    gl_FragColor = color * fcolor * texture(tex, ftexCoords);
     }
 }

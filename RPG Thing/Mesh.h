@@ -10,15 +10,16 @@
 #include <map>
 #include <vector>
 
-#include <memory>
 #include <iostream>
 
 using namespace glm;
 
-struct Mesh;
-
-extern std::vector<Mesh*> MESH;
-extern std::map<const char*, unsigned int> TEXS;
+enum {
+	BOTTOM_LEFT = 0,
+	BOTTOM_RIGHT = 1,
+	TOP_RIGHT = 2,
+	TOP_LEFT = 3
+};
 
 // Represents a vertex in the world
 struct Vtx {
@@ -41,10 +42,16 @@ struct Mesh {
 		gl_texture = 0;
 };
 
+extern std::vector<Mesh*> MESH;
+extern std::map<const char*, unsigned int> TEXS;
+
+// MESH FUNCTIONS
+
 // Generates a mesh object
 static Mesh* create_mesh(
 	std::vector<Vtx>& vtxs,
 	std::vector<unsigned int>& inds,
+	bool add = true,
 	unsigned int gl_render_type = GL_QUADS,
 	unsigned int gl_data_type = GL_UNSIGNED_INT,
 	unsigned int gl_texture = 0) {
@@ -68,8 +75,6 @@ static Mesh* create_mesh(
 	return MESH.back();
 }
 
-// CREATION / DELETION FUNCTIONS
-
 // Safely Deletes a Mesh
 static void delete_mesh(Mesh* m) {
 	for (auto& i : MESH)
@@ -80,7 +85,7 @@ static void delete_mesh(Mesh* m) {
 }
 
 // Generates a square (0, 0, 0) -> (1, 1, 0), facing +Z, by default
-static Mesh* create_square() {
+static Mesh* create_square(bool add = true) {
 	std::vector<Vtx> vtxs = { Vtx(), Vtx(), Vtx(), Vtx() };
 
 	vtxs[0] = Vtx({ vec3(0, 0, 0), vec4(1), vec3(0, 0, 1), vec2(0, 0) });
@@ -90,11 +95,11 @@ static Mesh* create_square() {
 
 	std::vector<unsigned int> inds = { 0, 1, 2, 3 };
 
-	return create_mesh(vtxs, inds);
+	return create_mesh(vtxs, inds, add);
 }
 
 // Generates a plane of squares of the given dimensions with the default inner square dimensions
-static Mesh* create_plane(unsigned int x, unsigned int y, unsigned int z) {
+static Mesh* create_plane(unsigned int x, unsigned int y) {
 	std::vector<Vtx> vtxs;
 	std::vector<unsigned int> inds;
 

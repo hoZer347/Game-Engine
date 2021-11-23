@@ -1,11 +1,10 @@
 #pragma once
 
-#include "Renderable.h"
+#include "Mesh.h"
 #include "Timer.h"
 
 class Sprite {
 public:
-	operator Mesh* () { return mesh; }
 	void update();
 
 	int last_time = curr_time;
@@ -32,7 +31,7 @@ static Sprite* create_sprite(float sprite_size=32, int interval= 16 * 15) {
 	return s;
 }
 
-static void bind_texture(const char* file_name, Sprite* s) {
+static void bind_texture(Sprite* s, const char* file_name="Textures/Anna.png") {
 	bind_texture(file_name, s->mesh);
 
 	glBindTexture(GL_TEXTURE_2D, s->mesh->gl_texture);
@@ -47,7 +46,9 @@ static void bind_texture(const char* file_name, Sprite* s) {
 	s->mesh->vtxs[1].cds = { s->x_stride, 1 - 2 * s->y_stride };
 	s->mesh->vtxs[2].cds = { s->x_stride, 1 - s->y_stride };
 	s->mesh->vtxs[3].cds = { 0, 1 - s->y_stride };
+}
 
-	std::cout << s->x_stride << std::endl;
-	std::cout << s->y_stride << std::endl;
+static void update_sprites() {
+	for (auto& s : SPRS)
+		s->update();
 }

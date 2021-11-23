@@ -10,7 +10,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "SOIL/SOIL.h"
 
-#include "Renderable.h"
+#include "Mesh.h"
 
 #include <vector>
 #include <iostream>

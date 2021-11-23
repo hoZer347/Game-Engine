@@ -15,10 +15,12 @@ void Renderer::load() {
     glewExperimental = GL_TRUE;
     glewInit();
 
+    glClearColor(0.5, 0.5, 0.5, 1);
+
     // Making textures work
     glEnable(GL_TEXTURE_2D);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     //
 
     // Anti-aliasing
@@ -27,9 +29,9 @@ void Renderer::load() {
     //
 
     // Blocking stuff that are behind opaque objects
+    glEnable(GL_BLEND);
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
-    glEnable(GL_BLEND);
     //
 
     // Alpha processing setup
@@ -39,7 +41,7 @@ void Renderer::load() {
     //
 
     // Culling faces that don't face the camera
-     //glEnable(GL_CULL_FACE);
+    glEnable(GL_CULL_FACE);
 
     // LOADING SHADER BULLSHIT
 

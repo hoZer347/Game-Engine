@@ -2,11 +2,8 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Renderable.cpp">
+    <ClCompile Include="Mesh.cpp">
       <Filter>Engine\Renderables</Filter>
-    </ClCompile>
-    <ClCompile Include="Grid.cpp">
-      <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Game</Filter>
@@ -23,9 +20,23 @@
     <ClCompile Include="Room.cpp">
       <Filter>Engine\Room</Filter>
     </ClCompile>
-    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="Grid.cpp">
+      <Filter>Game\Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Game\Menu</Filter>
+    </ClCompile>
     <ClCompile Include="Sprite.cpp">
-      <Filter>Game</Filter>
+      <Filter>Engine\Renderables\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>Engine\Renderables\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="TextMenu.cpp">
+      <Filter>Game\Menu\TextMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Engine\Timer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -53,16 +64,31 @@
     <Filter Include="Engine\Room\Renderer">
       <UniqueIdentifier>{616178ba-a699-41c2-ba28-5e98abfbfd7c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Grid">
+      <UniqueIdentifier>{592d920c-aad9-4aeb-aa1a-90e092ace1cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Menu">
+      <UniqueIdentifier>{82fb1700-1128-4d01-b3fd-143539d57a07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Renderables\Sprite">
+      <UniqueIdentifier>{31ad9446-4837-43f7-9121-f4c7ab6ef01f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Renderables\Text">
+      <UniqueIdentifier>{403056ab-32af-4d47-979e-783b5251d146}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Menu\TextMenu">
+      <UniqueIdentifier>{ee959fc2-9dc5-4a21-a2f8-b534068a218b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Timer">
+      <UniqueIdentifier>{5f535fd4-7900-4784-a6d7-0a8f4879d70b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Renderable.h">
+    <ClInclude Include="Mesh.h">
       <Filter>Engine\Renderables</Filter>
     </ClInclude>
     <ClInclude Include="HelpfulStuff.h">
       <Filter>Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="Grid.h">
-      <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Game</Filter>
@@ -79,8 +105,24 @@
     <ClInclude Include="Room.h">
       <Filter>Engine\Room</Filter>
     </ClInclude>
-    <ClInclude Include="Timer.h" />
-    <ClInclude Include="Sprite.h" />
+    <ClInclude Include="Grid.h">
+      <Filter>Game\Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Game\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Engine\Renderables\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Engine\Renderables\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="TextMenu.h">
+      <Filter>Game\Menu\TextMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Engine\Timer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\default.frag">

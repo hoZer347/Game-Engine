@@ -2,13 +2,13 @@
 
 #include <glm/gtx/intersect.hpp>
 
-#include "Sprite.h"
-
 void Game::init() {
     Camera* c = room->r->c;
     Container* g = room->c;
     Inputs* i = room->i;
     Renderer* r = room->r;
+
+    FT_Init_FreeType(&lib);
 
     glfwSetWindowUserPointer(room->r->window, room);
 
@@ -16,8 +16,7 @@ void Game::init() {
     scroll_zooms_camera(room);
 
     while (!glfwWindowShouldClose(room->r->window)) {
-        for (auto& s : SPRS)
-            s->update();
+        update_sprites();
 
         i->update();
         g->update();

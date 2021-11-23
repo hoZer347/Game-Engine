@@ -4,22 +4,20 @@
 #include <iostream>
 
 #include "Game.h"
-#include "Text.h"
-#include "Sprite.h"
 
 // Currently doing: Object selection
 // TODO: Add shadows
 // TODO: Add sound
-// TODO: Sprite Implementation
 // TODO: Timer Implementation
 // TODO: Find out the normal of a 3D function
+
+// Bugs
+// TODO: Sprites are blurry
 
 using namespace glm;
 
 int main() {
-    FT_Init_FreeType(&lib);
-
-    Room* room = create_room();
+    Game game;
 
     auto sprite = create_sprite();
     bind_texture(sprite);
@@ -34,7 +32,6 @@ int main() {
     for (auto& i : m1->vtxs)
         y_is_negz(i);
 
-    Game game(room);
     game.init();
 
     // close GL context and any other GLFW resources

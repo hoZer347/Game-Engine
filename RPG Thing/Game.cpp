@@ -2,6 +2,11 @@
 
 #include <glm/gtx/intersect.hpp>
 
+Game::Game() {
+    FT_Init_FreeType(&lib);
+    room = create_room();
+}
+
 void Game::init() {
     Camera* c = room->r->c;
     Container* g = room->c;

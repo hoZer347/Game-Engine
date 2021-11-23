@@ -7,7 +7,7 @@
 
 class Game {
 public:
-	Game(Room* r) { room = r; };
+	Game();
 	void init();
 
 	Room* room = NULL;

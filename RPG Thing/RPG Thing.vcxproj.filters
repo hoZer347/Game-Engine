@@ -36,7 +36,7 @@
       <Filter>Engine\Timer</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
-      <Filter>Game</Filter>
+      <Filter>Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -74,7 +74,7 @@
       <Filter>Engine\Timer</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
-      <Filter>Game</Filter>
+      <Filter>Engine</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

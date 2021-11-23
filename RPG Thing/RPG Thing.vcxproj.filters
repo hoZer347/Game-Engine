@@ -1,39 +1,138 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Container.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Grid.cpp" />
-    <ClCompile Include="Inputs.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Menu.cpp" />
-    <ClCompile Include="Mesh.cpp" />
-    <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="Room.cpp" />
-    <ClCompile Include="Sprite.cpp" />
-    <ClCompile Include="Text.cpp" />
-    <ClCompile Include="TextMenu.cpp" />
-    <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Engine\Renderables</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>Engine\Renderables\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Engine\Renderables\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="Room.cpp">
+      <Filter>Engine\Room</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Engine\Room\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Container.cpp">
+      <Filter>Engine\Room\Container</Filter>
+    </ClCompile>
+    <ClCompile Include="Inputs.cpp">
+      <Filter>Engine\Room\Inputs</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Engine\Renderables\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="TextMenu.cpp">
+      <Filter>Game\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Game\Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Engine\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Container.h" />
-    <ClInclude Include="HelpfulStuff.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="Grid.h" />
-    <ClInclude Include="Inputs.h" />
-    <ClInclude Include="Menu.h" />
-    <ClInclude Include="Mesh.h" />
-    <ClInclude Include="Renderer.h" />
-    <ClInclude Include="Room.h" />
-    <ClInclude Include="Sprite.h" />
-    <ClInclude Include="Text.h" />
-    <ClInclude Include="TextMenu.h" />
-    <ClInclude Include="Timer.h" />
+    <ClInclude Include="Mesh.h">
+      <Filter>Engine\Renderables</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Engine\Renderables\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Engine\Renderables\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Room.h">
+      <Filter>Engine\Room</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Engine\Room\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Container.h">
+      <Filter>Engine\Room\Container</Filter>
+    </ClInclude>
+    <ClInclude Include="Inputs.h">
+      <Filter>Engine\Room\Inputs</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Engine\Renderables\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="TextMenu.h">
+      <Filter>Game\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Game\Containers</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Engine\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\default.frag" />
-    <None Include="Shaders\default.vert" />
-    <None Include="Shaders\depth.frag" />
-    <None Include="Shaders\depth.vert" />
+    <None Include="Shaders\default.frag">
+      <Filter>Engine\Shaders</Filter>
+    </None>
+    <None Include="Shaders\default.vert">
+      <Filter>Engine\Shaders</Filter>
+    </None>
+    <None Include="Shaders\depth.frag">
+      <Filter>Engine\Shaders</Filter>
+    </None>
+    <None Include="Shaders\depth.vert">
+      <Filter>Engine\Shaders</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{172fb9a9-b0d3-4bb5-a731-952e5f66af28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Renderables">
+      <UniqueIdentifier>{1470e032-929e-45e2-97cc-ea4546463dca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Renderables\Text">
+      <UniqueIdentifier>{65b7369a-96e9-46e1-9456-eebcd528b5bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Renderables\Sprite">
+      <UniqueIdentifier>{212c7a23-c952-419a-9854-c5c39f56d46e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Room">
+      <UniqueIdentifier>{be6fb22b-8e3e-4c10-b2f8-c7de92b525f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Room\Renderer">
+      <UniqueIdentifier>{f3ffdba8-7f4b-43fe-a9c1-679a661ced76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Room\Container">
+      <UniqueIdentifier>{64081a62-82ad-45c9-aeb5-16abaedf1ef0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Room\Inputs">
+      <UniqueIdentifier>{a2709745-aa4d-4e4a-83c9-4a8538a53e3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Renderables\Menu">
+      <UniqueIdentifier>{76549138-9582-4def-bd25-efec8e7f38ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{058eaad8-4288-4ec6-acec-939421d44ac9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Menus">
+      <UniqueIdentifier>{82e192ea-c28a-44ff-b3ed-a79430452491}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Containers">
+      <UniqueIdentifier>{55af7ca5-3c98-4678-b3dc-e6d1f5f39167}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Timer">
+      <UniqueIdentifier>{87853cea-43d1-4c23-b03b-c1af22c7c48d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Shaders">
+      <UniqueIdentifier>{702b534b-73ff-489e-bf63-b5953af18593}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

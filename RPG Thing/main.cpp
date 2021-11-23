@@ -34,8 +34,7 @@ int main() {
     for (auto& i : m1->vtxs)
         y_is_negz(i);
 
-    FTL game(room);
-
+    Game game(room);
     game.init();
 
     // close GL context and any other GLFW resources

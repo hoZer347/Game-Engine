@@ -5,10 +5,9 @@
 
 #include "Game.h"
 
-// Currently doing: Object selection
+// Tasks
 // TODO: Add shadows
 // TODO: Add sound
-// TODO: Timer Implementation
 // TODO: Find out the normal of a 3D function
 
 // Bugs

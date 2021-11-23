@@ -14,11 +14,13 @@ struct Letter {
 	Mesh* m = NULL;
 	vec2 s = vec2(0);
 	float offset = 0;
+	float b = 0;
 	auto& operator[](unsigned int i) { return m->vtxs[i]; };
 };
 
 struct Font {
 	FT_Face f = NULL;
+	int scale = 0;
 	std::vector<Letter> l;
 };
 
@@ -33,13 +35,15 @@ extern std::vector<Font*> FONT;
 extern std::vector<Text*> TEXT;
 
 // Creates a glyph texture and a freetype face for a given font
-static Font* create_font(const char* file_name = "Fonts/Default.ttf", int size = 640) {
+static Font* create_font(const char* file_name = "Fonts/Default.ttf", int scale = 640) {
 	Font* font = new Font();
 
 	FT_New_Face(lib, file_name, NULL, &font->f);
-	FT_Set_Pixel_Sizes(font->f, size, 0);
+	FT_Set_Pixel_Sizes(font->f, scale, 0);
 
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+	font->scale = scale;
 
 	for (int i = 0; i < 128; i++) {
 		Mesh* m = create_square();
@@ -72,8 +76,9 @@ static Font* create_font(const char* file_name = "Fonts/Default.ttf", int size =
 
 		Letter l = {
 			m,
-			vec2((float)font->f->glyph->bitmap.width / size, (float)font->f->glyph->bitmap.rows / size),
-			(float)font->f->glyph->advance.x / (64 * size)
+			vec2((float)font->f->glyph->bitmap.width / scale, (float)font->f->glyph->bitmap.rows / scale),
+			(float)font->f->glyph->advance.x / (64 * scale),
+			(float)font->f->glyph->bitmap_top / scale
 		};
 
 		font->l.push_back(l);
@@ -94,7 +99,7 @@ static Text* create_text(std::string text, Font* font) {
 
 	for (auto& c : text) {
 		if (c == '\n') {
-			y -= (float) font->f->height / (4 * 640);
+			y -= (float) font->f->height / (4 * font->scale);
 			x = 0;
 			continue;
 		}
@@ -114,10 +119,10 @@ static Text* create_text(std::string text, Font* font) {
 		l.m->inds.push_back(i + 3);
 		
 		// Setting Positions
-		l.m->vtxs[i + BOTTOM_LEFT].pos		= vec3(x, y, 0);
-		l.m->vtxs[i + BOTTOM_RIGHT].pos		= vec3(l.s.x + x, y, 0);
-		l.m->vtxs[i + TOP_RIGHT].pos		= vec3(l.s.x + x, l.s.y + y, 0);
-		l.m->vtxs[i + TOP_LEFT].pos			= vec3(x, l.s.y + y, 0);
+		l.m->vtxs[i + BOTTOM_LEFT].pos		= vec3(x, y + l.b - l.s.y, 0);
+		l.m->vtxs[i + BOTTOM_RIGHT].pos		= vec3(l.s.x + x, y + l.b - l.s.y, 0);
+		l.m->vtxs[i + TOP_RIGHT].pos		= vec3(l.s.x + x, y + l.b, 0);
+		l.m->vtxs[i + TOP_LEFT].pos			= vec3(x, l.s.y + y + l.b - l.s.y, 0);
 
 		// Setting tex coords
 		l.m->vtxs[i + BOTTOM_LEFT].cds		= vec2(0, 1);

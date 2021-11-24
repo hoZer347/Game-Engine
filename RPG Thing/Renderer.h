@@ -8,6 +8,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include <thread>
 #include "SOIL/SOIL.h"
 
 #include "Mesh.h"
@@ -42,6 +43,7 @@ public:
 	Renderer();
 
 	void load();
+	void render(Mesh*);
 	void update();
 
 	void create_shader(std::string, std::string);

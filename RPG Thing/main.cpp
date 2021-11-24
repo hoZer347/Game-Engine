@@ -4,6 +4,9 @@
 #include <iostream>
 
 #include "Game.h"
+#include "Grid.h"
+#include "Text.h"
+#include "Sprite.h"
 
 // Tasks
 // TODO: Add shadows
@@ -17,28 +20,10 @@
 using namespace glm;
 
 int main() {
+    FT_Init_FreeType(&lib);
     Game game;
 
-    int i = 0;
-
-    auto sprite = create_sprite();
-    bind_texture(sprite);
-    sprite->mesh->trns = translate(sprite->mesh->trns, vec3(-1, -1, 0));
-    sprite->mesh->ortho = true;
-
-    auto m1 = create_plane(10, 10);
-    change_rendering(m1, GL_LINES);
-
-    auto f = create_font();
-    auto t1 = create_text("Testing", f);
-
-    clear_font(f);
-
-    auto t2 = create_text("OMG", f);
-    translate_text(t1, vec3(0, 0, 1));
-
-    for (auto& i : m1->vtxs)
-        y_is_negz(i);
+    auto g = create_grid(100, 100, a_sinx_sinz);
 
     game.init();
 

@@ -2,8 +2,6 @@
 
 #include "Room.h"
 #include "Timer.h"
-#include "Text.h"
-#include "Sprite.h"
 
 class Game {
 public:

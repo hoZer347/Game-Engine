@@ -9,6 +9,7 @@
 
 #include <map>
 #include <vector>
+#include <functional>
 
 #include <iostream>
 
@@ -43,10 +44,21 @@ struct Mesh {
 		gl_texture = 0;
 };
 
-extern std::vector<Mesh*> MESH;
-extern std::map<const char*, unsigned int> TEXS;
+// Wrapper for meshes that need to be periodically updated
+class MeshObj {
+public:
+	virtual void update()=0;
+	bool animate = true;
+	Mesh* m;
+};
 
-// MESH FUNCTIONS
+static void update_meshobj(MeshObj* m) {
+	m->update();
+}
+
+extern std::vector<Mesh*> MESH;
+extern std::vector<MeshObj*> OBJS;
+extern std::map<const char*, unsigned int> TEXS;
 
 // Generates a mesh object
 static Mesh* create_mesh(
@@ -100,7 +112,7 @@ static Mesh* create_square(bool add = true) {
 }
 
 // Generates a plane of squares of the given dimensions with the default inner square dimensions
-static Mesh* create_plane(unsigned int x, unsigned int y) {
+static Mesh* create_plane(unsigned int x=10, unsigned int y=10) {
 	std::vector<Vtx> vtxs;
 	std::vector<unsigned int> inds;
 
@@ -199,6 +211,13 @@ auto x_plus_y = [](Vtx& v) {
 
 auto sinx_cosy = [](Vtx& v) {
 	v.pos.z = sin(v.pos.x) + cos(v.pos.y);
+
+	return;
+};
+
+auto sinx_sinz = [](Vtx& v) {
+	y_is_negz(v);
+	v.pos.y = sin(v.pos.x) + sin(v.pos.z);
 
 	return;
 };

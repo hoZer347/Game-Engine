@@ -111,38 +111,8 @@ void Renderer::update() {
 
     // DRAWING OBJECTS
 
-    for (auto& i : MESH) {
-        glBindBuffer(GL_ARRAY_BUFFER, _vtxs);
-        glBufferData(GL_ARRAY_BUFFER, i->vtxs.size() * sizeof(Vtx), i->vtxs.data(), GL_DYNAMIC_DRAW);
-
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _inds);
-        glBufferData(GL_ELEMENT_ARRAY_BUFFER, i->inds.size() * sizeof(unsigned int), i->inds.data(), GL_STATIC_DRAW);
-
-        if (i->ortho)
-            glUniformMatrix4fv(glGetUniformLocation(shader_programme, "mode"), 1, GL_FALSE, value_ptr(c->mode * inverse(c->mvp) * i->trns));
-        else
-            glUniformMatrix4fv(glGetUniformLocation(shader_programme, "mode"), 1, GL_FALSE, value_ptr(c->mode * i->trns));
-
-        // Determining how to draw
-        if (i->gl_render_type == GL_LINES)
-            glUniform1i(glGetUniformLocation(shader_programme, "type"), 0);
-        else if (!i->gl_texture)
-            glUniform1i(glGetUniformLocation(shader_programme, "type"), 1);
-        else if (i->ortho)
-            glUniform1i(glGetUniformLocation(shader_programme, "type"), 2);
-        else
-            glUniform1i(glGetUniformLocation(shader_programme, "type"), 3);
-
-        // Loading Texture
-        glBindTexture(GL_TEXTURE_2D, i->gl_texture);
-        glUniform1i(glGetUniformLocation(shader_programme, "tex"), 0);
-
-        // Drawing
-        glDrawElements(i->gl_render_type, i->inds.size(), i->gl_data_type, (void*)0);    
-
-        // Unloading Texture
-        glBindTexture(GL_TEXTURE_2D, 0);
-    }
+    for (auto& m : MESH)
+        render(m);
 
     // UNLOADING BUFFERS
 
@@ -152,6 +122,39 @@ void Renderer::update() {
     // REFRESHING WINDOW
 
     glfwSwapBuffers(window);
+}
+
+void Renderer::render(Mesh* m) {
+    glBindBuffer(GL_ARRAY_BUFFER, _vtxs);
+    glBufferData(GL_ARRAY_BUFFER, m->vtxs.size() * sizeof(Vtx), m->vtxs.data(), GL_DYNAMIC_DRAW);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _inds);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, m->inds.size() * sizeof(unsigned int), m->inds.data(), GL_STATIC_DRAW);
+
+    if (m->ortho)
+        glUniformMatrix4fv(glGetUniformLocation(shader_programme, "mode"), 1, GL_FALSE, value_ptr(c->mode * inverse(c->mvp) * m->trns));
+    else
+        glUniformMatrix4fv(glGetUniformLocation(shader_programme, "mode"), 1, GL_FALSE, value_ptr(c->mode * m->trns));
+
+    // Determining how to draw
+    if (m->gl_render_type == GL_LINES)
+        glUniform1i(glGetUniformLocation(shader_programme, "type"), 0);
+    else if (!m->gl_texture)
+        glUniform1i(glGetUniformLocation(shader_programme, "type"), 1);
+    else if (m->ortho)
+        glUniform1i(glGetUniformLocation(shader_programme, "type"), 2);
+    else
+        glUniform1i(glGetUniformLocation(shader_programme, "type"), 3);
+
+    // Loading Texture
+    glBindTexture(GL_TEXTURE_2D, m->gl_texture);
+    glUniform1i(glGetUniformLocation(shader_programme, "tex"), 0);
+
+    // Drawing
+    glDrawElements(m->gl_render_type, m->inds.size(), m->gl_data_type, (void*)0);
+
+    // Unloading Texture
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void Renderer::create_shader(std::string f1, std::string f2) {

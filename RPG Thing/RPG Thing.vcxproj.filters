@@ -17,9 +17,6 @@
     <ClCompile Include="Renderer.cpp">
       <Filter>Engine\Room\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="Container.cpp">
-      <Filter>Engine\Room\Container</Filter>
-    </ClCompile>
     <ClCompile Include="Inputs.cpp">
       <Filter>Engine\Room\Inputs</Filter>
     </ClCompile>
@@ -54,9 +51,6 @@
     </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>Engine\Room\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Container.h">
-      <Filter>Engine\Room\Container</Filter>
     </ClInclude>
     <ClInclude Include="Inputs.h">
       <Filter>Engine\Room\Inputs</Filter>
@@ -109,9 +103,6 @@
     </Filter>
     <Filter Include="Engine\Room\Renderer">
       <UniqueIdentifier>{f3ffdba8-7f4b-43fe-a9c1-679a661ced76}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Room\Container">
-      <UniqueIdentifier>{64081a62-82ad-45c9-aeb5-16abaedf1ef0}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Room\Inputs">
       <UniqueIdentifier>{a2709745-aa4d-4e4a-83c9-4a8538a53e3e}</UniqueIdentifier>

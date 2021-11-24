@@ -33,6 +33,7 @@ struct Vtx {
 struct Mesh {
 	std::vector<Vtx> vtxs;
 	std::vector<unsigned int> inds;
+	bool ortho = false;
 	mat4 trns = mat4(1);
 
 	unsigned int
@@ -175,8 +176,6 @@ static void change_rendering(Mesh* m, unsigned int gl_render_type) {
 	m->inds = new_inds;
 	m->gl_render_type = gl_render_type;
 }
-
-// PLANE FUNCTIONS
 
 auto default_func = [](Vtx& v) {
 	return;

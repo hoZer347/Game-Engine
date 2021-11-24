@@ -37,6 +37,8 @@ static void bind_texture(Sprite* s, const char* file_name="Textures/Anna.png") {
 	glBindTexture(GL_TEXTURE_2D, s->mesh->gl_texture);
 	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &s->img_x);
 	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &s->img_y);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glBindTexture(GL_TEXTURE_2D, 0);
 
 	s->x_stride = s->sprite_size / (float)s->img_x;

@@ -23,6 +23,8 @@ uniform vec3 specularColor=vec3(.5, .5, .5);
 void main() {
     if (type == 0)
         gl_FragColor = fcolor;
+    else if (type == 2)
+        gl_FragColor = fcolor * texture(tex, ftexCoords);
     
     else {
         vec3 N = normalize(fnormal);
@@ -44,7 +46,7 @@ void main() {
         
         if (type == 1)
             gl_FragColor = color * fcolor;
-        else if (type == 2)
+        else if (type == 3)
 		    gl_FragColor = color * fcolor * texture(tex, ftexCoords);
     }
 }

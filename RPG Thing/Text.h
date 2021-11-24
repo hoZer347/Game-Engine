@@ -18,24 +18,23 @@ struct Letter {
 	auto& operator[](unsigned int i) { return m->vtxs[i]; };
 };
 
-struct Font {
-	FT_Face f = NULL;
-	int scale = 0;
-	std::vector<Letter> l;
-};
-
 struct Text {
-	Font* f = NULL;
 	std::string s;
 	std::map<Mesh*, std::vector<unsigned int>> l;
 };
 
+struct Font {
+	FT_Face f = NULL;
+	int scale = 0;
+	std::vector<Text*> t;
+	std::vector<Letter> l;
+};
+
 extern FT_Library lib;
 extern std::vector<Font*> FONT;
-extern std::vector<Text*> TEXT;
 
 // Creates a glyph texture and a freetype face for a given font
-static Font* create_font(const char* file_name = "Fonts/Default.ttf", int scale = 640) {
+static Font* create_font(const char* file_name = "Fonts/Default.ttf", int scale = 640, bool ortho = false) {
 	Font* font = new Font();
 
 	FT_New_Face(lib, file_name, NULL, &font->f);
@@ -49,6 +48,7 @@ static Font* create_font(const char* file_name = "Fonts/Default.ttf", int scale 
 		Mesh* m = create_square();
 		m->vtxs.clear();
 		m->inds.clear();
+		m->ortho = ortho;
 
 		FT_Load_Glyph(font->f, FT_Get_Char_Index(font->f, (char)i), FT_LOAD_DEFAULT);
 		FT_Render_Glyph(font->f->glyph, FT_RENDER_MODE_NORMAL);
@@ -94,7 +94,6 @@ static Font* create_font(const char* file_name = "Fonts/Default.ttf", int scale 
 // Generates text using a font
 static Text* create_text(std::string text, Font* font) {
 	Text* t = new Text();
-	t->f = font;
 	float x=0, y=0;
 
 	for (auto& c : text) {
@@ -140,9 +139,23 @@ static Text* create_text(std::string text, Font* font) {
 		t->s += c;
 	}
 
-	TEXT.push_back(t);
+	font->t.push_back(t);
 
 	return t;
+}
+
+// Scales a vector using a float
+static void scale_text(Text* t, float s) {
+	for (auto& i : t->l)
+		for (auto& j : i.second)
+			i.first->vtxs[j].pos *= s;
+}
+
+// Translates text by a vector
+static void translate_text(Text* t, vec3 v) {
+	for (auto& i : t->l)
+		for (auto& j : i.second)
+			i.first->vtxs[j].pos += v;
 }
 
 // Unloads all text faces
@@ -151,3 +164,13 @@ static void unload_faces() {
 		FT_Done_Face(f->f);
 }
 
+// Correctly clears a font
+static void clear_font(Font* f) {
+	for (auto& l : f->l) {
+		l.m->vtxs.clear();
+		l.m->inds.clear();
+	}
+
+	for (auto& t : f->t)
+		t->l.clear();
+}

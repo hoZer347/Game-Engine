@@ -55,7 +55,10 @@ enum {
 	LOOK = 2
 };
 
-static auto get_cam_ray = [](Room* r, std::function<void(Vtx&)> func = default_func) {
+static auto get_cam_ray = [](Room* r) {
+	if (!r)
+		return mat3(0);
+
 	int w = 0, h = 0;
 	glfwGetWindowSize(r->r->window, &w, &h);
 
@@ -67,14 +70,12 @@ static auto get_cam_ray = [](Room* r, std::function<void(Vtx&)> func = default_f
 		 eye = inverse(r->r->c->mvp) * eye;
 		 eye /= eye.w;
 		 v.pos = vec3(eye);
-		 func(v);
 		 eye = vec4(v.pos, 1);
 
 	vec4 look = mv + vec4(r->r->c->look, 0);
 		 look = inverse(r->r->c->mvp) * look;
 		 look /= look.w;
 		 v.pos = vec3(look);
-		 func(v);
 		 look = vec4(v.pos, 1);
 
 	vec4 ray = (look - eye);

@@ -20,7 +20,8 @@ void Game::init() {
         i->update();
 
         for (auto& m : OBJS)
-            std::thread t (update_meshobj, m);
+            if (m->animate)
+                m->update();
 
         r->update();
         

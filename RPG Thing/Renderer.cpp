@@ -15,7 +15,7 @@ void Renderer::load() {
     glewExperimental = GL_TRUE;
     glewInit();
 
-    glClearColor(0.5, 0.5, 0.5, 1);
+    glClearColor(0.5, 0.5, 0.5, 0);
 
     // Making textures work
     glEnable(GL_TEXTURE_2D);

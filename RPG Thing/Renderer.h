@@ -24,6 +24,9 @@ struct Camera {
 		up = vec3(0, 1, 0),
 		eye = vec3(0, 0, 0),
 		look = vec3(0, 0, -5);
+	
+	mat3
+		cam_ray = mat3(0);
 
 	mat4
 		roll = mat4(1.0f), // X axis

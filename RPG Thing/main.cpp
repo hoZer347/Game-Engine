@@ -7,6 +7,7 @@
 #include "Grid.h"
 #include "Text.h"
 #include "Sprite.h"
+#include "Unit.h"
 
 // Tasks
 // TODO: Add shadows
@@ -23,7 +24,10 @@ int main() {
     FT_Init_FreeType(&lib);
     Game game;
 
-    auto g = create_grid(100, 100, a_sinx_sinz);
+    auto g = create_grid(10, 10, a_sinx_sinz, true);
+    g->c[5][5]->u = create_unit();
+    g->get = get_cam_ray;
+    g->r = game.room;
 
     game.init();
 

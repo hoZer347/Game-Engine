@@ -23,17 +23,17 @@
     <ClCompile Include="Menu.cpp">
       <Filter>Engine\Renderables\Menu</Filter>
     </ClCompile>
-    <ClCompile Include="TextMenu.cpp">
-      <Filter>Game\Menus</Filter>
-    </ClCompile>
     <ClCompile Include="Grid.cpp">
-      <Filter>Game\Containers</Filter>
+      <Filter>Game\Renderables</Filter>
     </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>Engine\Timer</Filter>
     </ClCompile>
     <ClCompile Include="Game.cpp">
       <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Unit.cpp">
+      <Filter>Game\Renderables</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -58,17 +58,17 @@
     <ClInclude Include="Menu.h">
       <Filter>Engine\Renderables\Menu</Filter>
     </ClInclude>
-    <ClInclude Include="TextMenu.h">
-      <Filter>Game\Menus</Filter>
-    </ClInclude>
     <ClInclude Include="Grid.h">
-      <Filter>Game\Containers</Filter>
+      <Filter>Game\Renderables</Filter>
     </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>Engine\Timer</Filter>
     </ClInclude>
     <ClInclude Include="Game.h">
       <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Unit.h">
+      <Filter>Game\Renderables</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -113,17 +113,14 @@
     <Filter Include="Game">
       <UniqueIdentifier>{058eaad8-4288-4ec6-acec-939421d44ac9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Menus">
-      <UniqueIdentifier>{82e192ea-c28a-44ff-b3ed-a79430452491}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Containers">
-      <UniqueIdentifier>{55af7ca5-3c98-4678-b3dc-e6d1f5f39167}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Timer">
       <UniqueIdentifier>{87853cea-43d1-4c23-b03b-c1af22c7c48d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Shaders">
       <UniqueIdentifier>{702b534b-73ff-489e-bf63-b5953af18593}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Renderables">
+      <UniqueIdentifier>{55af7ca5-3c98-4678-b3dc-e6d1f5f39167}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

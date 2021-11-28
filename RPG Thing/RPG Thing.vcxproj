@@ -161,8 +161,8 @@
     <ClCompile Include="Room.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Text.cpp" />
-    <ClCompile Include="TextMenu.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="Unit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
@@ -174,8 +174,8 @@
     <ClInclude Include="Room.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Text.h" />
-    <ClInclude Include="TextMenu.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="Unit.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\default.frag" />

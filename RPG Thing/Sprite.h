@@ -15,9 +15,10 @@ public:
 	float x_stride=0, y_stride=0;
 };
 
-static Sprite* create_sprite(float sprite_size=32, int interval= 16 * 15) {
+static Sprite* create_sprite(float sprite_size=32, int interval=16*15, bool animate=true) {
 	Sprite* s = new Sprite();
 	s->m = create_square();
+	s->animate = animate;
 
 	s->interval = interval;
 	s->sprite_size = sprite_size;

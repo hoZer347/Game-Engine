@@ -49,12 +49,8 @@ class MeshObj {
 public:
 	virtual void update()=0;
 	bool animate = true;
-	Mesh* m;
+	Mesh* m = NULL;
 };
-
-static void update_meshobj(MeshObj* m) {
-	m->update();
-}
 
 extern std::vector<Mesh*> MESH;
 extern std::vector<MeshObj*> OBJS;

@@ -13,9 +13,6 @@ void Game::init() {
 
     glfwSetWindowUserPointer(room->r->window, room);
 
-    free_camera(room);
-    scroll_zooms_camera(room);
-
     while (!glfwWindowShouldClose(room->r->window)) {
         i->update();
 

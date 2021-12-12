@@ -4,6 +4,7 @@
 #include <iostream>
 
 #include "Game.h"
+#include "Logic.hpp"
 #include "Grid.h"
 #include "Text.h"
 #include "Sprite.h"
@@ -28,6 +29,9 @@ int main() {
     g->c[5][5]->u = create_unit();
     g->get = get_cam_ray;
     g->r = game.room;
+
+    free_camera(game.room);
+    scroll_zooms_camera(game.room);
 
     game.init();
 

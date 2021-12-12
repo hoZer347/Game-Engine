@@ -35,6 +35,9 @@
     <ClCompile Include="Unit.cpp">
       <Filter>Game\Renderables</Filter>
     </ClCompile>
+    <ClCompile Include="Logic.hpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mesh.h">

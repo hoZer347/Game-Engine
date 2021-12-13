@@ -11,9 +11,6 @@
     <ClCompile Include="Sprite.cpp">
       <Filter>Engine\Renderables\Sprite</Filter>
     </ClCompile>
-    <ClCompile Include="Room.cpp">
-      <Filter>Engine\Room</Filter>
-    </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>Engine\Room\Renderer</Filter>
     </ClCompile>
@@ -29,14 +26,8 @@
     <ClCompile Include="Timer.cpp">
       <Filter>Engine\Timer</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Engine</Filter>
-    </ClCompile>
     <ClCompile Include="Unit.cpp">
       <Filter>Game\Renderables</Filter>
-    </ClCompile>
-    <ClCompile Include="Logic.hpp">
-      <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -48,9 +39,6 @@
     </ClInclude>
     <ClInclude Include="Sprite.h">
       <Filter>Engine\Renderables\Sprite</Filter>
-    </ClInclude>
-    <ClInclude Include="Room.h">
-      <Filter>Engine\Room</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>Engine\Room\Renderer</Filter>
@@ -66,9 +54,6 @@
     </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>Engine\Timer</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Engine</Filter>
     </ClInclude>
     <ClInclude Include="Unit.h">
       <Filter>Game\Renderables</Filter>

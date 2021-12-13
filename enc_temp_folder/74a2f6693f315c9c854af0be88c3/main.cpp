@@ -29,6 +29,7 @@ int main() {
         auto spr = create_sprite();
         spr->m->trns = translate(mat4(1), vec3(-.5, -.5, -10));
         bind_texture(spr);
+        // spr->animate = true;
     };
 
     auto clock = start_clock();

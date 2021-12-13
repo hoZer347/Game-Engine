@@ -21,7 +21,5 @@ void Game::init() {
                 m->update();
 
         r->update();
-        
-        update_timer();
     }
 }

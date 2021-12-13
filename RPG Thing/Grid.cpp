@@ -22,7 +22,7 @@ void Grid::update() {
 			vec3 v;
 			if (intersectRayTriangle(mat[0], -mat[1]*=100, j->m->vtxs[0].pos, j->m->vtxs[1].pos, j->m->vtxs[2].pos, v) ||
 				intersectRayTriangle(mat[0], -mat[1]*=100, j->m->vtxs[0].pos, j->m->vtxs[2].pos, j->m->vtxs[3].pos, v)) {
-				selected = j;
+				hovered = j;
 				m->vtxs = j->m->vtxs;
 				m->inds = j->m->inds;
 				for (auto& v : m->vtxs) {
@@ -36,5 +36,5 @@ void Grid::update() {
 
 	m->vtxs.clear();
 	m->inds.clear();
-	selected = NULL;
+	hovered = NULL;
 }

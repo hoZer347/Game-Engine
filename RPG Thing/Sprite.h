@@ -7,7 +7,7 @@ class Sprite : public MeshObj {
 public:
 	void update();
 
-	int last_time = curr_time;
+	unsigned int last_time = curr_time;
 	int interval = 16 * 15;
 	float sprite_size=32;
 	int x=0, y=0;

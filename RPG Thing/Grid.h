@@ -28,6 +28,7 @@ class Grid : public MeshObj {
 public:
 	void update();
 
+	Cell* hovered = NULL;
 	Cell* selected = NULL;
 	Room* r = NULL;
 
@@ -72,10 +73,3 @@ static Grid* create_grid(unsigned int x=10, unsigned int y=10, std::function<voi
 
 	return g;
 }
-
-static auto a_sinx_sinz = [](Vtx& v) {
-	float d = (float)ticks / 100;
-	v.pos.y = (sin(v.pos.x + d) + sin(v.pos.z + d))/16;
-	
-	return;
-};

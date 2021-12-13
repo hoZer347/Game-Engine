@@ -216,3 +216,5 @@ void Renderer::create_shader(std::string f1, std::string f2, std::string f3) {
     glLinkProgram(depth_shader);
     glUseProgram(depth_shader);
 }
+
+Renderer* renderer;

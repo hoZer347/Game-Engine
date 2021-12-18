@@ -1,16 +1,13 @@
 #include "Renderer.h"
 
 Renderer::Renderer() {
-    load();
-}
-
-void Renderer::load() {
     // LOADING WINDOW / OPENGL SETTINGS
 
     glfwInit();
 
     window = glfwCreateWindow(window_w, window_h, "", NULL, NULL);
     glfwMakeContextCurrent(window);
+    inputs = new Inputs(window);
 
     glewExperimental = GL_TRUE;
     glewInit();
@@ -122,6 +119,46 @@ void Renderer::update() {
     // REFRESHING WINDOW
 
     glfwSwapBuffers(window);
+}
+
+void Renderer::init() {
+    while (!glfwWindowShouldClose(window)) {
+        inputs->update();
+
+        for (auto& m : OBJS)
+            if (m->animate)
+                m->update();
+
+        update();
+    }
+}
+
+mat3 Renderer::get_cam_ray() {
+    int w = 0, h = 0;
+    glfwGetWindowSize(window, &w, &h);
+
+    vec4 mv = vec4((inputs->mx - w / 2) / (w / 2), (-inputs->my + h / 2) / (h / 2), 0, 1);
+
+    Vtx v;
+
+    vec4 eye = mv + vec4(c->eye, 0);
+    eye = inverse(c->mvp) * eye;
+    eye /= eye.w;
+    v.pos = vec3(eye);
+    eye = vec4(v.pos, 1);
+
+    vec4 look = mv + vec4(c->look, 0);
+    look = inverse(c->mvp) * look;
+    look /= look.w;
+    v.pos = vec3(look);
+    look = vec4(v.pos, 1);
+
+    vec4 ray = (look - eye);
+    ray = normalize(ray);
+
+    mat3 ret = { vec3(eye), vec3(ray), vec3(look) };
+
+    return ret;
 }
 
 void Renderer::render(Mesh* m) {

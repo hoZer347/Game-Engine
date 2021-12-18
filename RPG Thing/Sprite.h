@@ -8,7 +8,7 @@ public:
 	void update();
 
 	unsigned int last_time = curr_time;
-	int interval = 16 * 15;
+	unsigned int interval = 16 * 15;
 	float sprite_size=32;
 	int x=0, y=0;
 	int img_x=0, img_y=0;
@@ -29,7 +29,7 @@ static Sprite* create_sprite(float sprite_size=32, int interval=16*15, bool anim
 }
 
 static void bind_texture(Sprite* s, const char* file_name="Textures/Anna.png") {
-	bind_texture(file_name, s->m);
+	bind_texture(s->m, file_name);
 
 	glBindTexture(GL_TEXTURE_2D, s->m->gl_texture);
 	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &s->img_x);

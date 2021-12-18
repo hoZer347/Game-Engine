@@ -9,7 +9,6 @@
 
 #include <map>
 #include <vector>
-#include <functional>
 
 #include <iostream>
 
@@ -132,7 +131,7 @@ static Mesh* create_plane(unsigned int x=10, unsigned int y=10) {
 // TEXTURE FUNCTIONS
 
 // Generates a texture and attaches it to the provided mesh
-static void bind_texture(const char* file_name, Mesh* m) {
+static void bind_texture(Mesh* m, const char* file_name) {
 	if (TEXS[file_name]) {
 		m->gl_texture = TEXS[file_name];
 		return;

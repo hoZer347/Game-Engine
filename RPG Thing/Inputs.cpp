@@ -6,6 +6,13 @@ Inputs::Inputs(GLFWwindow* w) {
 
 void Inputs::update() {
 	glfwPollEvents();
+
+	double px=mx, py=my;
+
+	glfwGetCursorPos(window, &mx, &my);
+
+	dx = mx-px;
+	dy = my-py;
 }
 
 Inputs* inputs;

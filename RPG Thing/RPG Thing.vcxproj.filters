@@ -12,22 +12,25 @@
       <Filter>Engine\Renderables\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
-      <Filter>Engine\Room\Renderer</Filter>
+      <Filter>Engine\Renderer</Filter>
     </ClCompile>
     <ClCompile Include="Inputs.cpp">
-      <Filter>Engine\Room\Inputs</Filter>
+      <Filter>Engine\Inputs</Filter>
     </ClCompile>
     <ClCompile Include="Menu.cpp">
       <Filter>Engine\Renderables\Menu</Filter>
     </ClCompile>
-    <ClCompile Include="Grid.cpp">
-      <Filter>Game\Renderables</Filter>
-    </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>Engine\Timer</Filter>
     </ClCompile>
+    <ClCompile Include="Dialogue.cpp">
+      <Filter>Game\Renderables\Dialogue</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Game\Renderables\Grid</Filter>
+    </ClCompile>
     <ClCompile Include="Unit.cpp">
-      <Filter>Game\Renderables</Filter>
+      <Filter>Game\Renderables\Unit</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -41,22 +44,25 @@
       <Filter>Engine\Renderables\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
-      <Filter>Engine\Room\Renderer</Filter>
+      <Filter>Engine\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="Inputs.h">
-      <Filter>Engine\Room\Inputs</Filter>
+      <Filter>Engine\Inputs</Filter>
     </ClInclude>
     <ClInclude Include="Menu.h">
       <Filter>Engine\Renderables\Menu</Filter>
     </ClInclude>
-    <ClInclude Include="Grid.h">
-      <Filter>Game\Renderables</Filter>
-    </ClInclude>
     <ClInclude Include="Timer.h">
       <Filter>Engine\Timer</Filter>
     </ClInclude>
+    <ClInclude Include="Dialogue.h">
+      <Filter>Game\Renderables\Dialogue</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Game\Renderables\Grid</Filter>
+    </ClInclude>
     <ClInclude Include="Unit.h">
-      <Filter>Game\Renderables</Filter>
+      <Filter>Game\Renderables\Unit</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -86,15 +92,6 @@
     <Filter Include="Engine\Renderables\Sprite">
       <UniqueIdentifier>{212c7a23-c952-419a-9854-c5c39f56d46e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Room">
-      <UniqueIdentifier>{be6fb22b-8e3e-4c10-b2f8-c7de92b525f8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Room\Renderer">
-      <UniqueIdentifier>{f3ffdba8-7f4b-43fe-a9c1-679a661ced76}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Room\Inputs">
-      <UniqueIdentifier>{a2709745-aa4d-4e4a-83c9-4a8538a53e3e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Renderables\Menu">
       <UniqueIdentifier>{76549138-9582-4def-bd25-efec8e7f38ac}</UniqueIdentifier>
     </Filter>
@@ -109,6 +106,21 @@
     </Filter>
     <Filter Include="Game\Renderables">
       <UniqueIdentifier>{55af7ca5-3c98-4678-b3dc-e6d1f5f39167}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Inputs">
+      <UniqueIdentifier>{a2709745-aa4d-4e4a-83c9-4a8538a53e3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Renderer">
+      <UniqueIdentifier>{f3ffdba8-7f4b-43fe-a9c1-679a661ced76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Renderables\Dialogue">
+      <UniqueIdentifier>{8608e75d-e88f-4665-9e01-4ed36415509b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Renderables\Grid">
+      <UniqueIdentifier>{1235b75d-50c0-46f0-a408-8638e5bd09b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Renderables\Unit">
+      <UniqueIdentifier>{3c61a71b-220e-40e8-a73a-a5f20f86d872}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

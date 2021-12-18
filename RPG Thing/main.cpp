@@ -25,16 +25,17 @@ using namespace glm;
 int main() {
     FT_Init_FreeType(&lib);
 
-    load_game = []() {
-        auto spr = create_sprite();
-        spr->m->trns = translate(mat4(1), vec3(-.5, -.5, -10));
-        bind_texture(spr);
-    };
-
     auto clock = start_clock();
-    auto render = start_renderer();
+    auto renderer = new Renderer();
+    auto grid = create_grid(renderer);
 
-    render.join();
+    auto spr = create_sprite();
+    spr->m->trns = translate(mat4(1), vec3(-.5, -.5, -10));
+    bind_texture(spr);
+
+    renderer->init();
+
+    do_timer = false;
     clock.join();
 
     // close GL context and any other GLFW resources

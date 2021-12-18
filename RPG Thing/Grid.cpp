@@ -1,21 +1,11 @@
 #include "Grid.h"
 
 void Cell::update() {
-	vec3 avg = vec3(0);
 
-	for (auto& i : m->vtxs) {
-		g->f(i);
-		avg += i.pos;
-	}
-
-	avg /= m->vtxs.size();
-
-	if (u && u->s && u->s->m)
-		u->s->m->trns = translate(mat4(1), avg -= vec3(.5, 0, 0));
 }
 
 void Grid::update() {
-	mat3 mat = get(r);
+	mat3 mat = r->get_cam_ray();
 
 	for (auto& i : c) {
 		for (auto& j : i) {

@@ -2,6 +2,7 @@
 
 #include <glm/gtx/intersect.hpp>
 #include "Mesh.h"
+#include "Renderer.h"
 #include "Timer.h"
 #include "Unit.h"
 
@@ -12,7 +13,6 @@ enum {
 	R = 3
 };
 
-struct Room;
 class Grid;
 
 struct Cell : public MeshObj {
@@ -30,19 +30,15 @@ public:
 
 	Cell* hovered = NULL;
 	Cell* selected = NULL;
-	Room* r = NULL;
+	Renderer* r = NULL;
 
 	std::vector<std::vector<Cell*>> c;
 	std::function<void(Vtx&)> f;
-	std::function<mat3(Room*)> get;
 };
 
-struct Path {
-	std::vector<Cell*> c;
-};
-
-static Grid* create_grid(unsigned int x=10, unsigned int y=10, std::function<void(Vtx&)> f={}, bool animate=false) {
+static Grid* create_grid(Renderer* renderer, unsigned int x=10, unsigned int y=10, std::function<void(Vtx&)> f={}, bool animate=false) {
 	Grid* g = new Grid();
+	g->r = renderer;
 	g->f = f;
 	g->m = create_square();
 	change_rendering(g->m, GL_LINES);

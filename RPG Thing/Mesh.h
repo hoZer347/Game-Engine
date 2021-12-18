@@ -34,6 +34,7 @@ struct Mesh {
 	std::vector<Vtx> vtxs;
 	std::vector<unsigned int> inds;
 	bool ortho = false;
+	bool show = true;
 	mat4 trns = mat4(1);
 
 	unsigned int

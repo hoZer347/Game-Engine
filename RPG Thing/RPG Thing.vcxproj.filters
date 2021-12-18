@@ -78,6 +78,9 @@
     <None Include="Shaders\depth.vert">
       <Filter>Engine\Shaders</Filter>
     </None>
+    <None Include="depth.geom">
+      <Filter>Engine\Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -122,5 +125,13 @@
     <Filter Include="Game\Renderables\Unit">
       <UniqueIdentifier>{3c61a71b-220e-40e8-a73a-a5f20f86d872}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Scripts">
+      <UniqueIdentifier>{b4f3e96d-75ca-41aa-883a-19eb2dd682e0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Script.txt">
+      <Filter>Game\Scripts</Filter>
+    </Text>
   </ItemGroup>
 </Project>

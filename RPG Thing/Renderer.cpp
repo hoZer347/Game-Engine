@@ -133,6 +133,12 @@ void Renderer::init() {
     }
 }
 
+enum {
+    EYE = 0,
+    RAY = 1,
+    LOOK = 2
+};
+
 mat3 Renderer::get_cam_ray() {
     int w = 0, h = 0;
     glfwGetWindowSize(window, &w, &h);
@@ -162,6 +168,9 @@ mat3 Renderer::get_cam_ray() {
 }
 
 void Renderer::render(Mesh* m) {
+    if (!m->show)
+        return;
+
     glBindBuffer(GL_ARRAY_BUFFER, _vtxs);
     glBufferData(GL_ARRAY_BUFFER, m->vtxs.size() * sizeof(Vtx), m->vtxs.data(), GL_DYNAMIC_DRAW);
 
@@ -242,16 +251,14 @@ void Renderer::create_shader(std::string f1, std::string f2, std::string f3) {
     GLuint fs = glCreateShader(GL_FRAGMENT_SHADER);
     glShaderSource(fs, 1, &fragment_shader, NULL);
     glCompileShader(fs);
-    GLuint gs = glCreateShader(GL_FRAGMENT_SHADER);
+    GLuint gs = glCreateShader(GL_GEOMETRY_SHADER);
     glShaderSource(gs, 1, &geometry_shader, NULL);
     glCompileShader(gs);
 
     depth_shader = glCreateProgram();
-    glAttachShader(depth_shader, fs);
     glAttachShader(depth_shader, vs);
+    glAttachShader(depth_shader, fs);
     glAttachShader(depth_shader, gs);
     glLinkProgram(depth_shader);
     glUseProgram(depth_shader);
 }
-
-Renderer* renderer;

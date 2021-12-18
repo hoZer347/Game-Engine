@@ -16,7 +16,9 @@
 // TODO: Add sound
 // TODO: Find out the normal of a 3D function
 // TODO: Add menus
-// TODO: Add dialogue script
+
+// Doing
+// TODO: Add dialogues
 
 // Bugs
 
@@ -26,10 +28,10 @@ int main() {
     FT_Init_FreeType(&lib);
 
     auto clock = start_clock();
-    auto renderer = new Renderer();
+    auto renderer = create_renderer();
     auto grid = create_grid(renderer);
-
     auto spr = create_sprite();
+
     spr->m->trns = translate(mat4(1), vec3(-.5, -.5, -10));
     bind_texture(spr);
 

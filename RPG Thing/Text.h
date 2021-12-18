@@ -44,7 +44,7 @@ static Font* create_font(const char* file_name = "Fonts/Default.ttf", int scale 
 
 	font->scale = scale;
 
-	for (int i = 0; i < 128; i++) {
+	for (unsigned int i = 0; i < sizeof(char); i++) {
 		Mesh* m = create_square();
 		m->vtxs.clear();
 		m->inds.clear();

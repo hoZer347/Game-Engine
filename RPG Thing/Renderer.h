@@ -63,8 +63,8 @@ public:
 	int window_w=640, window_h=640;
 };
 
-enum {
-	EYE = 0,
-	RAY = 1,
-	LOOK = 2
-};
+static Renderer* create_renderer() {
+	Renderer* r = new Renderer();
+	
+	return r;
+}

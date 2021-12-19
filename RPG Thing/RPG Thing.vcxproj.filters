@@ -32,6 +32,9 @@
     <ClCompile Include="Unit.cpp">
       <Filter>Game\Renderables\Unit</Filter>
     </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>Engine\Sound</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mesh.h">
@@ -63,6 +66,9 @@
     </ClInclude>
     <ClInclude Include="Unit.h">
       <Filter>Game\Renderables\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>Engine\Sound</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -128,9 +134,12 @@
     <Filter Include="Game\Scripts">
       <UniqueIdentifier>{b4f3e96d-75ca-41aa-883a-19eb2dd682e0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Sound">
+      <UniqueIdentifier>{81268453-e09c-4c97-bbcb-0365cd40e58e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Script.txt">
+    <Text Include="Scripts\Script.txt">
       <Filter>Game\Scripts</Filter>
     </Text>
   </ItemGroup>

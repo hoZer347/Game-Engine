@@ -1,7 +1,8 @@
 #pragma once
 
-#include <vector>
+#include "Mesh.h"
 
+#include <vector>
 #include <functional>
 
 struct Room;
@@ -14,7 +15,7 @@ class option {
 	std::function<void(Room*)> f;
 };
 
-class Menu {
+class Menu : public MeshObj {
 public:
 	void clear() { o.clear(); };
 

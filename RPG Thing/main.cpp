@@ -9,16 +9,16 @@
 #include "Grid.h"
 #include "Text.h"
 #include "Sprite.h"
-#include "Unit.h"
+#include "Sound.h"
 
 // Tasks
 // TODO: Add shadows
-// TODO: Add sound
 // TODO: Find out the normal of a 3D function
 // TODO: Add menus
 
 // Doing
 // TODO: Add dialogues
+// TODO: Add sound
 
 // Bugs
 
@@ -27,6 +27,7 @@ using namespace glm;
 int main() {
     FT_Init_FreeType(&lib);
 
+    SOUND->play2D("Sounds/The First Night.wav", true);
     auto clock = start_clock();
     auto renderer = create_renderer();
     auto grid = create_grid(renderer);

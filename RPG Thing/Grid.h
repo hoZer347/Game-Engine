@@ -15,6 +15,8 @@ enum {
 
 class Grid;
 
+// Stores units, and other stuff needed in a map
+// Knows neighbours, parent grid
 struct Cell : public MeshObj {
 	void update();
 
@@ -24,6 +26,7 @@ struct Cell : public MeshObj {
 	unsigned short terrain = 0;
 };
 
+// 2D array of Cells
 class Grid : public MeshObj {
 public:
 	void update();

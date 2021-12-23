@@ -7,7 +7,7 @@ Renderer::Renderer() {
 
     window = glfwCreateWindow(window_w, window_h, "", NULL, NULL);
     glfwMakeContextCurrent(window);
-    inputs = new Inputs(window);
+    inputs.window = window;
 
     glewExperimental = GL_TRUE;
     glewInit();
@@ -83,7 +83,6 @@ void Renderer::update() {
 
     // DOING MATRIX CALCULATIONS
 
-    c->rotn = c->roll * c->ptch * c->yaww;
     c->mode = c->rotn * c->trns;
     c->view = lookAt(c->eye, c->look, c->up);
     c->proj = perspective(radians(45.0f), (float)window_w/(float)window_h, 0.1f, 100.0f);
@@ -123,7 +122,7 @@ void Renderer::update() {
 
 void Renderer::init() {
     while (!glfwWindowShouldClose(window)) {
-        inputs->update();
+        inputs.update();
 
         for (auto& m : OBJS)
             if (m->animate)
@@ -143,7 +142,7 @@ mat3 Renderer::get_cam_ray() {
     int w = 0, h = 0;
     glfwGetWindowSize(window, &w, &h);
 
-    vec4 mv = vec4((inputs->mx - w / 2) / (w / 2), (-inputs->my + h / 2) / (h / 2), 0, 1);
+    vec4 mv = vec4((inputs.mx - w / 2) / (w / 2), (-inputs.my + h / 2) / (h / 2), 0, 1);
 
     Vtx v;
 

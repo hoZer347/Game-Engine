@@ -4,17 +4,16 @@
 #include <iostream>
 
 #include "Renderer.h"
-#include "Inputs.h"
+#include "Inputs.hpp"
 #include "Timer.h"
 #include "Grid.h"
-#include "Text.h"
 #include "Sprite.h"
-#include "Sound.h"
 
 // Tasks
 // TODO: Add shadows
 // TODO: Find out the normal of a 3D function
 // TODO: Add menus
+// TODO: Change timer to glfw timer
 
 // Doing
 // TODO: Add dialogues
@@ -25,29 +24,30 @@
 using namespace glm;
 
 int main() {
-    FT_Init_FreeType(&lib);
 
-    // auto music = SOUND->play2D("Sounds/The First Night.wav", true);
-
+    // Experimentation code
     auto clock = start_clock();
     auto renderer = create_renderer();
     auto grid = create_grid(renderer);
     auto spr = create_sprite();
+    wasd_strafe_camera(renderer);
 
     spr->m->trns = translate(mat4(1), vec3(-.5, -.5, -10));
     bind_texture(spr);
 
     Camera* c = renderer->c;
     c->trns = translate(c->trns, vec3(0, -10, -10));
-    c->roll = rotate(c->roll, radians(45.f), vec3(1, 0, 0));
+    c->rotn = rotate(c->rotn, radians(45.f), vec3(1, 0, 0));
+    //
 
+    // Execution code
     renderer->init();
 
     do_timer = false;
     clock.join();
 
-    // close GL context and any other GLFW resources
     glfwTerminate();
+    //
 
     return 0;
 }

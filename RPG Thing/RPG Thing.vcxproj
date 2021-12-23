@@ -151,6 +151,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AI.cpp" />
+    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Dialogue.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Inputs.cpp" />
@@ -165,9 +167,12 @@
     <ClCompile Include="Unit.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AI.h" />
+    <ClInclude Include="Animation.h" />
     <ClInclude Include="Dialogue.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="Inputs.h" />
+    <ClInclude Include="Inputs.hpp" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Renderer.h" />

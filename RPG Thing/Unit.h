@@ -5,6 +5,8 @@
 
 #include <string>
 
+struct Cell;
+
 struct Stats {
 
 };
@@ -13,6 +15,7 @@ struct Unit {
 	Sprite* s = NULL;
 	Stats bonus;
 	Stats base;
+	Cell* c = NULL;
 
 	short team = 0;
 	short skills[5] = { };

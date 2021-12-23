@@ -35,6 +35,12 @@
     <ClCompile Include="Sound.cpp">
       <Filter>Engine\Sound</Filter>
     </ClCompile>
+    <ClCompile Include="AI.cpp">
+      <Filter>Game\Renderables\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Engine\Animation</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mesh.h">
@@ -69,6 +75,15 @@
     </ClInclude>
     <ClInclude Include="Sound.h">
       <Filter>Engine\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="AI.h">
+      <Filter>Game\Renderables\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Engine\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Inputs.hpp">
+      <Filter>Game\Inputs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -136,6 +151,15 @@
     </Filter>
     <Filter Include="Engine\Sound">
       <UniqueIdentifier>{81268453-e09c-4c97-bbcb-0365cd40e58e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Renderables\AI">
+      <UniqueIdentifier>{25f99621-ce73-4eea-8b80-17ec404b81a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Animation">
+      <UniqueIdentifier>{513e830c-ba1b-470c-87d7-22bf3fb537b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Inputs">
+      <UniqueIdentifier>{2a00736a-4840-420c-92cd-a5948009f746}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

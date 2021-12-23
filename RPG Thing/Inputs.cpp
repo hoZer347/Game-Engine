@@ -1,8 +1,6 @@
 #include "Inputs.h"
 
-Inputs::Inputs(GLFWwindow* w) {
-	window = w;
-}
+Inputs inputs;
 
 void Inputs::update() {
 	glfwPollEvents();
@@ -13,6 +11,8 @@ void Inputs::update() {
 
 	dx = mx-px;
 	dy = my-py;
-}
 
-Inputs* inputs;
+	for (auto& i : f)
+		if (glfwGetKey(window, i.first))
+			i.second->f(i.second);
+}

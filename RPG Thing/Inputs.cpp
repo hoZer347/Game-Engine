@@ -14,5 +14,7 @@ void Inputs::update() {
 
 	for (auto& i : f)
 		if (glfwGetKey(window, i.first))
-			i.second->f(i.second);
+			i.second();
+		else if (glfwGetMouseButton(window, i.first))
+			i.second();
 }

@@ -7,7 +7,7 @@ Renderer::Renderer() {
 
     window = glfwCreateWindow(window_w, window_h, "", NULL, NULL);
     glfwMakeContextCurrent(window);
-    inputs.window = window;
+    init_inputs(window);
 
     glewExperimental = GL_TRUE;
     glewInit();
@@ -83,6 +83,7 @@ void Renderer::update() {
 
     // DOING MATRIX CALCULATIONS
 
+    c->rotn = c->roll * c->ptch * c->yaww;
     c->mode = c->rotn * c->trns;
     c->view = lookAt(c->eye, c->look, c->up);
     c->proj = perspective(radians(45.0f), (float)window_w/(float)window_h, 0.1f, 100.0f);

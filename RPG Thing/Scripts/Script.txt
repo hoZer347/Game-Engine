@@ -1,1 +1,3 @@
-<Left Anna.png><Right Anna.png>
+<Print test>Testing text
+
+bitch aaaaaasssss

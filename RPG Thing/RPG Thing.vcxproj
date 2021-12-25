@@ -159,6 +159,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Parser.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Sprite.cpp" />
@@ -171,10 +172,12 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Dialogue.h" />
     <ClInclude Include="Grid.h" />
+    <ClInclude Include="GridInteraction.hpp" />
     <ClInclude Include="Inputs.h" />
-    <ClInclude Include="Inputs.hpp" />
+    <ClInclude Include="CameraMovement.hpp" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Parser.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprite.h" />

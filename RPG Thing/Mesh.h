@@ -36,7 +36,7 @@ struct Mesh {
 	bool ortho = false;
 	bool show = true;
 	mat4 trns = mat4(1);
-	vec4 pos() { return trns * vec4(vtxs[0].pos, 1); }
+	vec3 pos(int i=0) { return vec3(trns * vec4(vtxs[i].pos, 1)); }
 
 	unsigned int
 		index = 0,
@@ -48,7 +48,7 @@ struct Mesh {
 // Wrapper for meshes that need to be periodically updated
 class MeshObj {
 public:
-	vec4 pos() { return m->pos(); };
+	vec3 pos(int i=0) { return m->pos(i); };
 	virtual void update()=0;
 	bool animate = true;
 	Mesh* m = NULL;

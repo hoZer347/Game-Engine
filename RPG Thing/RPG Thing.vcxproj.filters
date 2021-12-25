@@ -36,10 +36,13 @@
       <Filter>Engine\Sound</Filter>
     </ClCompile>
     <ClCompile Include="AI.cpp">
-      <Filter>Game\Renderables\AI</Filter>
+      <Filter>Game\AI</Filter>
     </ClCompile>
     <ClCompile Include="Animation.cpp">
       <Filter>Engine\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Parser.cpp">
+      <Filter>Engine\Parser</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -77,13 +80,19 @@
       <Filter>Engine\Sound</Filter>
     </ClInclude>
     <ClInclude Include="AI.h">
-      <Filter>Game\Renderables\AI</Filter>
+      <Filter>Game\AI</Filter>
     </ClInclude>
     <ClInclude Include="Animation.h">
       <Filter>Engine\Animation</Filter>
     </ClInclude>
-    <ClInclude Include="Inputs.hpp">
+    <ClInclude Include="CameraMovement.hpp">
       <Filter>Game\Inputs</Filter>
+    </ClInclude>
+    <ClInclude Include="GridInteraction.hpp">
+      <Filter>Game\Inputs</Filter>
+    </ClInclude>
+    <ClInclude Include="Parser.h">
+      <Filter>Engine\Parser</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -152,14 +161,17 @@
     <Filter Include="Engine\Sound">
       <UniqueIdentifier>{81268453-e09c-4c97-bbcb-0365cd40e58e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Renderables\AI">
-      <UniqueIdentifier>{25f99621-ce73-4eea-8b80-17ec404b81a7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Animation">
       <UniqueIdentifier>{513e830c-ba1b-470c-87d7-22bf3fb537b7}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\Inputs">
       <UniqueIdentifier>{2a00736a-4840-420c-92cd-a5948009f746}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\AI">
+      <UniqueIdentifier>{25f99621-ce73-4eea-8b80-17ec404b81a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Parser">
+      <UniqueIdentifier>{1b73d473-2815-4884-a622-353f225b0c3b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

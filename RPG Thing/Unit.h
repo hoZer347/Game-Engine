@@ -5,7 +5,7 @@
 
 #include <string>
 
-struct Cell;
+class Cell;
 
 struct Stats {
 

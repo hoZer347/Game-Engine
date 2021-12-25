@@ -29,13 +29,16 @@ struct Camera {
 		cam_ray = mat3(0);
 
 	mat4
-		trns = mat4(1.0f),
-		rotn = mat4(1.0f),
-		mode = mat4(1.0f),
-		norm = mat4(1.0f),
-		view = mat4(1.0f),
-		proj = mat4(1.0f),
-		mvp  = mat4(1.0f);
+		roll = mat4(1),
+		ptch = mat4(1),
+		yaww = mat4(1),
+		trns = mat4(1),
+		rotn = mat4(1),
+		mode = mat4(1),
+		norm = mat4(1),
+		view = mat4(1),
+		proj = mat4(1),
+		mvp  = mat4(1);
 };
 
 class Renderer {

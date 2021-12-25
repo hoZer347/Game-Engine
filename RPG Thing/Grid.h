@@ -17,7 +17,8 @@ class Grid;
 
 // Stores units, and other stuff needed in a map
 // Knows neighbours, parent grid
-struct Cell : public MeshObj {
+class Cell : public MeshObj {
+public:
 	void update();
 
 	Cell* next[4] = { };
@@ -36,13 +37,14 @@ public:
 	Renderer* r = NULL;
 
 	std::vector<std::vector<Cell*>> c;
-	std::function<void(Vtx&)> f;
 };
 
-static Grid* create_grid(Renderer* renderer, unsigned int x=10, unsigned int y=10, std::function<void(Vtx&)> f={}, bool animate=false) {
+// Creates a (x, y) - size grid
+// f is the function that represents the positions of each cell and their vertices
+// animate is whether or not to update each cell
+static Grid* create_grid(Renderer* renderer, unsigned int x=10, unsigned int y=10, bool animate=false) {
 	Grid* g = new Grid();
 	g->r = renderer;
-	g->f = f;
 	g->m = create_square();
 	change_rendering(g->m, GL_LINES);
 
@@ -55,12 +57,12 @@ static Grid* create_grid(Renderer* renderer, unsigned int x=10, unsigned int y=1
 		g->c.push_back({});
 		for (unsigned int j = 0; j < y; j++) {
 			Cell* c = new Cell();
-			c->animate = animate;
 			c->m = create_square();
-			for (auto& v : c->m->vtxs) {
+			for (auto& v : c->m->vtxs)
 				y_is_negz(v);
-				v.pos += vec3(i, 0, -(int)j);
-			}
+
+			c->m->trns = translate(mat4(1), vec3((int)i, 0, -(int)j));
+			
 			c->g = g;
 
 			change_rendering(c->m, GL_LINES);

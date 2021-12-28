@@ -7,9 +7,9 @@
 #include "CameraMovement.hpp"
 #include "GridInteraction.hpp"
 #include "Timer.h"
+#include "Dialogue.hpp"
 #include "Grid.h"
 #include "Sprite.h"
-#include "Parser.h"
 
 // TODO: Unit
 // TODO: Menus
@@ -18,7 +18,6 @@
 // TODO: Dialogues
 // TODO: Serialization
 // TODO: Grid Interaction
-// TODO: Change timer to glfw timer
 
 using namespace glm;
 
@@ -28,19 +27,17 @@ int main() {
     auto clock = start_clock();
     auto renderer = create_renderer();
     auto grid = create_grid(renderer);
+    auto sprite = create_sprite(renderer);
     auto unit = create_unit();
     all_camera_movement(renderer);
     setup_grid(grid);
+    attach_neighbours(grid);
 
-    grid->c[3][3]->u = unit;
+    auto d = create_dialogue(renderer);
 
-    Parser p("Scripts/Script.txt");
-    p.f = [](Parser* p, std::vector<std::string> s) {
-        
-    };
-
-    while (p.next())
-        std::cout << p.line << std::endl;
+    grid->C[3][3]->u = unit;
+    unit->s = sprite;
+    bind_texture(sprite);
 
     Camera* c = renderer->c;
     c->trns = translate(c->trns, vec3(0, -10, -10));
@@ -54,7 +51,10 @@ int main() {
     do_timer = false;
     clock.join();
 
+    unload_faces();
+    clear_mesh();
     glfwTerminate();
+    if (inputs) delete inputs;
     //
 
     return 0;

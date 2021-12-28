@@ -14,7 +14,6 @@ bool Parser::next() {
 	auto c = l.begin();
 
 	std::string s = "";
-	std::vector<std::string> v;
 
 	while (c != l.end()) {
 		if (*c == '<') {
@@ -30,7 +29,7 @@ bool Parser::next() {
 					c++;
 				}
 
-				v.push_back(s);
+				cmds.push(s);
 
 				s = "";
 			}
@@ -41,8 +40,6 @@ bool Parser::next() {
 
 		c++;
 	}
-
-	f(this, v);
 
 	line += s;
 

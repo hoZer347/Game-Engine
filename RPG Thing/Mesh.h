@@ -131,8 +131,6 @@ static Mesh* create_plane(unsigned int x=10, unsigned int y=10) {
 	return create_mesh(vtxs, inds);
 }
 
-// TEXTURE FUNCTIONS
-
 // Generates a texture and attaches it to the provided mesh
 static void bind_texture(Mesh* m, const char* file_name) {
 	if (TEXS[file_name]) {
@@ -151,10 +149,11 @@ static void bind_texture(Mesh* m, const char* file_name) {
 	}
 }
 
-// RENDERING FUNCTIONS
-
 // Changes how openGL will render the given mesh (GL_LINES, GL_TRIANGLES, etc.)
 static void change_rendering(Mesh* m, unsigned int gl_render_type) {
+	if (m->gl_render_type == gl_render_type)
+		return;
+
 	std::vector<unsigned int> new_inds;
 
 	unsigned int index = 0;
@@ -162,11 +161,8 @@ static void change_rendering(Mesh* m, unsigned int gl_render_type) {
 	switch (m->gl_render_type) {
 
 		case GL_QUADS:
-			
 			switch (gl_render_type) {
-
 			case GL_LINES:
-
 				for (unsigned int i = 0; i < m->inds.size(); i+=4) {
 					new_inds.push_back(m->inds[index++]);
 					new_inds.push_back(m->inds[index]);
@@ -177,9 +173,23 @@ static void change_rendering(Mesh* m, unsigned int gl_render_type) {
 					new_inds.push_back(m->inds[index++]);
 					new_inds.push_back(m->inds[index-4]);
 				}
-
+				break;
+			default:
 				break;
 			}
+			break;
+
+		case GL_LINES:
+			switch (gl_render_type) {
+			case GL_QUADS:
+				for (unsigned int i = 0; i < m->inds.size(); i += 2)
+					new_inds.push_back(m->inds[i]);
+				break;
+			default:
+				break;
+			}
+			break;
+		default:
 			break;
 	}
 
@@ -187,35 +197,16 @@ static void change_rendering(Mesh* m, unsigned int gl_render_type) {
 	m->gl_render_type = gl_render_type;
 }
 
-auto default_func = [](Vtx& v) {
-	return;
-};
+// Safely Cleans up all pointers to Mesh's and MeshObj's
+static void clear_mesh() {
+	for (auto& m : MESH)
+		delete m;
 
-auto y_is_negz = [](Vtx& v) {
-	float z = v.pos.z;
-	float y = v.pos.y;
+	for (auto& m : OBJS)
+		delete m;
 
-	v.pos.y = -z;
-	v.pos.z = -y;
+	MESH.clear();
+	OBJS.clear();
 
-	return;
-};
-
-auto x_plus_y = [](Vtx& v) {
-	v.pos.z = v.pos.x + v.pos.y;
-
-	return;
-};
-
-auto sinx_cosy = [](Vtx& v) {
-	v.pos.z = sin(v.pos.x) + cos(v.pos.y);
-
-	return;
-};
-
-auto sinx_sinz = [](Vtx& v) {
-	y_is_negz(v);
-	v.pos.y = sin(v.pos.x) + sin(v.pos.z);
-
-	return;
-};
+	TEXS.clear();
+}

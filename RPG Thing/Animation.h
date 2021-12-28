@@ -13,10 +13,10 @@ public:
 	void update();
 
 	// Memory for the animation to use
-	std::vector<void*> mem;
+	std::map<std::string, void*> mem;
 
 	// A function that updates obj every frame
-	std::function<void(Animation*)> f = [](void*) {};
+	std::function<void(Animation*)> f = [](Animation*) {};
 };
 
 extern std::map<std::string, Animation*> ANMT;

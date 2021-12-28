@@ -12,7 +12,7 @@ Renderer::Renderer() {
     glewExperimental = GL_TRUE;
     glewInit();
 
-    glClearColor(0.5, 0.5, 0.5, 0);
+    glClearColor(0.5, 0.5, 0.5, 1);
 
     // Making textures work
     glEnable(GL_TEXTURE_2D);
@@ -31,7 +31,7 @@ Renderer::Renderer() {
 
     // Alpha processing setup
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glAlphaFunc(GL_GREATER, 0.5);
+    glAlphaFunc(GL_GREATER, 0.0);
     glEnable(GL_ALPHA_TEST);
     //
 
@@ -123,7 +123,7 @@ void Renderer::update() {
 
 void Renderer::init() {
     while (!glfwWindowShouldClose(window)) {
-        inputs.update();
+        inputs->update();
 
         for (auto& m : OBJS)
             if (m->animate)
@@ -143,7 +143,7 @@ mat3 Renderer::get_cam_ray() {
     int w = 0, h = 0;
     glfwGetWindowSize(window, &w, &h);
 
-    vec4 mv = vec4((inputs.mx - w / 2) / (w / 2), (-inputs.my + h / 2) / (h / 2), 0, 1);
+    vec4 mv = vec4((inputs->mx - w / 2) / (w / 2), (-inputs->my + h / 2) / (h / 2), 0, 1);
 
     Vtx v;
 

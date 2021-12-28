@@ -1,11 +1,8 @@
 #pragma once
 
-#include <functional>
-#include <iostream>
 #include <fstream>
-#include <vector>
+#include <queue>
 #include <string>
-#include <map>
 
 class Parser {
 public:
@@ -14,6 +11,5 @@ public:
 	
 	std::string line;
 	std::fstream file;
-	std::map<std::string, void*> mem;
-	std::function<void(Parser*, std::vector<std::string>&) > f;
+	std::queue<std::string> cmds;
 };

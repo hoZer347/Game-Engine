@@ -1,10 +1,26 @@
 #include "Inputs.h"
 
-Inputs inputs;
+Inputs* inputs = NULL;
+
+void Inputs::next() {
+	Inputs* i = inputs;
+	inputs = _next;
+	inputs = new Inputs();
+	inputs->window = i->window;
+
+	if (inputs) inputs->_prev = i;
+}
+
+void Inputs::prev() {
+	Inputs* i = inputs;
+	inputs = _prev;
+
+	if (inputs) inputs->_next = i;
+}
 
 void Inputs::update() {
 	glfwPollEvents();
-
+	
 	double px=mx, py=my;
 
 	glfwGetCursorPos(window, &mx, &my);

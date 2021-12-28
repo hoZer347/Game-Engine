@@ -94,6 +94,15 @@
     <ClInclude Include="Parser.h">
       <Filter>Engine\Parser</Filter>
     </ClInclude>
+    <ClInclude Include="Animations.hpp">
+      <Filter>Game\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="GridFunctions.hpp">
+      <Filter>Game\Renderables\Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogue.hpp">
+      <Filter>Game\Renderables\Dialogue</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\default.frag">
@@ -172,6 +181,9 @@
     </Filter>
     <Filter Include="Engine\Parser">
       <UniqueIdentifier>{1b73d473-2815-4884-a622-353f225b0c3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Animations">
+      <UniqueIdentifier>{be3dd5b5-df9b-4948-b046-ad03afde838e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

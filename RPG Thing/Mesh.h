@@ -81,9 +81,10 @@ static Mesh* create_mesh(
 	m->gl_data_type = gl_data_type;
 	m->gl_texture = gl_texture;
 
-	MESH.push_back(m);
+	if (add)
+		MESH.push_back(m);
 
-	return MESH.back();
+	return m;
 }
 
 // Safely Deletes a Mesh

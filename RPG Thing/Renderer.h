@@ -50,17 +50,19 @@ public:
 
 	void create_shader(std::string, std::string);
 	void create_shader(std::string, std::string, std::string);
-	mat3 get_cam_ray();
 
 	GLFWwindow* window = NULL;
 	Camera* c = new Camera();
-	
-	GLuint vao=0;
-	GLuint shader_programme=0, depth_shader=0;
-	GLuint depth_map=0;
-	GLuint _vtxs=0, _inds=0;
 
-	int window_w=640, window_h=640;
+private:
+	GLuint vao = 0;
+	GLuint shader_programme = 0, depth_shader = 0;
+	GLuint depth_map = 0;
+	GLuint _vtxs = 0, _inds = 0;
+
+	int window_w = 640, window_h = 640;
+
+	mat2x3 get_cam_ray();
 };
 
 static Renderer* create_renderer() {

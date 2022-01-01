@@ -7,7 +7,7 @@
 #include "Renderer.h"
 #include "Timer.h"
 
-#include <set>
+#include <vector>
 
 enum {
 	U = 0,
@@ -18,12 +18,14 @@ enum {
 
 enum {
 	TEAM_NULL = 0,
-	TEAM_R = 1,
-	TEAM_G = 2,
-	TEAM_B = 3
+	TEAM_R_MOVE = 1,
+	TEAM_G_MOVE = 2,
+	TEAM_B_MOVE = 3,
+	TEAM_R_ATK = 4,
+	TEAM_G_ATK = 5,
+	TEAM_B_ATK = 6
 };
 
-class Grid;
 class Unit;
 
 static double G_BUFFER = .1;
@@ -38,21 +40,30 @@ public:
 	}
 	void update();
 	Cell*& operator[] (unsigned int i) { return next[i]; }
-	void change_team(unsigned char i) {
-		team = i;
+	void change_color(unsigned char i) {
+		clr = i;
 		for (auto& v : m->vtxs)
 			switch (i) {
 			case TEAM_NULL:
 				v.clr = vec4(1, 1, 1, G_OPACITY);
 				break;
-			case TEAM_R:
-				v.clr = vec4(1, 0, 0, G_OPACITY);
+			case TEAM_R_MOVE:
+				v.clr = vec4(1, .5, .5, G_OPACITY);
 				break;
-			case TEAM_G:
+			case TEAM_G_MOVE:
 				v.clr = vec4(0, 1, 0, G_OPACITY);
 				break;
-			case TEAM_B:
+			case TEAM_B_MOVE:
 				v.clr = vec4(0, 0, 1, G_OPACITY);
+				break;
+			case TEAM_R_ATK:
+				v.clr = vec4(1, .5, .5, G_OPACITY);
+				break;
+			case TEAM_G_ATK:
+				v.clr = vec4(.5, 1, .5, G_OPACITY);
+				break;
+			case TEAM_B_ATK:
+				v.clr = vec4(1, 0, 0, G_OPACITY);
 				break;
 			default:
 				break;
@@ -62,7 +73,7 @@ public:
 	Cell* next[4] = { };
 	Unit* u = NULL;
 
-	unsigned char team = 0;
+	unsigned char clr = 0;
 	double terrain = 1;
 };
 
@@ -70,12 +81,15 @@ public:
 class Grid : public MeshObj {
 public:
 	void update();
+	bool set(Unit*, unsigned int, unsigned int);
+	Unit* get(unsigned int, unsigned int);
 
 	Cell* hovered = NULL;
 	Cell* selected = NULL;
 	Renderer* r = NULL;
 	int index = 0;
 
+	bool check_rng(unsigned int, unsigned int);
 	std::vector<std::vector<Cell*>> C;
 };
 

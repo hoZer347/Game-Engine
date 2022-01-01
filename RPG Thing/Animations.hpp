@@ -2,8 +2,7 @@
 
 #include "Animation.h"
 #include "Renderer.h"
-#include "GridFunctions.hpp"
-#include "Grid.h"
+#include "Grid.hpp"
 #include "Mesh.h"
 #include "Renderer.h"
 

@@ -2,9 +2,8 @@
 
 #include "Inputs.h"
 #include "Renderer.h"
-#include "Grid.h"
 #include "Unit.h"
-#include "GridFunctions.hpp"
+#include "Grid.hpp"
 #include "Animations.hpp"
 
 #include <functional>
@@ -41,7 +40,7 @@ static void g_select(Grid* g) {
 				flood_fill(g->selected, S, u_ff, g->selected->u->get(U::RNG), g->selected);
 				for (auto& c : S)
 					if (!c->u || c->u == g->selected->u)
-						c->change_team(g->selected->u->team);
+						c->change_color(g->selected->u->team);
 
 				g_unselect(g);
 			}
@@ -57,7 +56,7 @@ static void g_select(Grid* g) {
 		// Resetting selected cells
 		for (auto& _C : g->C)
 			for (auto& c : _C)
-				c->change_team(TEAM_NULL);
+				c->change_color(TEAM_NULL);
 
 		g_select(g);
 	};
@@ -74,13 +73,13 @@ static void g_unselect(Grid* g) {
 				!g->hovered->u &&
 				g->selected &&
 				g->selected->u &&
-				g->hovered->team == g->selected->u->team) {
+				g->hovered->clr == g->selected->u->team) {
 
 				std::set<Cell*> S;
 				flood_fill(g->selected, S, u_ff, g->selected->u->get(U::RNG), g->selected);
 				for (auto& c : S)
 					if (!c->u || c->u == g->selected->u)
-						c->change_team(TEAM_NULL);
+						c->change_color(TEAM_NULL);
 
 				g->selected->u->s->trns = NULL;
 				g->hovered->u = g->selected->u;
@@ -94,7 +93,7 @@ static void g_unselect(Grid* g) {
 static void g_cursor_updates_grid(Grid* g) {
 	inputs->mem["Grid"] = g;
 
-	inputs->c = [](int x, int y) {
+	inputs->c = [](double x, double y) {
 		Grid* g = (Grid*)inputs->mem["Grid"];
 
 		g->animate = true;

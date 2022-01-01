@@ -157,7 +157,6 @@
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Inputs.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="Renderer.cpp" />
@@ -166,6 +165,7 @@
     <ClCompile Include="Text.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Unit.cpp" />
+    <ClCompile Include="UnitMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AI.h" />
@@ -174,7 +174,7 @@
     <ClInclude Include="Dialogue.h" />
     <ClInclude Include="Dialogue.hpp" />
     <ClInclude Include="Grid.h" />
-    <ClInclude Include="GridFunctions.hpp" />
+    <ClInclude Include="Grid.hpp" />
     <ClInclude Include="GridInteraction.hpp" />
     <ClInclude Include="Inputs.h" />
     <ClInclude Include="CameraMovement.hpp" />
@@ -182,11 +182,13 @@
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="Renderer.h" />
+    <ClInclude Include="Unit.hpp" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Text.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Unit.h" />
+    <ClInclude Include="UnitMenu.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="depth.geom" />

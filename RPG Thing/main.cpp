@@ -8,8 +8,10 @@
 #include "GridInteraction.hpp"
 #include "Timer.h"
 #include "Dialogue.hpp"
+#include "Unit.hpp"
 #include "Grid.h"
 #include "Sprite.h"
+#include "Text.h"
 
 // TODO: Unit
 // TODO: Menus
@@ -22,6 +24,7 @@
 using namespace glm;
 
 int main() {
+    FT_Init_FreeType(&lib);
 
     // Experimentation code
     auto clock = start_clock();
@@ -29,13 +32,14 @@ int main() {
     auto grid = create_grid(renderer);
     auto sprite = create_sprite(renderer);
     auto unit = create_unit();
+    auto text = create_text();
     all_camera_movement(renderer);
     setup_grid(grid);
     attach_neighbours(grid);
 
-    auto d = create_dialogue(renderer);
+    auto unit_menu = UnitOptions::get_options(unit);
 
-    grid->C[3][3]->u = unit;
+    grid->set(unit, 3, 3);
     unit->s = sprite;
     bind_texture(sprite);
 
@@ -44,17 +48,19 @@ int main() {
     c->roll = rotate(c->roll, radians(45.f), vec3(1, 0, 0));
     //
 
-    // Execution code
+    // Execution
     renderer->init();
 
+    // Deallocation
     delete unit;
     do_timer = false;
     clock.join();
 
-    unload_faces();
     clear_mesh();
     glfwTerminate();
     if (inputs) delete inputs;
+
+    FT_Done_FreeType(lib);
     //
 
     return 0;

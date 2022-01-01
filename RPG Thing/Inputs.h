@@ -2,6 +2,7 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
 
 #include <functional>
 #include <vector>
@@ -9,23 +10,46 @@
 
 #include <iostream>
 
+using namespace glm;
+
+enum {
+	CAM_EYE=0,
+	CAM_RAY=1
+};
+
 class Inputs {
 public:
 	void update();
 
-	void next();
-	void prev();
-
 	GLFWwindow* window = NULL;
-	double mx=0, my=0, dx=0, dy=0;
+	double
+		mx=0, my=0, // Current mouse pos
+		dx=0, dy=0; // Delta mouse pos
 	
+	// Memory for inputs to use
 	std::map<const char*, void*> mem;
+	
+	// Every-tick inputs for mouse and keyboard
 	std::map<short, std::function<void()>> f;
+
+	// Window keyboard inputs
 	std::map<short, std::function<void(int, int, int)>> k;
+	
+	// Window mouse inputs
 	std::map<short, std::function<void(int, int)>> m;
+	
+	// Cursor movement
 	std::function<void(double, double)> c = [](double, double) {};
+	
+	// Scroll input
 	std::function<void(double, double)> s = [](double, double) {};
 
+	// Updated through renderer
+	mat2x3 mouse_ray = mat2x3(1);
+
+	// Linked list implementation for scene hierarchy
+	void next();
+	void prev();
 private:
 	Inputs* _next = NULL;
 	Inputs* _prev = NULL;

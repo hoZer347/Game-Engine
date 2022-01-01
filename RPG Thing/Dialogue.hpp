@@ -13,6 +13,7 @@ static void init_dialogue(Dialogue* d) {
 
 	for (auto& v : d->m->vtxs)
 		v.clr = vec4(0, 0, 0, 1);
+	//
 
 	// Setting up inputs
 	inputs->next();

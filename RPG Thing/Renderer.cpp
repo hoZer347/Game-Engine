@@ -9,6 +9,7 @@ Renderer::Renderer() {
     glfwMakeContextCurrent(window);
     init_inputs(window);
 
+    glfwSwapInterval(1);
     glewExperimental = GL_TRUE;
     glewInit();
 
@@ -31,7 +32,7 @@ Renderer::Renderer() {
 
     // Alpha processing setup
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    glAlphaFunc(GL_GREATER, 0.0);
+    glAlphaFunc(GL_GREATER, 0);
     glEnable(GL_ALPHA_TEST);
     //
 
@@ -124,22 +125,17 @@ void Renderer::update() {
 void Renderer::init() {
     while (!glfwWindowShouldClose(window)) {
         inputs->update();
+        inputs->mouse_ray = get_cam_ray();
 
         for (auto& m : OBJS)
-            if (m->animate)
+            if (m && m->animate)
                 m->update();
 
         update();
     }
 }
 
-enum {
-    EYE = 0,
-    RAY = 1,
-    LOOK = 2
-};
-
-mat3 Renderer::get_cam_ray() {
+mat2x3 Renderer::get_cam_ray() {
     int w = 0, h = 0;
     glfwGetWindowSize(window, &w, &h);
 
@@ -162,7 +158,7 @@ mat3 Renderer::get_cam_ray() {
     vec4 ray = (look - eye);
     ray = normalize(ray);
 
-    mat3 ret = { vec3(eye), vec3(ray), vec3(look) };
+    mat2x3 ret = { vec3(eye), vec3(ray) };
 
     return ret;
 }

@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp">
       <Filter>Engine\Renderables</Filter>
     </ClCompile>
@@ -16,9 +15,6 @@
     </ClCompile>
     <ClCompile Include="Inputs.cpp">
       <Filter>Engine\Inputs</Filter>
-    </ClCompile>
-    <ClCompile Include="Menu.cpp">
-      <Filter>Engine\Renderables\Menu</Filter>
     </ClCompile>
     <ClCompile Include="Timer.cpp">
       <Filter>Engine\Timer</Filter>
@@ -43,6 +39,10 @@
     </ClCompile>
     <ClCompile Include="Parser.cpp">
       <Filter>Engine\Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="UnitMenu.cpp">
+      <Filter>Game\Renderables\Unit\UnitMenu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -97,11 +97,17 @@
     <ClInclude Include="Animations.hpp">
       <Filter>Game\Animations</Filter>
     </ClInclude>
-    <ClInclude Include="GridFunctions.hpp">
+    <ClInclude Include="Grid.hpp">
       <Filter>Game\Renderables\Grid</Filter>
     </ClInclude>
     <ClInclude Include="Dialogue.hpp">
       <Filter>Game\Renderables\Dialogue</Filter>
+    </ClInclude>
+    <ClInclude Include="Unit.hpp">
+      <Filter>Game\Renderables\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="UnitMenu.h">
+      <Filter>Game\Renderables\Unit\UnitMenu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -184,6 +190,9 @@
     </Filter>
     <Filter Include="Game\Animations">
       <UniqueIdentifier>{be3dd5b5-df9b-4948-b046-ad03afde838e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Renderables\Unit\UnitMenu">
+      <UniqueIdentifier>{bf69ac7f-01a5-4791-bd53-bc3575057f23}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

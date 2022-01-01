@@ -6,10 +6,10 @@ void Cell::update() {
 }
 
 void Grid::update() {
-	mat3 mat = r->get_cam_ray();
+	mat2x3& mat = inputs->mouse_ray;
 
 	if (hovered)
-		hovered->change_team(hovered->team);
+		hovered->change_color(hovered->clr);
 
 	// THIS MUST BE THE LAST THING THIS FUNCTION DOES
 	for (auto& i : C) {
@@ -31,4 +31,37 @@ void Grid::update() {
 	//
 
 	animate = false;
+}
+
+Unit* Grid::get(unsigned int x, unsigned int y) {
+	if (!check_rng(x, y))
+		return NULL;
+
+	if (C[x][y])
+		return C[x][y]->u;
+	else
+		return NULL;
+}
+
+bool Grid::set(Unit* u, unsigned int x, unsigned int y) {
+	if (!check_rng(x, y))
+		return false;
+
+	if (C[x][y] && !C[x][y]->u) {
+		C[x][y]->u = u;
+		u->c = C[x][y];
+	} else
+		return false;
+
+	return true;
+}
+
+bool Grid::check_rng(unsigned int x, unsigned int y) {
+	if (x >= 0 && x < C.size())
+		return true;
+
+	if (y >= 0 && C.size() > 0 && y < C[0].size())
+		return true;
+
+	return false;
 }

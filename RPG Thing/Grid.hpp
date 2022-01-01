@@ -3,6 +3,8 @@
 #include "Grid.h"
 #include "Unit.h"
 
+#include <set>
+
 static void flood_fill(Cell* o, std::set<Cell*>& C, std::function<double(Cell*, Cell*)> f, double i, Cell* c) {
 	if (!c || i <= 0) return;
 
@@ -35,11 +37,11 @@ static void attach_neighbours(Grid* g) {
 }
 
 static std::function<double(Cell*, Cell*)> u_ff = [](Cell* o, Cell* c) {\
-if (!c || !o || !o->u)
-return 10000000.;
+	if (!c || !o || !o->u)
+		return 10000000.;
 
-if (!c->u || c->team == TEAM_NULL || c->u->team == o->team)
-return c->terrain;
+	if (!c->u || c->clr == TEAM_NULL || c->u->team == o->clr)
+		return c->terrain;
 
-return 10000000.;
+	return 10000000.;
 };

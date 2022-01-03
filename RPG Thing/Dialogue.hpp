@@ -40,7 +40,7 @@ static Dialogue* create_dialogue(Renderer* r, std::string file_name = "Scripts/S
 
 	init_dialogue(d);
 
-	OBJS.push_back(d);
+	add_meshobj(d);
 
 	return d;
 }

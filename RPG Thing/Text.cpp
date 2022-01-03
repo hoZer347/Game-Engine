@@ -1,52 +1,34 @@
 #include "Text.h"
 
 FT_Library lib;
-std::vector<Font*> FONT;
+std::vector<Text*> TEXT;
+std::vector<unsigned int> _TEXT;
+std::vector<unsigned int> FTXS;
 
-void Text::add(char c) {
-	if (c == '\n') {
-		x = 0;
-		y += f->scale;
-		return;
-	}
+void Text::add(unsigned char c, Font* f) {
+	Mesh* _m = create_square(false);
 
 	Letter* l = f->letters[c];
-	Mesh* m = create_square(false);
-
-	m->vtxs[BOTTOM_LEFT].pos	= vec3(x +    0 + l->x_offset, -y        + l->y_offset, 0);
-	m->vtxs[BOTTOM_RIGHT].pos	= vec3(x + l->w + l->x_offset, -y        + l->y_offset, 0);
-	m->vtxs[TOP_RIGHT].pos		= vec3(x + l->w + l->x_offset, -y - l->h + l->y_offset, 0);
-	m->vtxs[TOP_LEFT].pos		= vec3(x +    0 + l->x_offset, -y - l->h + l->y_offset, 0);
 	
-	std::reverse(m->vtxs.begin(), m->vtxs.end());
+	vec3 v1 = vec3(l->s, 0)/=64;
+	vec3 v2 = vec3(l->b, 0)/=64;
 
-	l->m->ortho = f->ortho;
+	_m->vtxs[0].pos = vec3(0, 0, 0) * v1 + v2 + stride;
+	_m->vtxs[1].pos = vec3(1, 0, 0) * v1 + v2 + stride;
+	_m->vtxs[2].pos = vec3(1, 1, 0) * v1 + v2 + stride;
+	_m->vtxs[3].pos = vec3(0, 1, 0) * v1 + v2 + stride;
 
-	letters.push_back({ c, l->m->vtxs.size() });
+	vec2 v3 = l->s/f->s;
+	vec2 v4 = vec2(l->x, 0)/f->s;
 
-	for (auto& v : m->vtxs) {
-		v.pos *= 1. / f->scale;
-		l->m->inds.push_back(l->m->inds.size());
-		l->m->vtxs.push_back(v);
-	}
+	_m->vtxs[0].cds = vec2(0,  0) * v3 + v4;
+	_m->vtxs[1].cds = vec2(1,  0) * v3 + v4;
+	_m->vtxs[2].cds = vec2(1, -1) * v3 + v4;
+	_m->vtxs[3].cds = vec2(0, -1) * v3 + v4;
 
-	x += l->x_buffer;
+	m->add(_m);
 
-	w = std::max(w, x);
-	h = std::max(h, y);
-}
+	delete _m;
 
-vec3 Text::get_v(unsigned char i) {
-	switch (i) {
-	case BOTTOM_LEFT:
-		return pos + vec3(0,  0, 0) /= f->scale;
-	case BOTTOM_RIGHT:
-		return pos + vec3(w,  0, 0) /= f->scale;
-	case TOP_RIGHT:
-		return pos + vec3(w, h, 0) /= f->scale;
-	case TOP_LEFT:
-		return pos + vec3(0, h, 0) /= f->scale;
-	default:
-		return vec3(0, 0, 0);
-	}
+	stride += vec3(l->a, 0) /= (64 * 64);
 }

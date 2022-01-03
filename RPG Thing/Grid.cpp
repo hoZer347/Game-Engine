@@ -29,8 +29,6 @@ void Grid::update() {
 	m->inds.clear();
 	hovered = NULL;
 	//
-
-	animate = false;
 }
 
 Unit* Grid::get(unsigned int x, unsigned int y) {
@@ -46,9 +44,9 @@ Unit* Grid::get(unsigned int x, unsigned int y) {
 bool Grid::set(Unit* u, unsigned int x, unsigned int y) {
 	if (!check_rng(x, y))
 		return false;
-
+	
 	if (C[x][y] && !C[x][y]->u) {
-		C[x][y]->u = u;
+		C[x][y]->u = new Unit(*u);
 		u->c = C[x][y];
 	} else
 		return false;

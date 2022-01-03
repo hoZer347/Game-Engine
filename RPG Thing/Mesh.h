@@ -7,8 +7,8 @@
 #include <glm/gtx/transform.hpp>
 #include <SOIL/SOIL.h>
 
-#include <map>
 #include <vector>
+#include <map>
 
 #include <iostream>
 
@@ -35,27 +35,47 @@ struct Mesh {
 	std::vector<unsigned int> inds;
 	bool ortho = false;
 	bool show = true;
+	unsigned int index = 0;
 	mat4 trns = mat4(1);
+	void add(Mesh* m) {
+		unsigned int index = vtxs.size();
+
+		std::reverse(m->vtxs.begin(), m->vtxs.end());
+
+		for (auto& v : m->vtxs)
+			vtxs.push_back(v);
+		for (auto& i : m->inds)
+			inds.push_back(index + i);
+	}
 	vec3 pos(int i=0) { return vec3(trns * vec4(vtxs[i].pos, 1)); }
 
 	unsigned int
-		index = 0,
 		gl_render_type = GL_QUADS,
 		gl_data_type = GL_UNSIGNED_INT,
 		gl_texture = 0;
 };
 
 // Wrapper for meshes that need to be periodically updated
-class MeshObj {
+class _MeshObj {
 public:
-	vec3 pos(int i=0) { return m->pos(i); };
+	virtual void del()=0;
 	virtual void update()=0;
 	bool animate = true;
+};
+template <class T>
+class MeshObj : public _MeshObj {
+public:
+	~MeshObj() {  }
+	void del() { delete (T*)this; }
+	vec3 pos(int i=0) { return m->pos(i); };
+	unsigned int index=0;
 	Mesh* m = NULL;
 };
 
 extern std::vector<Mesh*> MESH;
-extern std::vector<MeshObj*> OBJS;
+extern std::vector<unsigned int> _MESH;
+extern std::vector<_MeshObj*> OBJS;
+extern std::vector<unsigned int> _OBJS;
 extern std::map<const char*, unsigned int> TEXS;
 
 // Generates a mesh object
@@ -69,8 +89,6 @@ static Mesh* create_mesh(
 
 	Mesh* m = new Mesh();
 
-	m->index = MESH.size();
-
 	for (auto& i : vtxs)
 		m->vtxs.push_back(i);
 
@@ -81,23 +99,52 @@ static Mesh* create_mesh(
 	m->gl_data_type = gl_data_type;
 	m->gl_texture = gl_texture;
 
-	if (add)
-		MESH.push_back(m);
+	if (add) {
+		if (!_MESH.empty()) {
+			MESH[_MESH.back()] = m;
+			m->index = _MESH.back();
+			_MESH.pop_back();
+		} else {
+			m->index = MESH.size();
+			MESH.push_back(m);
+		}
+	}
 
 	return m;
 }
 
-// Safely Deletes a Mesh
+// Safely deletes a mesh, keeps track of empty mesh slots
 static void delete_mesh(Mesh* m) {
-	for (auto& i : MESH)
-		if (m->index > m->index)
-			i->index--;
+	if (!m) return;
 
-	MESH.erase(MESH.begin() + m->index);
+	_MESH.push_back(m->index);
+
+	MESH[m->index] = NULL;
+
+	delete m;
+}
+
+// Generates an empty mesh
+static Mesh* blank_mesh(bool add=true) {
+	Mesh* m = new Mesh();
+
+	if (add) {
+		if (!_MESH.empty()) {
+			MESH[_MESH.back()] = m;
+			m->index = _MESH.back();
+			_MESH.pop_back();
+		}
+		else {
+			m->index = MESH.size();
+			MESH.push_back(m);
+		}
+	}
+
+	return m;
 }
 
 // Generates a square (0, 0, 0) -> (1, 1, 0), facing +Z, by default
-static Mesh* create_square(bool add = true) {
+static Mesh* create_square(bool add=true) {
 	std::vector<Vtx> vtxs = { Vtx(), Vtx(), Vtx(), Vtx() };
 
 	vtxs[0] = Vtx({ vec3(0, 0, 0), vec4(1), vec3(0, 0, 1), vec2(0, 0) });
@@ -198,16 +245,16 @@ static void change_rendering(Mesh* m, unsigned int gl_render_type) {
 	m->gl_render_type = gl_render_type;
 }
 
-// Safely Cleans up all pointers to Mesh's and MeshObj's
-static void clear_mesh() {
+// Deallocates everything to do with mesh
+static void close_mesh() {
 	for (auto& m : MESH)
-		delete m;
+		if (m)
+			delete m;
 
-	for (auto& m : OBJS)
-		delete m;
+	for (auto& o : OBJS)
+		if (o)
+			o->del();
 
-	MESH.clear();
-	OBJS.clear();
-
-	TEXS.clear();
+	for (auto& i : TEXS)
+		glDeleteTextures(1, &i.second);
 }

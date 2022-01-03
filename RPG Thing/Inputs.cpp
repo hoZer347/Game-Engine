@@ -2,6 +2,12 @@
 
 Inputs* inputs = NULL;
 
+Inputs::~Inputs() {
+	f.clear();
+	k.clear();
+	m.clear();
+}
+
 void Inputs::next() {
 	Inputs* i = inputs;
 	inputs = _next;

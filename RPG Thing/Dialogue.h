@@ -13,7 +13,7 @@
 #include <string>
 #include <map>
 
-class Dialogue : public MeshObj {
+class Dialogue : public MeshObj<Dialogue> {
 public:
 	~Dialogue();
 	void update();

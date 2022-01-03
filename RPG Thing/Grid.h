@@ -4,6 +4,7 @@
 #include "Unit.h"
 #include "Mesh.h"
 #include "Sprite.h"
+#include "Tracker.hpp"
 #include "Renderer.h"
 #include "Timer.h"
 
@@ -33,11 +34,9 @@ static double G_OPACITY = .3;
 
 // Stores units, and other stuff needed in a map
 // Knows neighbours, parent grid
-class Cell : public MeshObj {
+class Cell : public MeshObj<Cell> {
 public:
-	~Cell() {
-		if (u) delete u;
-	}
+	~Cell() { if (u) delete u; }
 	void update();
 	Cell*& operator[] (unsigned int i) { return next[i]; }
 	void change_color(unsigned char i) {
@@ -78,7 +77,7 @@ public:
 };
 
 // 2D array of Cells
-class Grid : public MeshObj {
+class Grid : public MeshObj<Grid> {
 public:
 	void update();
 	bool set(Unit*, unsigned int, unsigned int);
@@ -87,13 +86,12 @@ public:
 	Cell* hovered = NULL;
 	Cell* selected = NULL;
 	Renderer* r = NULL;
-	int index = 0;
 
 	bool check_rng(unsigned int, unsigned int);
 	std::vector<std::vector<Cell*>> C;
 };
 
-auto y_is_negz = [](Vtx& v) {
+static auto y_is_negz = [](Vtx& v) {
 	float z = v.pos.z;
 	float y = v.pos.y;
 
@@ -115,8 +113,8 @@ static Grid* create_grid(
 	g->r = renderer;
 	g->m = create_square();
 	change_rendering(g->m, GL_LINES);
-
-	OBJS.push_back((MeshObj*)g);
+	
+	OBJS.push_back(g);
 
 	for (unsigned int i = 0; i < x; i++) {
 		g->C.push_back({});
@@ -129,13 +127,14 @@ static Grid* create_grid(
 			c->m->trns *= 1 - G_BUFFER;
 			c->m->trns = translate(mat4(1),
 				vec3((int)i + i*G_BUFFER, 0, -(int)j - j * G_BUFFER));
-			
+
 			for (auto& v : c->m->vtxs)
 				v.clr = vec4(1, 1, 1, G_OPACITY);
 
 			change_rendering(c->m, GL_LINES);
 			
 			OBJS.push_back(c);
+
 			g->C[g->C.size()-1].push_back(c);
 		}
 	}

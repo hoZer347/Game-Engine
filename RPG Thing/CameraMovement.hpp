@@ -72,3 +72,8 @@ static void all_camera_movement(Renderer* r) {
 	scroll_zooms_camera(r);
 	set_min_window_size();
 }
+
+static void isometric_mount_camera(Renderer* r) {
+	r->c->trns = translate(mat4(1), vec3(0, -10, -10));
+	r->c->roll = rotate(mat4(1), radians(45.f), vec3(1, 0, 0));
+}

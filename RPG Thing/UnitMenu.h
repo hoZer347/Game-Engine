@@ -2,7 +2,6 @@
 
 #include "Menu.h"
 #include "Unit.h"
-#include "Text.h"
 #include "Inputs.h"
 #include "Renderer.h"
 
@@ -36,10 +35,7 @@ private:
 static UnitMenu* create_unit_menu(Unit* u) {
 	UnitMenu* m = new UnitMenu();
 	m->set(u);
-	m->font = create_font();
-	m->font->ortho = true;
 
-	OBJS.push_back(m);
 	inputs->mem["Menu"] = m;
 	
 	inputs->m[GLFW_MOUSE_BUTTON_LEFT] = [](int b, int a) {
@@ -47,6 +43,8 @@ static UnitMenu* create_unit_menu(Unit* u) {
 
 		m->select();
 	};
+
+	OBJS.push_back(m);
 
 	return m;
 }

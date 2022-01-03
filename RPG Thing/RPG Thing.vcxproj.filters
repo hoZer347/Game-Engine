@@ -42,7 +42,16 @@
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="UnitMenu.cpp">
-      <Filter>Game\Renderables\Unit\UnitMenu</Filter>
+      <Filter>Game\Renderables\UnitMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Engine\Renderables\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Tracker.hpp">
+      <Filter>Engine\Tracker</Filter>
+    </ClCompile>
+    <ClCompile Include="Tracker.cpp">
+      <Filter>Engine\Tracker</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -107,7 +116,10 @@
       <Filter>Game\Renderables\Unit</Filter>
     </ClInclude>
     <ClInclude Include="UnitMenu.h">
-      <Filter>Game\Renderables\Unit\UnitMenu</Filter>
+      <Filter>Game\Renderables\UnitMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.hpp">
+      <Filter>Engine\Renderables\Window</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -191,8 +203,14 @@
     <Filter Include="Game\Animations">
       <UniqueIdentifier>{be3dd5b5-df9b-4948-b046-ad03afde838e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Renderables\Unit\UnitMenu">
+    <Filter Include="Engine\Renderables\Window">
+      <UniqueIdentifier>{f19ea24e-a843-454c-b0bc-ae3caaf2f899}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Renderables\UnitMenu">
       <UniqueIdentifier>{bf69ac7f-01a5-4791-bd53-bc3575057f23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Tracker">
+      <UniqueIdentifier>{e6c777e2-173a-452a-be48-b5e7c488d447}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

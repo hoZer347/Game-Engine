@@ -4,7 +4,7 @@
 #include "Timer.h"
 #include "Renderer.h"
 
-class Sprite : public MeshObj {
+class Sprite : public MeshObj<Sprite> {
 public:
 	void update();
 
@@ -18,7 +18,11 @@ public:
 	float x_stride=0, y_stride=0;
 };
 
-static Sprite* create_sprite(Renderer* r, float sprite_size=32, int interval=16*15, bool animate=true) {
+static Sprite* create_sprite(
+	Renderer* r,
+	float sprite_size=32,
+	int interval=16*15,
+	bool animate=true) {
 	Sprite* s = new Sprite();
 	s->r = r;
 	s->m = create_square();

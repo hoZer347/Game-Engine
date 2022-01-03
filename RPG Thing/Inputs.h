@@ -1,8 +1,8 @@
 #pragma once
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
+
+#include "Window.hpp"
 
 #include <functional>
 #include <vector>
@@ -19,9 +19,10 @@ enum {
 
 class Inputs {
 public:
+	~Inputs();
 	void update();
 
-	GLFWwindow* window = NULL;
+	GLFWwindow* window = WINDOW;
 	double
 		mx=0, my=0, // Current mouse pos
 		dx=0, dy=0; // Delta mouse pos

@@ -7,11 +7,10 @@
 #include <GL/glfw3.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-#include "SOIL/SOIL.h"
 
 #include "Mesh.h"
 #include "Inputs.h"
+#include "Window.hpp"
 
 #include <vector>
 #include <iostream>
@@ -44,6 +43,7 @@ struct Camera {
 class Renderer {
 public:
 	Renderer();
+	~Renderer();
 	void render(Mesh*);
 	void update();
 	void init();
@@ -59,6 +59,7 @@ private:
 	GLuint shader_programme = 0, depth_shader = 0;
 	GLuint depth_map = 0;
 	GLuint _vtxs = 0, _inds = 0;
+	GLuint mode=0, norm=0, view=0, proj=0, mvp=0;
 
 	int window_w = 640, window_h = 640;
 

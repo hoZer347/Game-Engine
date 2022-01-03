@@ -89,6 +89,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:\Dev\irrKlang\include;C:\Dev\freetype-windows-binaries-master\include;C:\Dev\OpenGL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -157,6 +158,8 @@
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Inputs.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Tracker.cpp" />
+    <ClCompile Include="Tracker.hpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="Renderer.cpp" />
@@ -166,6 +169,7 @@
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Unit.cpp" />
     <ClCompile Include="UnitMenu.cpp" />
+    <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AI.h" />
@@ -189,6 +193,7 @@
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Unit.h" />
     <ClInclude Include="UnitMenu.h" />
+    <ClInclude Include="Window.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="depth.geom" />

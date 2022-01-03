@@ -6,8 +6,9 @@
 #include <functional>
 
 template<class T>
-class Menu : public MeshObj {
+class Menu : public MeshObj<Menu<T>> {
 public:
+	~Menu() { delete (T*)this; }
 	class Option {
 	public:
 		friend class Menu<T>;

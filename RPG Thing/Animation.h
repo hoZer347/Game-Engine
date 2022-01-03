@@ -7,7 +7,7 @@
 #include <map>
 
 // Does an animation based on a function f and memory mem
-class Animation : public MeshObj{
+class Animation : public MeshObj<Animation> {
 public:
 	Animation();
 	void update();

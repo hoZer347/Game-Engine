@@ -32,5 +32,22 @@ void Text::add(unsigned char c, Font* f) {
 
 	delete _m;
 
+	h = std::max(h, -(double)v1.y);
+
 	stride += vec3(l->a, 0) /= (64 * 64);
+}
+
+vec3 Text::pos(unsigned char i) {
+	switch (i) {
+	case BOTTOM_LEFT:
+		return loc;
+	case BOTTOM_RIGHT:
+		return loc + stride;
+	case TOP_RIGHT:
+		return loc + stride + vec3(0, h, 0);
+	case TOP_LEFT:
+		return loc + vec3(0, h, 0);
+	default:
+		return vec3(0);
+	}
 }

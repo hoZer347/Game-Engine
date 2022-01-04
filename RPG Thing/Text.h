@@ -39,14 +39,19 @@ public:
 class Text {
 public:
 	void add(unsigned char, Font*);
+	vec3 pos(unsigned char);
 
 	Mesh* m = blank_mesh();
 
 	vec3
-		pos = vec3(0),
+		loc = vec3(0),
 		stride = vec3(0);
 
-	unsigned int index = 0;
+	unsigned int
+		index = 0;
+
+	double
+		h=0;
 };
 
 // Font for displaying text

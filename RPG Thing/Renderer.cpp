@@ -186,7 +186,7 @@ mat2x3 Renderer::get_cam_ray() {
     vec4 ray = (look - eye);
     ray = normalize(ray);
 
-    mat2x3 ret = { vec3(eye), vec3(ray) };
+    mat2x3 ret = { vec3(eye), vec3(ray)*=-1000 };
 
     return ret;
 }

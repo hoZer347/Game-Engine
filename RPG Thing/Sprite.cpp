@@ -21,8 +21,4 @@ void Sprite::update() {
 			m->vtxs[3].cds.x = 0;
 		}
 	}
-
-	m->trns = translate(m->trns, vec3(.5, .5, 0));
-	m->trns *= inverse(r->c->yaww);
-	m->trns = translate(m->trns, vec3(-.5, -.5, 0));
 }

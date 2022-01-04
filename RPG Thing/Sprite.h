@@ -2,14 +2,11 @@
 
 #include "Mesh.h"
 #include "Timer.h"
-#include "Renderer.h"
 
 class Sprite : public MeshObj<Sprite> {
 public:
 	void update();
 
-	Renderer* r = NULL;
-	mat4* trns = NULL;
 	double last_time = curr_time;
 	double interval = 16 * 15;
 	float sprite_size=32;
@@ -19,19 +16,16 @@ public:
 };
 
 static Sprite* create_sprite(
-	Renderer* r,
 	float sprite_size=32,
 	int interval=16*15,
 	bool animate=true) {
 	Sprite* s = new Sprite();
-	s->r = r;
 	s->m = create_square();
 	s->animate = animate;
-
 	s->interval = interval;
 	s->sprite_size = sprite_size;
 
-	OBJS.push_back(s);
+	make_meshobj(s);
 
 	return s;
 }

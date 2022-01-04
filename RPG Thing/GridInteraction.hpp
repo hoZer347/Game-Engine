@@ -81,7 +81,6 @@ static void g_unselect(Grid* g) {
 					if (!c->u || c->u == g->selected->u)
 						c->change_color(TEAM_NULL);
 
-				g->selected->u->s->trns = NULL;
 				g->hovered->u = g->selected->u;
 				g->selected->u = NULL;
 

@@ -61,6 +61,7 @@ public:
 	virtual void del()=0;
 	virtual void update()=0;
 	bool animate = true;
+	unsigned int index = 0;
 };
 template <class T>
 class MeshObj : public _MeshObj {
@@ -68,7 +69,6 @@ public:
 	~MeshObj() {  }
 	void del() { delete (T*)this; }
 	vec3 pos(int i=0) { return m->pos(i); };
-	unsigned int index=0;
 	Mesh* m = NULL;
 };
 
@@ -122,6 +122,29 @@ static void delete_mesh(Mesh* m) {
 	MESH[m->index] = NULL;
 
 	delete m;
+}
+
+// Generates the meshobj wrapper for an object
+static void make_meshobj(_MeshObj* m) {
+	if (!_OBJS.empty()) {
+		OBJS[_OBJS.back()] = m;
+		m->index = _OBJS.back();
+		_OBJS.pop_back();
+	} else {
+		m->index = OBJS.size();
+		OBJS.push_back(m);
+	}
+}
+
+// Safely deletes a meshobj, keeps track of empty meshobj slots
+static void delete_meshobj(_MeshObj* m) {
+	if (!m) return;
+
+	_OBJS.push_back(m->index);
+
+	OBJS[m->index] = NULL;
+
+	m->del();
 }
 
 // Generates an empty mesh

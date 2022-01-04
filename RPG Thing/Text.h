@@ -17,11 +17,13 @@ class Text;
 class Font;
 
 extern FT_Library lib;
-extern std::vector<unsigned int> FTXS;
-
 extern std::vector<Text*> TEXT;
 extern std::vector<unsigned int> _TEXT;
+extern std::vector<Font*> FONT;
+extern std::vector<unsigned int> _FONT;
+extern std::vector<unsigned int> FTXS;
 
+// Represents location of letter in a font
 class Letter {
 public:
 	vec2
@@ -33,6 +35,7 @@ public:
 		x = 0; // Position on texture
 };
 
+// Displays text
 class Text {
 public:
 	void add(unsigned char, Font*);
@@ -46,6 +49,7 @@ public:
 	unsigned int index = 0;
 };
 
+// Font for displaying text
 class Font {
 public:
 	~Font() {
@@ -60,7 +64,8 @@ public:
 	vec2 s = vec2();
 
 	unsigned int
-		scale=0;
+		scale=0,
+		index=0;
 
 	Mesh* m = NULL;
 };
@@ -71,7 +76,6 @@ static Font* create_font(
 	unsigned int x_size = 0,
 	unsigned int y_size = 640,
 	unsigned int scale = 1024) {
-
 	Font* f = new Font();
 	f->m = blank_mesh(false);
 	f->scale = scale;
@@ -140,6 +144,15 @@ static Font* create_font(
 	
 	FT_Done_Face(face);
 	//
+	
+	if (!_FONT.empty()) {
+		FONT[_FONT.back()] = f;
+		f->index = _FONT.back();
+		_FONT.pop_back();
+	} else {
+		f->index = FONT.size();
+		FONT.push_back(f);
+	}
 
 	FTXS.push_back(f->m->gl_texture);
 
@@ -148,6 +161,12 @@ static Font* create_font(
 
 // Safely deletes a font
 static void delete_font(Font* f) {
+	if (!f) return;
+
+	_FONT.push_back(f->index);
+
+	FONT[f->index] = NULL;
+
 	for (auto& l : f->letters)
 		delete l;
 
@@ -188,6 +207,8 @@ static void delete_text(Text* t) {
 
 	TEXT[t->index] = NULL;
 
+	delete_mesh(t->m);
+
 	delete t;
 }
 
@@ -196,6 +217,10 @@ static void close_text() {
 	for (auto& t : TEXT)
 		if (t)
 			delete t;
+
+	for (auto& f : FONT)
+		if (f)
+			delete f;
 
 	if (!FTXS.empty())
 		glDeleteTextures(FTXS.size(), &FTXS[0]);

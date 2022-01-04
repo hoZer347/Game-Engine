@@ -83,6 +83,7 @@ Renderer::Renderer() {
 }
 
 Renderer::~Renderer() {
+    delete c;
     delete inputs;
     glfwDestroyWindow(window);
     glDeleteProgram(shader_programme);
@@ -90,7 +91,6 @@ Renderer::~Renderer() {
     glDeleteVertexArrays(1, &vao);
     glDeleteBuffers(1, &_vtxs);
     glDeleteBuffers(1, &_inds);
-    delete c;
     glfwTerminate();
 }
 
@@ -106,7 +106,10 @@ void Renderer::update() {
     c->rotn = c->roll * c->ptch * c->yaww;
     c->mode = c->rotn * c->trns;
     c->view = lookAt(c->eye, c->look, c->up);
-    c->proj = perspective(radians(45.0f), (float)window_w/(float)window_h, 0.1f, 100.0f);
+    c->proj = perspective(
+        radians(45.0f),
+        (float)window_w/(float)window_h,
+        0.1f, 100.0f);
     c->norm = transpose(inverse(c->mode));
     c->mvp = c->proj * c->view * c->mode;
 
@@ -127,6 +130,8 @@ void Renderer::update() {
     glUniformMatrix4fv(mvp,  1, GL_FALSE, &c->mvp[0][0]);
 
     // DRAWING OBJECTS
+
+    unsigned int i = 0;
 
     for (auto& m : MESH)
         if (m)
@@ -159,7 +164,10 @@ mat2x3 Renderer::get_cam_ray() {
     int w = 0, h = 0;
     glfwGetWindowSize(window, &w, &h);
 
-    vec4 mv = vec4((inputs->mx - w / 2) / (w / 2), (-inputs->my + h / 2) / (h / 2), 0, 1);
+    vec4 mv = vec4((
+        inputs->mx - w / 2) / (w / 2),
+        (-inputs->my + h / 2) / (h / 2),
+        0, 1);
 
     Vtx v;
 

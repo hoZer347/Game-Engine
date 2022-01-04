@@ -158,8 +158,6 @@
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Inputs.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Tracker.cpp" />
-    <ClCompile Include="Tracker.hpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Parser.cpp" />
     <ClCompile Include="Renderer.cpp" />
@@ -186,7 +184,7 @@
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Parser.h" />
     <ClInclude Include="Renderer.h" />
-    <ClInclude Include="Unit.hpp" />
+    <ClInclude Include="UnitMenu.hpp" />
     <ClInclude Include="Sound.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Text.h" />

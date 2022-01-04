@@ -8,7 +8,6 @@
 template<class T>
 class Menu : public MeshObj<Menu<T>> {
 public:
-	~Menu() { delete (T*)this; }
 	class Option {
 	public:
 		friend class Menu<T>;
@@ -18,10 +17,10 @@ public:
 		virtual bool intersect() = 0;
 
 	protected:
-		std::function<void(T)> f;
+		std::function<void(T*)> f;
 	};
 
-	void set(T o) {
+	void set(T* o) {
 		obj = o;
 	}
 
@@ -49,7 +48,7 @@ public:
 	virtual void unload()=0;
 
 protected:
-	T obj = NULL;
+	T* obj = NULL;
 	Option* hovered = NULL;
 	std::vector<Option*> O;
 };

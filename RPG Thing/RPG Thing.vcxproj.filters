@@ -47,12 +47,6 @@
     <ClCompile Include="Window.cpp">
       <Filter>Engine\Renderables\Window</Filter>
     </ClCompile>
-    <ClCompile Include="Tracker.hpp">
-      <Filter>Engine\Tracker</Filter>
-    </ClCompile>
-    <ClCompile Include="Tracker.cpp">
-      <Filter>Engine\Tracker</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mesh.h">
@@ -112,14 +106,14 @@
     <ClInclude Include="Dialogue.hpp">
       <Filter>Game\Renderables\Dialogue</Filter>
     </ClInclude>
-    <ClInclude Include="Unit.hpp">
-      <Filter>Game\Renderables\Unit</Filter>
-    </ClInclude>
     <ClInclude Include="UnitMenu.h">
       <Filter>Game\Renderables\UnitMenu</Filter>
     </ClInclude>
     <ClInclude Include="Window.hpp">
       <Filter>Engine\Renderables\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="UnitMenu.hpp">
+      <Filter>Game\Renderables\UnitMenu</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -208,9 +202,6 @@
     </Filter>
     <Filter Include="Game\Renderables\UnitMenu">
       <UniqueIdentifier>{bf69ac7f-01a5-4791-bd53-bc3575057f23}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Tracker">
-      <UniqueIdentifier>{e6c777e2-173a-452a-be48-b5e7c488d447}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

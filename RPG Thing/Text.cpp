@@ -3,6 +3,8 @@
 FT_Library lib;
 std::vector<Text*> TEXT;
 std::vector<unsigned int> _TEXT;
+std::vector<Font*> FONT;
+std::vector<unsigned int> _FONT;
 std::vector<unsigned int> FTXS;
 
 void Text::add(unsigned char c, Font* f) {

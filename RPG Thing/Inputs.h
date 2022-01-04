@@ -51,7 +51,6 @@ public:
 	// Linked list implementation for scene hierarchy
 	void next();
 	void prev();
-private:
 	Inputs* _next = NULL;
 	Inputs* _prev = NULL;
 };

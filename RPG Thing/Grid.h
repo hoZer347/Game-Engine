@@ -114,7 +114,7 @@ static Grid* create_grid(
 	g->m = create_square();
 	change_rendering(g->m, GL_LINES);
 	
-	OBJS.push_back(g);
+	make_meshobj(g);
 
 	for (unsigned int i = 0; i < x; i++) {
 		g->C.push_back({});
@@ -133,7 +133,7 @@ static Grid* create_grid(
 
 			change_rendering(c->m, GL_LINES);
 			
-			OBJS.push_back(c);
+			make_meshobj(c);
 
 			g->C[g->C.size()-1].push_back(c);
 		}

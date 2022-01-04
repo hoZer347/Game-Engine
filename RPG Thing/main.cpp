@@ -8,6 +8,8 @@
 #include "Grid.hpp"
 #include "Text.h"
 #include "Tracker.hpp"
+#include "Unit.h"
+#include "UnitMenu.hpp"
 #include "GridInteraction.hpp"
 #include "CameraMovement.hpp"
 
@@ -34,30 +36,30 @@ int main() {
     auto clock = start_clock();
     auto renderer = create_renderer();
     auto grid = create_grid(renderer, 10, 10);
-    auto sprite = create_sprite(renderer);
+    auto sprite = create_sprite();
     auto unit = create_unit();
-    auto font = create_font();
-    auto text = create_text("Test", font);
+    auto menu = get_options(unit);
+    //
+
+    // Setup
     all_camera_movement(renderer);
     setup_grid(grid);
     attach_neighbours(grid);
     isometric_mount_camera(renderer);
-    //
-
-    // Execution
+    
     unit->s = sprite;
     bind_texture(sprite);
     grid->set(unit, 3, 3);
-
-    renderer->init();
     //
+
+    // Execution
+    renderer->init();
 
     // Deallocation
     do_timer = false;
 
     delete renderer;
     delete unit;
-    delete font;
 
     close_mesh();
     close_text();

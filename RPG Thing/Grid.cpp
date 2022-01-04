@@ -11,6 +11,15 @@ void Grid::update() {
 	if (hovered)
 		hovered->change_color(hovered->clr);
 
+	for (auto& i : C)
+		for (auto& c : i)
+			if (c->u && c->u->s) {
+				mat4 trns = c->u->s->m->trns;
+				c->u->s->m->trns *= inverse(trns);
+				c->u->s->m->trns = r->c->yaww;
+				c->u->s->m->trns *= trns;
+			}
+
 	// THIS MUST BE THE LAST THING THIS FUNCTION DOES
 	for (auto& i : C) {
 		for (auto& j : i) {

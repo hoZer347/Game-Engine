@@ -5,14 +5,15 @@
 
 #include "Renderer.h"
 #include "Timer.h"
-#include "Grid.hpp"
+#include "Grid.h"
+#include "Sprite.h"
 #include "Text.h"
-#include "Tracker.hpp"
 #include "Unit.h"
-#include "UnitMenu.hpp"
-#include "GridInteraction.hpp"
-#include "CameraMovement.hpp"
+#include "UnitMenu.h"
+#include "GridActions.h"
+#include "RendererActions.h"
 
+// Memory Tracking
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
 #include <crtdbg.h>
@@ -23,9 +24,8 @@
 // TODO: Shadows
 // TODO: Dialogues
 // TODO: Serialization
-// TODO: Grid Interaction
-// TODO: Add mesh container
 // TODO: Unit Menu Specifics
+// TODO: Make global grid
 
 int main() {
     FT_Init_FreeType(&lib);
@@ -38,11 +38,10 @@ int main() {
     auto grid = create_grid(renderer, 10, 10);
     auto sprite = create_sprite();
     auto unit = create_unit();
-    auto menu = get_options(unit);
     //
 
     // Setup
-    all_camera_movement(renderer);
+    setup_camera_movement(renderer);
     setup_grid(grid);
     attach_neighbours(grid);
     isometric_mount_camera(renderer);

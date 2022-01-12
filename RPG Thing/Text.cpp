@@ -30,9 +30,14 @@ void Text::add(unsigned char c, Font* f) {
 
 	m->add(_m);
 
-	delete _m;
+	for (auto& v : _m->vtxs) {
+		min.x = std::min(v.pos.x, min.x);
+		min.y = std::min(v.pos.y, min.y);
+		max.x = std::max(v.pos.x, max.x);
+		max.y = std::max(v.pos.y, max.y);
+	}
 
-	h = std::max(h, -(double)v1.y);
+	delete _m;
 
 	stride += vec3(l->a, 0) /= (64 * 64);
 }
@@ -40,13 +45,13 @@ void Text::add(unsigned char c, Font* f) {
 vec3 Text::pos(unsigned char i) {
 	switch (i) {
 	case BOTTOM_LEFT:
-		return loc;
+		return vec3(m->trns * vec4(min,			 0, 1));
 	case BOTTOM_RIGHT:
-		return loc + stride;
+		return vec3(m->trns * vec4(max.x, min.y, 0, 1));
 	case TOP_RIGHT:
-		return loc + stride + vec3(0, h, 0);
+		return vec3(m->trns * vec4(max,			 0, 1));
 	case TOP_LEFT:
-		return loc + vec3(0, h, 0);
+		return vec3(m->trns * vec4(min.x, max.y, 0, 1));
 	default:
 		return vec3(0);
 	}

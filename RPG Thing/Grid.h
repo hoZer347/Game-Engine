@@ -1,14 +1,12 @@
 #pragma once
 
-#include <glm/gtx/intersect.hpp>
-#include "Unit.h"
 #include "Mesh.h"
-#include "Sprite.h"
-#include "Tracker.hpp"
-#include "Renderer.h"
-#include "Timer.h"
+#include "Unit.h"
 
-#include <vector>
+#include <functional>
+#include <set>
+
+class Renderer;
 
 enum {
 	U = 0,
@@ -27,8 +25,6 @@ enum {
 	TEAM_B_ATK = 6
 };
 
-class Unit;
-
 static double G_BUFFER = .1;
 static double G_OPACITY = .3;
 
@@ -36,7 +32,7 @@ static double G_OPACITY = .3;
 // Knows neighbours, parent grid
 class Cell : public MeshObj<Cell> {
 public:
-	~Cell() { if (u) delete u; }
+	~Cell();
 	void update();
 	Cell*& operator[] (unsigned int i) { return next[i]; }
 	void change_color(unsigned char i) {
@@ -91,53 +87,26 @@ public:
 	std::vector<std::vector<Cell*>> C;
 };
 
-static auto y_is_negz = [](Vtx& v) {
-	float z = v.pos.z;
-	float y = v.pos.y;
-
-	v.pos.y = -z;
-	v.pos.z = -y;
-
-	return;
-};
-
 // Creates a (x, y) - size grid
 // f is the function that represents the positions of each cell and their vertices
 // animate is whether or not to update each cell
-static Grid* create_grid(
+extern Grid* create_grid(
 	Renderer* renderer,
 	unsigned int x=10,
 	unsigned int y=10,
-	bool animate=false) {
-	Grid* g = new Grid();
-	g->r = renderer;
-	g->m = create_square();
-	change_rendering(g->m, GL_LINES);
-	
-	make_meshobj(g);
+	bool animate=false);
 
-	for (unsigned int i = 0; i < x; i++) {
-		g->C.push_back({});
-		for (unsigned int j = 0; j < y; j++) {
-			Cell* c = new Cell();
-			c->m = create_square();
-			for (auto& v : c->m->vtxs)
-				y_is_negz(v);
+//
+extern void flood_fill(Cell* o, std::set<Cell*>& C, std::function<double(Cell*, Cell*)> f, double i, Cell* c);
 
-			c->m->trns *= 1 - G_BUFFER;
-			c->m->trns = translate(mat4(1),
-				vec3((int)i + i*G_BUFFER, 0, -(int)j - j * G_BUFFER));
+//
+extern void a_star(Cell* goal, Cell* c, std::vector<Cell*>& path, std::map<Cell*, unsigned short> visited);
 
-			for (auto& v : c->m->vtxs)
-				v.clr = vec4(1, 1, 1, G_OPACITY);
+//
+extern void attach_neighbours(Grid* g);
 
-			change_rendering(c->m, GL_LINES);
-			
-			make_meshobj(c);
+//
+extern std::function<double(Cell*, Cell*)> u_ff;
 
-			g->C[g->C.size()-1].push_back(c);
-		}
-	}
-
-	return g;
-}
+//
+extern std::function<void(Vtx&)> y_is_negz;

@@ -47,6 +47,18 @@
     <ClCompile Include="Window.cpp">
       <Filter>Engine\Renderables\Window</Filter>
     </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Engine\Renderables\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitMenuActions.cpp">
+      <Filter>Game\Actions\UnitMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="GridActions.cpp">
+      <Filter>Game\Actions\Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="RendererActions.cpp">
+      <Filter>Game\Actions\Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mesh.h">
@@ -88,20 +100,11 @@
     <ClInclude Include="Animation.h">
       <Filter>Engine\Animation</Filter>
     </ClInclude>
-    <ClInclude Include="CameraMovement.hpp">
-      <Filter>Game\Inputs</Filter>
-    </ClInclude>
-    <ClInclude Include="GridInteraction.hpp">
-      <Filter>Game\Inputs</Filter>
-    </ClInclude>
     <ClInclude Include="Parser.h">
       <Filter>Engine\Parser</Filter>
     </ClInclude>
     <ClInclude Include="Animations.hpp">
       <Filter>Game\Animations</Filter>
-    </ClInclude>
-    <ClInclude Include="Grid.hpp">
-      <Filter>Game\Renderables\Grid</Filter>
     </ClInclude>
     <ClInclude Include="Dialogue.hpp">
       <Filter>Game\Renderables\Dialogue</Filter>
@@ -112,8 +115,14 @@
     <ClInclude Include="Window.hpp">
       <Filter>Engine\Renderables\Window</Filter>
     </ClInclude>
-    <ClInclude Include="UnitMenu.hpp">
-      <Filter>Game\Renderables\UnitMenu</Filter>
+    <ClInclude Include="UnitMenuActions.h">
+      <Filter>Game\Actions\UnitMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="GridActions.h">
+      <Filter>Game\Actions\Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="RendererActions.h">
+      <Filter>Game\Actions\Renderer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -185,9 +194,6 @@
     <Filter Include="Engine\Animation">
       <UniqueIdentifier>{513e830c-ba1b-470c-87d7-22bf3fb537b7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Inputs">
-      <UniqueIdentifier>{2a00736a-4840-420c-92cd-a5948009f746}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\AI">
       <UniqueIdentifier>{25f99621-ce73-4eea-8b80-17ec404b81a7}</UniqueIdentifier>
     </Filter>
@@ -202,6 +208,18 @@
     </Filter>
     <Filter Include="Game\Renderables\UnitMenu">
       <UniqueIdentifier>{bf69ac7f-01a5-4791-bd53-bc3575057f23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Actions">
+      <UniqueIdentifier>{2a00736a-4840-420c-92cd-a5948009f746}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Actions\UnitMenu">
+      <UniqueIdentifier>{d37f8b15-9dce-4e90-b7ec-aec0f81d1f75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Actions\Grid">
+      <UniqueIdentifier>{d3182a0b-d403-41ac-9e8c-1830495f68eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Actions\Renderer">
+      <UniqueIdentifier>{12839904-ce9a-4b52-86b8-8053f8fe881c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

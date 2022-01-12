@@ -44,14 +44,16 @@ public:
 	Mesh* m = blank_mesh();
 
 	vec3
-		loc = vec3(0),
 		stride = vec3(0);
+
+	vec2
+		min=vec2(0),
+		max=vec2(0);
 
 	unsigned int
 		index = 0;
 
-	double
-		h=0;
+	Font* f = NULL;
 };
 
 // Font for displaying text
@@ -185,6 +187,7 @@ static Text* create_text(std::string text, Font* f, bool add=true) {
 
 	t->m->gl_texture = f->m->gl_texture;
 	t->m->show = true;
+	t->f = f;
 
 	if (add) {
 		if (!_TEXT.empty()) {

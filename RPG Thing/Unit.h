@@ -15,29 +15,27 @@ class Cell;
 class Unit {
 public:
 	unsigned char get(unsigned char i) { return base[i] + bonus[i]; }
-	
+	std::vector<unsigned short>& get_options();
+	std::vector<unsigned short>& get_skills();
+
 	Cell* c = NULL;
 	Sprite* s = NULL;
 
 	bool
-		has_moved = 0;
+		has_moved = false;
 
 	unsigned char
 		team = 1,
-		equipped = 0,
-		items[5] = { },
-		skills[5] = { },
-		bonus[10] = { 0,  1 },
-		base[10] = { 5,  0 },
-		cap[10] = { 12,  5 };
+		_skills[5] = { },
+		bonus[10] = { 0,  0 },
+		base[10] = { 5,  1 },
+		cap[10] = { 0,  0 };
+
+private:
+	std::vector<unsigned short> options = { };
+	std::vector<unsigned short> skills = { };
 };
 
 extern std::vector<Unit*> UNIT;
 
-static Unit* create_unit() {
-	Unit* u = new Unit();
-
-	UNIT.push_back(u);
-
-	return u;
-}
+extern Unit* create_unit();

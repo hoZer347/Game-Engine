@@ -1,10 +1,8 @@
-#pragma once
+#include "GridActions.h"
 
+#include "Grid.h"
 #include "Inputs.h"
-#include "Renderer.h"
-#include "Unit.h"
-#include "Grid.hpp"
-#include "Animations.hpp"
+#include "UnitMenu.h"
 
 #include <functional>
 #include <vector>
@@ -14,28 +12,28 @@ enum {
 	G_SELECT_UNSELECT = 0
 };
 
-static void g_select(Grid*);
-static void g_unselect(Grid*);
-static void attach_neighbours(Grid*);
-static void g_cursor_updates_grid(Grid*);
-
-static void setup_grid(Grid* g) {
+void setup_grid(Grid* g) {
 	inputs->mem["Grid"] = g;
 	g_select(g);
 	g_cursor_updates_grid(g);
 }
 
-static void g_select(Grid* g) {
+void g_select(Grid* g) {
 	inputs->mem["Grid"] = g;
 
 	inputs->m[GLFW_MOUSE_BUTTON_LEFT] = [](int a, int m) {
 		Grid* g = (Grid*)inputs->mem["Grid"];
 
 		if (a)
-			if (g->hovered && g->hovered->u) {
+			if (g->hovered &&
+				g->hovered->u &&
+				!g->hovered->u->has_moved) {
+
+				// Getting the clicked cell
 				g->selected = g->hovered;
 				g->selected->u = g->hovered->u;
 
+				// Flood filling the cell based on the unit
 				std::set<Cell*> S;
 				flood_fill(g->selected, S, u_ff, g->selected->u->get(U::RNG), g->selected);
 				for (auto& c : S)
@@ -44,6 +42,8 @@ static void g_select(Grid* g) {
 
 				g_unselect(g);
 			}
+		
+		// TODO: clicking an empty cell (terrain info / map otions)
 	};
 
 	inputs->m[GLFW_MOUSE_BUTTON_RIGHT] = [](int a, int m) {
@@ -62,7 +62,7 @@ static void g_select(Grid* g) {
 	};
 }
 
-static void g_unselect(Grid* g) {
+void g_unselect(Grid* g) {
 	inputs->mem["Grid"] = g;
 
 	inputs->m[GLFW_MOUSE_BUTTON_LEFT] = [](int a, int m) {
@@ -70,26 +70,48 @@ static void g_unselect(Grid* g) {
 
 		if (!a)
 			if (g->hovered &&
-				!g->hovered->u &&
+				(!g->hovered->u || g->hovered->u == g->selected->u) &&
 				g->selected &&
 				g->selected->u &&
 				g->hovered->clr == g->selected->u->team) {
 
-				std::set<Cell*> S;
-				flood_fill(g->selected, S, u_ff, g->selected->u->get(U::RNG), g->selected);
-				for (auto& c : S)
-					if (!c->u || c->u == g->selected->u)
+				// Making the movement cancellable
+				if (!(g->hovered->u == g->selected->u)) {
+					g->hovered->u = g->selected->u;
+					g->selected->u = NULL;
+
+					inputs->mem["Selected"] = g->selected;
+					inputs->mem["Hovered"] = g->hovered;
+					inputs->mem["Unit"] = g->hovered->u;
+
+					inputs->on_del.push_back([]() {
+						Cell
+							* c1 = (Cell*)inputs->mem["Selected"],
+							* c2 = (Cell*)inputs->mem["Hovered"];
+
+						if (c1 && c2) {
+							c1->u = c2->u;
+							c2->u = NULL;
+						}
+					});
+				}
+
+				// Resetting selected cells
+				for (auto& _C : g->C)
+					for (auto& c : _C)
 						c->change_color(TEAM_NULL);
 
-				g->hovered->u = g->selected->u;
-				g->selected->u = NULL;
-
+				// Going back to select
 				g_select(g);
+
+				// Creating a menu of options for the selected unit
+				create_unit_menu(g->hovered->u->get_options());
+				((UnitMenu*)MENU)->unit = g->hovered->u;
 			}
 	};
 }
 
-static void g_cursor_updates_grid(Grid* g) {
+void g_cursor_updates_grid(Grid* g) {
 	inputs->mem["Grid"] = g;
 
 	inputs->c = [](double x, double y) {

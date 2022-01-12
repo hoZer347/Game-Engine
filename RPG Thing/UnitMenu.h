@@ -1,15 +1,12 @@
 #pragma once
 
 #include "Menu.h"
-#include "Unit.h"
-#include "Text.h"
-#include "Inputs.h"
-#include "Renderer.h"
 
 class Text;
 class Font;
+class Unit;
 
-class UnitOption : public Menu<Unit>::Option {
+class UnitOption : public Menu::Option {
 public:
 	friend class UnitMenu;
 
@@ -18,11 +15,11 @@ public:
 	bool intersect();
 
 protected:
-	bool on_off = false;
+	bool on_off = true;
 	Text* t = NULL;
 };
 
-class UnitMenu : public Menu<Unit> {
+class UnitMenu : public Menu {
 public:
 	void del() {
 		for (auto& o : O)
@@ -30,28 +27,12 @@ public:
 
 		delete this;
 	}
-	void add(const char*, std::function<void(Unit*)>);
 	void unload();
+	void change_focus(bool);
+	void add(const char*, std::function<void()>);
 
-	Font* font = create_font();
-
-private:
-	Unit* u = NULL;
+	Unit* unit = NULL;
+	Font* font = NULL;
 };
 
-static UnitMenu* create_unit_menu(Unit* u) {
-	UnitMenu* m = new UnitMenu();
-	m->set(u);
-
-	inputs->mem["Menu"] = m;
-	
-	inputs->m[GLFW_MOUSE_BUTTON_LEFT] = [](int b, int a) {
-		UnitMenu* m = (UnitMenu*)inputs->mem["Menu"];
-
-		m->select();
-	};
-
-	make_meshobj(m);
-
-	return m;
-}
+extern void create_unit_menu(std::vector<unsigned short>& options);

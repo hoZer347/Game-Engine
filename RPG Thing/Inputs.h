@@ -22,7 +22,6 @@ public:
 	~Inputs();
 	void update();
 
-	GLFWwindow* window = WINDOW;
 	double
 		mx=0, my=0, // Current mouse pos
 		dx=0, dy=0; // Delta mouse pos
@@ -31,7 +30,7 @@ public:
 	std::map<const char*, void*> mem;
 	
 	// Every-tick inputs for mouse and keyboard
-	std::map<short, std::function<void()>> f;
+	std::vector<std::function<void()>> f;
 
 	// Window keyboard inputs
 	std::map<short, std::function<void(int, int, int)>> k;
@@ -45,45 +44,23 @@ public:
 	// Scroll input
 	std::function<void(double, double)> s = [](double, double) {};
 
-	// Updated through renderer
-	mat2x3 mouse_ray = mat2x3(1);
+	// Functions to run on deletion
+	std::vector<std::function<void()>> on_del;
 
-	// Linked list implementation for scene hierarchy
-	void next();
-	void prev();
-	Inputs* _next = NULL;
+	// Updated through renderer
+	mat2x3 mouse_ray = mat2x3(0);
+
+	// The previous inputs in the chain
 	Inputs* _prev = NULL;
 };
 
 extern Inputs* inputs;
 
-static void init_inputs(GLFWwindow* w) {
-	inputs = new Inputs();
-	inputs->window = w;
+//
+extern void init_inputs();
 
-	glfwSetMouseButtonCallback(
-		inputs->window,
-		[](GLFWwindow* w, int b, int a, int m) {
-			if (inputs->m[b])
-				inputs->m[b](a, m);
-		});
+//
+extern void new_inputs();
 
-	glfwSetKeyCallback(
-		inputs->window,
-		[](GLFWwindow* w, int k, int s, int a, int m) {
-			if (inputs->k[k])
-				inputs->k[k](s, a, m);
-		});
-	
-	glfwSetScrollCallback(
-		inputs->window,
-		[](GLFWwindow* w, double x, double y) {
-			inputs->s(x, y);
-		});
-
-	glfwSetCursorPosCallback(
-		inputs->window,
-		[](GLFWwindow* w, double x, double y) {
-			inputs->c(x, y);
-		});
-}
+//
+extern void prev_inputs();

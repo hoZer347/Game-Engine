@@ -47,9 +47,7 @@ struct Mesh {
 		for (auto& i : m->inds)
 			inds.push_back(index + i);
 	}
-	vec3 pos(int i=0) {
-		return vec3(trns * vec4(vtxs[i].pos, 1));
-	}
+	vec3 pos(int i=0) { return vec3(trns * vec4(vtxs[i].pos, 1)); }
 
 	unsigned int
 		gl_render_type = GL_QUADS,

@@ -6,9 +6,9 @@ Renderer::Renderer() {
     glfwInit();
 
     WINDOW = glfwCreateWindow(window_w, window_h, "", NULL, NULL);
-    window = WINDOW;
-    glfwMakeContextCurrent(window);
-    init_inputs(window);
+    glfwMakeContextCurrent(WINDOW);
+    new_inputs();
+    init_inputs();
 
     glfwSwapInterval(1);
     glewExperimental = GL_TRUE;
@@ -85,7 +85,7 @@ Renderer::Renderer() {
 Renderer::~Renderer() {
     delete c;
     delete inputs;
-    glfwDestroyWindow(window);
+    glfwDestroyWindow(WINDOW);
     glDeleteProgram(shader_programme);
     glDeleteProgram(depth_shader);
     glDeleteVertexArrays(1, &vao);
@@ -98,7 +98,7 @@ void Renderer::update() {
     // INITIALIZING WINDOW
 
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glfwGetWindowSize(window, &window_w, &window_h);
+    glfwGetWindowSize(WINDOW, &window_w, &window_h);
     glViewport(0, 0, window_w, window_h);
 
     // DOING MATRIX CALCULATIONS
@@ -144,11 +144,11 @@ void Renderer::update() {
 
     // REFRESHING WINDOW
 
-    glfwSwapBuffers(window);
+    glfwSwapBuffers(WINDOW);
 }
 
 void Renderer::init() {
-    while (!glfwWindowShouldClose(window)) {
+    while (!glfwWindowShouldClose(WINDOW)) {
         inputs->update();
         inputs->mouse_ray = get_cam_ray();
 
@@ -162,7 +162,7 @@ void Renderer::init() {
 
 mat2x3 Renderer::get_cam_ray() {
     int w = 0, h = 0;
-    glfwGetWindowSize(window, &w, &h);
+    glfwGetWindowSize(WINDOW, &w, &h);
 
     vec4 mv = vec4((
         inputs->mx - w / 2) / (w / 2),

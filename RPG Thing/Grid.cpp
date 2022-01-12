@@ -1,5 +1,58 @@
 #include "Grid.h"
 
+#include <glm/gtx/intersect.hpp>
+#include "Mesh.h"
+#include "Sprite.h"
+#include "Timer.h"
+#include "Inputs.h"
+#include "Renderer.h"
+
+#include <vector>
+
+Grid* GRID = NULL;
+
+Grid* create_grid(
+	Renderer* renderer,
+	unsigned int x,
+	unsigned int y,
+	bool animate) {
+	Grid* g = new Grid();
+	g->r = renderer;
+	g->m = create_square();
+	change_rendering(g->m, GL_LINES);
+
+	make_meshobj(g);
+
+	for (unsigned int i = 0; i < x; i++) {
+		g->C.push_back({});
+		for (unsigned int j = 0; j < y; j++) {
+			Cell* c = new Cell();
+			c->m = create_square();
+			for (auto& v : c->m->vtxs)
+				y_is_negz(v);
+
+			c->m->trns *= 1 - G_BUFFER;
+			c->m->trns = translate(mat4(1),
+				vec3((int)i + i * G_BUFFER, 0, -(int)j - j * G_BUFFER));
+
+			for (auto& v : c->m->vtxs)
+				v.clr = vec4(1, 1, 1, G_OPACITY);
+
+			change_rendering(c->m, GL_LINES);
+
+			make_meshobj(c);
+
+			g->C[g->C.size() - 1].push_back(c);
+		}
+	}
+
+	return g;
+}
+
+Cell::~Cell() {
+	if (u) delete u;
+}
+
 void Cell::update() {
 	if (u && u->s)
 		u->s->m->trns = translate(m->trns, vec3(0, 0, -.5));
@@ -72,3 +125,53 @@ bool Grid::check_rng(unsigned int x, unsigned int y) {
 
 	return false;
 }
+
+void flood_fill(Cell* o, std::set<Cell*>& C, std::function<double(Cell*, Cell*)> f, double i, Cell* c) {
+	if (!c || i <= 0) return;
+
+	i -= f(o, c);
+
+	C.insert(c);
+
+	flood_fill(o, C, f, i, (*c)[U]);
+	flood_fill(o, C, f, i, (*c)[D]);
+	flood_fill(o, C, f, i, (*c)[L]);
+	flood_fill(o, C, f, i, (*c)[R]);
+}
+
+void a_star(Cell* goal, Cell* c, std::vector<Cell*>& path, std::map<Cell*, unsigned short> visited) {
+
+}
+
+void attach_neighbours(Grid* g) {
+	for (unsigned int i = 0; i < g->C.size(); i++)
+		for (unsigned int j = 0; j < g->C[0].size(); j++) {
+			if (j < g->C.size() - 1)
+				(*g->C[i][j])[U] = g->C[i][j + 1];
+			if (j > 0)
+				(*g->C[i][j])[D] = g->C[i][j - 1];
+			if (i > 0)
+				(*g->C[i][j])[L] = g->C[i - 1][j];
+			if (i < g->C.size() - 1)
+				(*g->C[i][j])[R] = g->C[i + 1][j];
+		}
+}
+
+std::function<double(Cell*, Cell*)> u_ff = [](Cell* o, Cell* c) {
+	if (!c || !o || !o->u)
+		return 10000000.;
+
+	if (!c->u || c->clr == TEAM_NULL || c->u->team == o->clr)
+		return c->terrain;
+
+	return 10000000.;
+};
+std::function<void(Vtx&)> y_is_negz = [](Vtx& v) {
+	float z = v.pos.z;
+	float y = v.pos.y;
+
+	v.pos.y = -z;
+	v.pos.z = -y;
+
+	return;
+};

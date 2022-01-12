@@ -1,6 +1,6 @@
 #pragma once
 
-#include "CameraMovement.hpp"
+#include "RendererActions.h"
 #include "Renderer.h"
 #include "Sprite.h"
 #include "Inputs.h"

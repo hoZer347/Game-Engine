@@ -1,6 +1,10 @@
 #include "RendererActions.h"
 
 #include "Renderer.h"
+#include "Camera.h"
+#include "Window.h"
+#include "Inputs.h"
+#include "Mesh.h"
 
 enum CM {
 	MIN_W = 640,

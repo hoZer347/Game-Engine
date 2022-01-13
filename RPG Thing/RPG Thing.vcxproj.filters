@@ -59,6 +59,7 @@
     <ClCompile Include="RendererActions.cpp">
       <Filter>Game\Actions\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mesh.h">
@@ -106,13 +107,10 @@
     <ClInclude Include="Animations.hpp">
       <Filter>Game\Animations</Filter>
     </ClInclude>
-    <ClInclude Include="Dialogue.hpp">
-      <Filter>Game\Renderables\Dialogue</Filter>
-    </ClInclude>
     <ClInclude Include="UnitMenu.h">
       <Filter>Game\Renderables\UnitMenu</Filter>
     </ClInclude>
-    <ClInclude Include="Window.hpp">
+    <ClInclude Include="Window.h">
       <Filter>Engine\Renderables\Window</Filter>
     </ClInclude>
     <ClInclude Include="UnitMenuActions.h">
@@ -124,6 +122,7 @@
     <ClInclude Include="RendererActions.h">
       <Filter>Game\Actions\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="Camera.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\default.frag">

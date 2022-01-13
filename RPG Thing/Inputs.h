@@ -2,7 +2,8 @@
 
 #include <glm/glm.hpp>
 
-#include "Window.hpp"
+#include "Window.h"
+#include "Camera.h"
 
 #include <functional>
 #include <vector>

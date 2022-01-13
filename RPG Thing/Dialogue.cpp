@@ -1,5 +1,18 @@
 #include "Dialogue.h"
 
+#include <glm/gtc/matrix_transform.hpp>
+
+#include "Renderer.h"
+#include "Inputs.h"
+
+#include "RendererActions.h"
+#include "Renderer.h"
+#include "Parser.h"
+#include "Sprite.h"
+#include "Inputs.h"
+#include "Mesh.h"
+#include "Text.h"
+
 Dialogue::~Dialogue() {
 	if (p) delete p;
 }
@@ -47,4 +60,43 @@ void Dialogue::update() {
 		state = 0;
 		break;
 	}
+}
+
+Dialogue* create_dialogue(Renderer* r, std::string file_name) {
+	Dialogue* d = new Dialogue();
+	d->p = new Parser(file_name);
+	d->r = r;
+	d->_l = create_sprite();
+	d->_r = create_sprite();
+	d->_l->m->show = false;
+	d->_r->m->show = false;
+
+	// Setting text box
+	d->m = create_square();
+
+	d->m->vtxs[0].pos = vec3(-0.9, -0.9, -0.001);
+	d->m->vtxs[1].pos = vec3(0.9, -0.9, -0.001);
+	d->m->vtxs[2].pos = vec3(0.9, -0.5, -0.001);
+	d->m->vtxs[3].pos = vec3(-0.9, -0.5, -0.001);
+
+	for (auto& v : d->m->vtxs)
+		v.clr = vec4(0, 0, 0, 1);
+	//
+
+	// Setting up inputs
+	new_inputs();
+
+	inputs->mem["Dialogue"] = d;
+
+	inputs->m[GLFW_MOUSE_BUTTON_LEFT] = [](int a, int m) {
+		Dialogue* d = (Dialogue*)inputs->mem["Dialogue"];
+
+		prev_inputs();
+		d->m->show = false;
+	};
+	//
+
+	make_meshobj(d);
+
+	return d;
 }

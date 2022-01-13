@@ -1,17 +1,13 @@
 #include <GL/glew.h>
 #include <GL/glfw3.h>
+#define GLM_FORCE_RADIANS
 
 #include <iostream>
 
 #include "Renderer.h"
-#include "Timer.h"
-#include "Grid.h"
 #include "Sprite.h"
 #include "Text.h"
-#include "Unit.h"
-#include "UnitMenu.h"
-#include "GridActions.h"
-#include "RendererActions.h"
+#include "Dialogue.h"
 
 // Memory Tracking
 #define _CRTDBG_MAP_ALLOC
@@ -35,20 +31,11 @@ int main() {
     // Allocation
     auto clock = start_clock();
     auto renderer = create_renderer();
-    auto grid = create_grid(renderer, 10, 10);
     auto sprite = create_sprite();
-    auto unit = create_unit();
+    auto dialogue = create_dialogue(renderer);
     //
-
-    // Setup
-    setup_camera_movement(renderer);
-    setup_grid(grid);
-    attach_neighbours(grid);
-    isometric_mount_camera(renderer);
     
-    unit->s = sprite;
     bind_texture(sprite);
-    grid->set(unit, 3, 3);
     //
 
     // Execution
@@ -58,7 +45,6 @@ int main() {
     do_timer = false;
 
     delete renderer;
-    delete unit;
 
     close_mesh();
     close_text();

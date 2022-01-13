@@ -1,17 +1,13 @@
 #pragma once
 
-#include "RendererActions.h"
-#include "Renderer.h"
-#include "Sprite.h"
-#include "Inputs.h"
-#include "Parser.h"
 #include "Mesh.h"
-#include "Text.h"
 
 #include <functional>
-#include <fstream>
 #include <string>
-#include <map>
+
+class Parser;
+class Sprite;
+class Renderer;
 
 class Dialogue : public MeshObj<Dialogue> {
 public:
@@ -27,3 +23,5 @@ public:
 	
 	unsigned char state = 0;
 };
+
+extern Dialogue* create_dialogue(Renderer*, std::string="Scripts/Script.txt");

@@ -1,10 +1,23 @@
 #include "Renderer.h"
 
+#include "Mesh.h"
+#include "Inputs.h"
+#include "Camera.h"
+#include "Window.h"
+
+#include <vector>
+#include <iostream>
+#include <fstream>
+
+using namespace glm;
+
 Renderer::Renderer() {
     // LOADING WINDOW / OPENGL SETTINGS
 
     glfwInit();
 
+    mount_camera(new_camera());
+    c = CAMERA;
     WINDOW = glfwCreateWindow(window_w, window_h, "", NULL, NULL);
     glfwMakeContextCurrent(WINDOW);
     new_inputs();
@@ -296,4 +309,10 @@ void Renderer::create_shader(std::string f1, std::string f2, std::string f3) {
     glAttachShader(depth_shader, gs);
     glLinkProgram(depth_shader);
     glUseProgram(depth_shader);
+}
+
+Renderer* create_renderer() {
+    Renderer* r = new Renderer();
+
+    return r;
 }

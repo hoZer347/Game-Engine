@@ -152,6 +152,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="UnitMenuActions.cpp" />
     <ClCompile Include="AI.cpp" />
     <ClCompile Include="Animation.cpp" />
@@ -174,12 +175,12 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="UnitMenuActions.h" />
     <ClInclude Include="AI.h" />
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Animations.hpp" />
     <ClInclude Include="Dialogue.h" />
-    <ClInclude Include="Dialogue.hpp" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="GridActions.h" />
     <ClInclude Include="Inputs.h" />
@@ -194,7 +195,7 @@
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Unit.h" />
     <ClInclude Include="UnitMenu.h" />
-    <ClInclude Include="Window.hpp" />
+    <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="depth.geom" />

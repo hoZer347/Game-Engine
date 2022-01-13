@@ -2,14 +2,13 @@
 
 #include <glm/gtx/intersect.hpp>
 #include "Mesh.h"
+#include "Camera.h"
 #include "Sprite.h"
 #include "Timer.h"
 #include "Inputs.h"
 #include "Renderer.h"
 
 #include <vector>
-
-Grid* GRID = NULL;
 
 Grid* create_grid(
 	Renderer* renderer,

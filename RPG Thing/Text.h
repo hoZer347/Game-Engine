@@ -5,7 +5,7 @@
 
 #include <glm/gtx/intersect.hpp>
 
-#include "Window.hpp"
+#include "Window.h"
 #include "Mesh.h"
 
 #include <string>

@@ -75,11 +75,26 @@ void g_unselect(Grid* g) {
 				g->selected->u &&
 				g->hovered->clr == g->selected->u->team) {
 
-				// Making the movement cancellable
+				// Moving Unit
 				if (!(g->hovered->u == g->selected->u)) {
 					g->hovered->u = g->selected->u;
 					g->selected->u = NULL;
+				}
 
+				// Resetting selected cells
+				for (auto& _C : g->C)
+					for (auto& c : _C)
+						c->change_color(TEAM_NULL);
+
+				// Going back to select
+				g_select(g);
+
+				// Creating a menu of options for the selected unit
+				create_unit_menu(g->hovered->u->get_options());
+				((UnitMenu*)MENU)->unit = g->hovered->u;
+
+				// Making the movement reversable
+				if (!(g->hovered->u == g->selected->u)) {
 					inputs->mem["Selected"] = g->selected;
 					inputs->mem["Hovered"] = g->hovered;
 					inputs->mem["Unit"] = g->hovered->u;
@@ -95,18 +110,6 @@ void g_unselect(Grid* g) {
 						}
 					});
 				}
-
-				// Resetting selected cells
-				for (auto& _C : g->C)
-					for (auto& c : _C)
-						c->change_color(TEAM_NULL);
-
-				// Going back to select
-				g_select(g);
-
-				// Creating a menu of options for the selected unit
-				create_unit_menu(g->hovered->u->get_options());
-				((UnitMenu*)MENU)->unit = g->hovered->u;
 			}
 	};
 }

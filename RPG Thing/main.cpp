@@ -7,6 +7,9 @@
 #include "Renderer.h"
 #include "Sprite.h"
 #include "Text.h"
+#include "Grid.h"
+#include "RendererActions.h"
+#include "GridActions.h"
 #include "Dialogue.h"
 
 // Memory Tracking
@@ -32,7 +35,16 @@ int main() {
     auto clock = start_clock();
     auto renderer = create_renderer();
     auto sprite = create_sprite();
-    auto dialogue = create_dialogue(renderer);
+    auto grid = create_grid(renderer);
+    auto unit = create_unit();
+
+    setup_grid(grid);
+
+    unit->s = sprite;
+    grid->set(unit, 3, 3);
+
+    setup_camera_movement(renderer);
+    isometric_mount_camera(renderer);
     //
     
     bind_texture(sprite);
@@ -45,6 +57,7 @@ int main() {
     do_timer = false;
 
     delete renderer;
+    delete unit;
 
     close_mesh();
     close_text();

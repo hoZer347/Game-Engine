@@ -70,20 +70,11 @@ static void new_menu() {
 
 	MENU->change_focus(true);
 
+	make_meshobj((T*)MENU);
+
 	new_inputs();
 };
 
 // Accesses the previous menu
 // - Deletes the menu from which it traverses
-static void prev_menu() {
-	Menu* m = MENU;
-
-	MENU = MENU->_prev;
-	m->_prev = NULL;
-	m->unload();
-	
-	if (MENU)
-		MENU->change_focus(true);
-
-	prev_inputs();
-};
+extern void prev_menu();

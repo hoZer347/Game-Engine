@@ -93,6 +93,7 @@ Dialogue* create_dialogue(Renderer* r, std::string file_name) {
 
 		prev_inputs();
 		d->m->show = false;
+		delete_meshobj((_MeshObj*)d);
 	};
 	//
 

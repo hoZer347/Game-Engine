@@ -38,15 +38,19 @@ int main() {
     auto grid = create_grid(renderer);
     auto unit = create_unit();
 
+    attach_neighbours(grid);
+    setup_camera_movement(renderer);
+    isometric_mount_camera(renderer);
+
     setup_grid(grid);
 
+    auto dialogue = create_dialogue(renderer);
+    //
+    
+    // Setting up
     unit->s = sprite;
     grid->set(unit, 3, 3);
 
-    setup_camera_movement(renderer);
-    isometric_mount_camera(renderer);
-    //
-    
     bind_texture(sprite);
     //
 

@@ -40,6 +40,8 @@ void g_select(Grid* g) {
 					if (!c->u || c->u == g->selected->u)
 						c->change_color(g->selected->u->team);
 
+				std::cout << S.size() << std::endl;
+
 				g_unselect(g);
 			}
 		

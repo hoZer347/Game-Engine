@@ -8,8 +8,6 @@ void create_unit_menu(std::vector<unsigned short>& options) {
 
 	((UnitMenu*)MENU)->font = create_font();
 
-	make_meshobj((UnitMenu*)MENU);
-
 	for (auto& o : options) {
 
 	}

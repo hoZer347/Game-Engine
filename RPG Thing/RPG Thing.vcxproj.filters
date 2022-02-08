@@ -1,19 +1,236 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp">
-      <Filter>Mesh</Filter>
+      <Filter>Engine\Renderables</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>Engine\Renderables\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Engine\Renderables\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Engine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Inputs.cpp">
+      <Filter>Engine\Inputs</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Engine\Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="Dialogue.cpp">
+      <Filter>Game\Renderables\Dialogue</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Game\Renderables\Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="Unit.cpp">
+      <Filter>Game\Renderables\Unit</Filter>
+    </ClCompile>
+    <ClCompile Include="Sound.cpp">
+      <Filter>Engine\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="AI.cpp">
+      <Filter>Game\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>Engine\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="Parser.cpp">
+      <Filter>Engine\Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="UnitMenu.cpp">
+      <Filter>Game\Renderables\UnitMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Engine\Renderables\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Engine\Renderables\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitMenuActions.cpp">
+      <Filter>Game\Actions\UnitMenu</Filter>
+    </ClCompile>
+    <ClCompile Include="GridActions.cpp">
+      <Filter>Game\Actions\Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="RendererActions.cpp">
+      <Filter>Game\Actions\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Engine\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Mesh">
-      <UniqueIdentifier>{06cf394e-681b-4a8c-a68f-8ddb9f065ac1}</UniqueIdentifier>
+    <ClInclude Include="Mesh.h">
+      <Filter>Engine\Renderables</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Engine\Renderables\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Engine\Renderables\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Engine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Inputs.h">
+      <Filter>Engine\Inputs</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.h">
+      <Filter>Engine\Renderables\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Engine\Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="Dialogue.h">
+      <Filter>Game\Renderables\Dialogue</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Game\Renderables\Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="Unit.h">
+      <Filter>Game\Renderables\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="Sound.h">
+      <Filter>Engine\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="AI.h">
+      <Filter>Game\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>Engine\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="Parser.h">
+      <Filter>Engine\Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="Animations.hpp">
+      <Filter>Game\Animations</Filter>
+    </ClInclude>
+    <ClInclude Include="UnitMenu.h">
+      <Filter>Game\Renderables\UnitMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Engine\Renderables\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="UnitMenuActions.h">
+      <Filter>Game\Actions\UnitMenu</Filter>
+    </ClInclude>
+    <ClInclude Include="GridActions.h">
+      <Filter>Game\Actions\Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="RendererActions.h">
+      <Filter>Game\Actions\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Engine\Camera</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\default.frag">
+      <Filter>Engine\Shaders</Filter>
+    </None>
+    <None Include="Shaders\default.vert">
+      <Filter>Engine\Shaders</Filter>
+    </None>
+    <None Include="Shaders\depth.frag">
+      <Filter>Engine\Shaders</Filter>
+    </None>
+    <None Include="Shaders\depth.vert">
+      <Filter>Engine\Shaders</Filter>
+    </None>
+    <None Include="depth.geom">
+      <Filter>Engine\Shaders</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Engine">
+      <UniqueIdentifier>{172fb9a9-b0d3-4bb5-a731-952e5f66af28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Renderables">
+      <UniqueIdentifier>{1470e032-929e-45e2-97cc-ea4546463dca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Renderables\Text">
+      <UniqueIdentifier>{65b7369a-96e9-46e1-9456-eebcd528b5bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Renderables\Sprite">
+      <UniqueIdentifier>{212c7a23-c952-419a-9854-c5c39f56d46e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Renderables\Menu">
+      <UniqueIdentifier>{76549138-9582-4def-bd25-efec8e7f38ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{058eaad8-4288-4ec6-acec-939421d44ac9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Timer">
+      <UniqueIdentifier>{87853cea-43d1-4c23-b03b-c1af22c7c48d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Shaders">
+      <UniqueIdentifier>{702b534b-73ff-489e-bf63-b5953af18593}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Renderables">
+      <UniqueIdentifier>{55af7ca5-3c98-4678-b3dc-e6d1f5f39167}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Inputs">
+      <UniqueIdentifier>{a2709745-aa4d-4e4a-83c9-4a8538a53e3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Renderer">
+      <UniqueIdentifier>{f3ffdba8-7f4b-43fe-a9c1-679a661ced76}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Renderables\Dialogue">
+      <UniqueIdentifier>{8608e75d-e88f-4665-9e01-4ed36415509b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Renderables\Grid">
+      <UniqueIdentifier>{1235b75d-50c0-46f0-a408-8638e5bd09b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Renderables\Unit">
+      <UniqueIdentifier>{3c61a71b-220e-40e8-a73a-a5f20f86d872}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scripts">
+      <UniqueIdentifier>{b4f3e96d-75ca-41aa-883a-19eb2dd682e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Sound">
+      <UniqueIdentifier>{81268453-e09c-4c97-bbcb-0365cd40e58e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Animation">
+      <UniqueIdentifier>{513e830c-ba1b-470c-87d7-22bf3fb537b7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\AI">
+      <UniqueIdentifier>{25f99621-ce73-4eea-8b80-17ec404b81a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Parser">
+      <UniqueIdentifier>{1b73d473-2815-4884-a622-353f225b0c3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Animations">
+      <UniqueIdentifier>{be3dd5b5-df9b-4948-b046-ad03afde838e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Renderables\Window">
+      <UniqueIdentifier>{f19ea24e-a843-454c-b0bc-ae3caaf2f899}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Renderables\UnitMenu">
+      <UniqueIdentifier>{bf69ac7f-01a5-4791-bd53-bc3575057f23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Actions">
+      <UniqueIdentifier>{2a00736a-4840-420c-92cd-a5948009f746}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Actions\UnitMenu">
+      <UniqueIdentifier>{d37f8b15-9dce-4e90-b7ec-aec0f81d1f75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Actions\Grid">
+      <UniqueIdentifier>{d3182a0b-d403-41ac-9e8c-1830495f68eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Actions\Renderer">
+      <UniqueIdentifier>{12839904-ce9a-4b52-86b8-8053f8fe881c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Camera">
+      <UniqueIdentifier>{a26eb7f6-dc81-4782-8c5a-515cd4aa80f4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Mesh.h">
-      <Filter>Mesh</Filter>
-    </ClInclude>
+    <Text Include="Scripts\Script.txt">
+      <Filter>Game\Scripts</Filter>
+    </Text>
   </ItemGroup>
 </Project>

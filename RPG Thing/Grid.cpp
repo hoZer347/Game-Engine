@@ -10,20 +10,20 @@
 
 #include <vector>
 
-Grid* create_grid(
-	Renderer* renderer,
+Grid* GRID = NULL;
+
+void create_grid(
 	unsigned int x,
 	unsigned int y,
 	bool animate) {
-	Grid* g = new Grid();
-	g->r = renderer;
-	g->m = create_square();
-	change_rendering(g->m, GL_LINES);
+	GRID = new Grid();
+	GRID->m = create_square();
+	change_rendering(GRID->m, GL_LINES);
 
-	make_meshobj(g);
+	make_meshobj(GRID);
 
 	for (unsigned int i = 0; i < x; i++) {
-		g->C.push_back({});
+		GRID->C.push_back({});
 		for (unsigned int j = 0; j < y; j++) {
 			Cell* c = new Cell();
 			c->m = create_square();
@@ -41,11 +41,9 @@ Grid* create_grid(
 
 			make_meshobj(c);
 
-			g->C[g->C.size() - 1].push_back(c);
+			GRID->C[GRID->C.size() - 1].push_back(c);
 		}
 	}
-
-	return g;
 }
 
 Cell::~Cell() {
@@ -68,7 +66,7 @@ void Grid::update() {
 			if (c->u && c->u->s) {
 				mat4 trns = c->u->s->m->trns;
 				c->u->s->m->trns *= inverse(trns);
-				c->u->s->m->trns = r->c->yaww;
+				c->u->s->m->trns = RENDERER->c->yaww;
 				c->u->s->m->trns *= trns;
 			}
 
@@ -102,19 +100,6 @@ Unit* Grid::get(unsigned int x, unsigned int y) {
 		return NULL;
 }
 
-bool Grid::set(Unit* u, unsigned int x, unsigned int y) {
-	if (!check_rng(x, y))
-		return false;
-	
-	if (C[x][y] && !C[x][y]->u) {
-		C[x][y]->u = new Unit(*u);
-		u->c = C[x][y];
-	} else
-		return false;
-
-	return true;
-}
-
 bool Grid::check_rng(unsigned int x, unsigned int y) {
 	if (x >= 0 && x < C.size())
 		return true;
@@ -142,18 +127,31 @@ void a_star(Cell* goal, Cell* c, std::vector<Cell*>& path, std::map<Cell*, unsig
 
 }
 
-void attach_neighbours(Grid* g) {
-	for (unsigned int i = 0; i < g->C.size(); i++)
-		for (unsigned int j = 0; j < g->C[0].size(); j++) {
-			if (j < g->C.size() - 1)
-				(*g->C[i][j])[U] = g->C[i][j + 1];
+void grid_attach_neighbours() {
+	for (unsigned int i = 0; i < GRID->C.size(); i++)
+		for (unsigned int j = 0; j < GRID->C[0].size(); j++) {
+			if (j < GRID->C.size() - 1)
+				(*GRID->C[i][j])[U] = GRID->C[i][j + 1];
 			if (j > 0)
-				(*g->C[i][j])[D] = g->C[i][j - 1];
+				(*GRID->C[i][j])[D] = GRID->C[i][j - 1];
 			if (i > 0)
-				(*g->C[i][j])[L] = g->C[i - 1][j];
-			if (i < g->C.size() - 1)
-				(*g->C[i][j])[R] = g->C[i + 1][j];
+				(*GRID->C[i][j])[L] = GRID->C[i - 1][j];
+			if (i < GRID->C.size() - 1)
+				(*GRID->C[i][j])[R] = GRID->C[i + 1][j];
 		}
+}
+
+extern bool grid_set(Unit* u, unsigned int x, unsigned int y) {
+	if (!GRID->check_rng(x, y))
+		return false;
+
+	if (GRID->C[x][y] && !GRID->C[x][y]->u) {
+		GRID->C[x][y]->u = new Unit(*u);
+	}
+	else
+		return false;
+
+	return true;
 }
 
 std::function<double(Cell*, Cell*)> u_ff = [](Cell* o, Cell* c) {

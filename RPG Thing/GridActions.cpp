@@ -9,20 +9,17 @@
 #include <map>
 
 enum {
-	G_SELECT_UNSELECT = 0
+	SELECT_UNSELECT = 0
 };
 
-void setup_grid(Grid* g) {
-	inputs->mem["Grid"] = g;
-	g_select(g);
-	g_cursor_updates_grid(g);
+void setup_grid() {
+	grid_select();
+	cursor_updates_grid();
 }
 
-void g_select(Grid* g) {
-	inputs->mem["Grid"] = g;
-
+void grid_select() {
 	inputs->m[GLFW_MOUSE_BUTTON_LEFT] = [](int a, int m) {
-		Grid* g = (Grid*)inputs->mem["Grid"];
+		Grid* g = GRID;
 
 		if (a)
 			if (g->hovered &&
@@ -40,35 +37,29 @@ void g_select(Grid* g) {
 					if (!c->u || c->u == g->selected->u)
 						c->change_color(g->selected->u->team);
 
-				std::cout << S.size() << std::endl;
-
-				g_unselect(g);
+				grid_unselect();
 			}
-		
+
 		// TODO: clicking an empty cell (terrain info / map otions)
 	};
 
 	inputs->m[GLFW_MOUSE_BUTTON_RIGHT] = [](int a, int m) {
-		Grid* g = (Grid*)inputs->mem["Grid"];
-
 		// Deselecting cells
-		g->hovered = NULL;
-		g->selected = NULL;
+		GRID->hovered = NULL;
+		GRID->selected = NULL;
 
 		// Resetting selected cells
-		for (auto& _C : g->C)
+		for (auto& _C : GRID->C)
 			for (auto& c : _C)
 				c->change_color(TEAM_NULL);
 
-		g_select(g);
+		grid_select();
 	};
 }
 
-void g_unselect(Grid* g) {
-	inputs->mem["Grid"] = g;
-
+void grid_unselect() {
 	inputs->m[GLFW_MOUSE_BUTTON_LEFT] = [](int a, int m) {
-		Grid* g = (Grid*)inputs->mem["Grid"];
+		Grid* g = GRID;
 
 		if (!a)
 			if (g->hovered &&
@@ -89,7 +80,7 @@ void g_unselect(Grid* g) {
 						c->change_color(TEAM_NULL);
 
 				// Going back to select
-				g_select(g);
+				grid_select();
 
 				// Creating a menu of options for the selected unit
 				create_unit_menu(g->hovered->u->get_options());
@@ -110,17 +101,15 @@ void g_unselect(Grid* g) {
 							c1->u = c2->u;
 							c2->u = NULL;
 						}
-					});
+						});
 				}
 			}
 	};
 }
 
-void g_cursor_updates_grid(Grid* g) {
-	inputs->mem["Grid"] = g;
-
+void cursor_updates_grid() {
 	inputs->c = [](double x, double y) {
-		Grid* g = (Grid*)inputs->mem["Grid"];
+		Grid* g = GRID;
 
 		g->animate = true;
 	};

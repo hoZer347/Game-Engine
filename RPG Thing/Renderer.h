@@ -19,8 +19,6 @@ class Renderer {
 public:
 	Renderer();
 	~Renderer();
-	void render(Mesh*);
-	void update();
 	void init();
 
 	void create_shader(std::string, std::string);
@@ -31,6 +29,8 @@ public:
 	Camera* c = NULL;
 
 private:
+	void render(Mesh*);
+	void update();
 	GLuint vao = 0;
 	GLuint shader_programme = 0, depth_shader = 0;
 	GLuint depth_map = 0;
@@ -40,4 +40,7 @@ private:
 	int window_w = 640, window_h = 640;
 };
 
-extern Renderer* create_renderer();
+extern Renderer* RENDERER;
+
+extern void create_renderer();
+extern void init_renderer();

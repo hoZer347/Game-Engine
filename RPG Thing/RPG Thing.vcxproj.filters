@@ -106,9 +106,6 @@
     <ClInclude Include="Parser.h">
       <Filter>Engine\Parser</Filter>
     </ClInclude>
-    <ClInclude Include="Animations.hpp">
-      <Filter>Game\Animations</Filter>
-    </ClInclude>
     <ClInclude Include="UnitMenu.h">
       <Filter>Game\Renderables\UnitMenu</Filter>
     </ClInclude>

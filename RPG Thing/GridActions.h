@@ -1,17 +1,13 @@
 #pragma once
 
-class Grid;
-
-extern Grid* GRID;
-
 // Sets up the grid for use
-extern void setup_grid(Grid*);
+extern void setup_grid();
 
 // Allows the player to interact with a grid cell
-extern void g_select(Grid*);
+extern void grid_select();
 
 // Finalizes the player's click after interaction
-extern void g_unselect(Grid*);
+extern void grid_unselect();
 
 // Makes the grid update when the cursor is moved
-extern void g_cursor_updates_grid(Grid*);
+extern void cursor_updates_grid();

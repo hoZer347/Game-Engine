@@ -179,7 +179,6 @@
     <ClInclude Include="UnitMenuActions.h" />
     <ClInclude Include="AI.h" />
     <ClInclude Include="Animation.h" />
-    <ClInclude Include="Animations.hpp" />
     <ClInclude Include="Dialogue.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="GridActions.h" />

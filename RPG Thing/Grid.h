@@ -76,7 +76,7 @@ public:
 class Grid : public MeshObj<Grid> {
 public:
 	void update();
-	bool set(Unit*, unsigned int, unsigned int);
+
 	Unit* get(unsigned int, unsigned int);
 
 	Cell* hovered = NULL;
@@ -87,11 +87,12 @@ public:
 	std::vector<std::vector<Cell*>> C;
 };
 
+extern Grid* GRID;
+
 // Creates a (x, y) - size grid
 // f is the function that represents the positions of each cell and their vertices
 // animate is whether or not to update each cell
-extern Grid* create_grid(
-	Renderer* renderer,
+extern void create_grid(
 	unsigned int x=10,
 	unsigned int y=10,
 	bool animate=false);
@@ -103,7 +104,10 @@ extern void flood_fill(Cell* o, std::set<Cell*>& C, std::function<double(Cell*, 
 extern void a_star(Cell* goal, Cell* c, std::vector<Cell*>& path, std::map<Cell*, unsigned short> visited);
 
 //
-extern void attach_neighbours(Grid* g);
+extern void grid_attach_neighbours();
+
+//
+extern bool grid_set(Unit* u, unsigned int x, unsigned int y);
 
 //
 extern std::function<double(Cell*, Cell*)> u_ff;

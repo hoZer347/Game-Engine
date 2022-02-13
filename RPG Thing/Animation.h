@@ -22,17 +22,7 @@ public:
 extern std::map<std::string, Animation*> ANMT;
 
 // Creates an animation
-static Animation* create_animation(std::string s) {
-	Animation* a = new Animation();
-
-	ANMT[s] = a;
-	OBJS.push_back(a);
-
-	return a;
-};
+extern Animation* create_animation(std::string s);
 
 // Stops all animations from animating
-static void stop_animations() {
-	for (auto& i : ANMT)
-		i.second->animate = false;
-};
+extern void stop_animations();

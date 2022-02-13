@@ -1,13 +1,15 @@
 #include "Unit.h"
 
-std::vector<Unit*> UNIT;
-
 Unit* create_unit() {
 	Unit* u = new Unit();
 
-	UNIT.push_back(u);
+	make_meshobj((_MeshObj*)u);
 
 	return u;
+}
+
+void Unit::update() {
+
 }
 
 std::vector<unsigned short>& Unit::get_options() {

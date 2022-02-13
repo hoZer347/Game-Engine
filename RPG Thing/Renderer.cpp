@@ -11,6 +11,8 @@
 
 using namespace glm;
 
+Renderer* RENDERER = NULL;
+
 Renderer::Renderer() {
     // LOADING WINDOW / OPENGL SETTINGS
 
@@ -63,7 +65,7 @@ Renderer::Renderer() {
     glGenFramebuffers(1, &depth_map);
 
     // GENERATING VERTEX BUFFER
-    
+
     glGenVertexArrays(1, &vao);
 
     glGenBuffers(1, &_vtxs);
@@ -92,7 +94,7 @@ Renderer::Renderer() {
     view = glGetUniformLocation(shader_programme, "view");
     proj = glGetUniformLocation(shader_programme, "proj");
     norm = glGetUniformLocation(shader_programme, "norm");
-    mvp  = glGetUniformLocation(shader_programme, "mvp");
+    mvp = glGetUniformLocation(shader_programme, "mvp");
 }
 
 Renderer::~Renderer() {
@@ -105,6 +107,67 @@ Renderer::~Renderer() {
     glDeleteBuffers(1, &_vtxs);
     glDeleteBuffers(1, &_inds);
     glfwTerminate();
+}
+
+void Renderer::init() {
+    while (!glfwWindowShouldClose(WINDOW)) {
+        inputs->update();
+        inputs->mouse_ray = get_cam_ray();
+
+        for (auto& m : OBJS)
+            if (m && m->animate)
+                m->update();
+
+        update();
+    }
+}
+
+void Renderer::render(Mesh* m) {
+    if (!m->show)
+        return;
+
+    glBindBuffer(GL_ARRAY_BUFFER, _vtxs);
+    glBufferData(
+        GL_ARRAY_BUFFER,
+        m->vtxs.size() * sizeof(Vtx),
+        m->vtxs.data(),
+        GL_DYNAMIC_DRAW);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _inds);
+    glBufferData(
+        GL_ELEMENT_ARRAY_BUFFER,
+        m->inds.size() * sizeof(unsigned int),
+        m->inds.data(),
+        GL_DYNAMIC_DRAW);
+
+    mat4 _mode = c->mode * m->trns;
+
+    if (m->ortho) {
+        _mode *= inverse(c->mode);
+        glUniformMatrix4fv(mode, 1, GL_FALSE, &_mode[0][0]);
+    }
+    else
+        glUniformMatrix4fv(mode, 1, GL_FALSE, &_mode[0][0]);
+
+    // Determining how to draw
+    if (m->gl_render_type == GL_LINES)
+        glUniform1i(glGetUniformLocation(shader_programme, "type"), 0);
+    else if (!m->gl_texture)
+        glUniform1i(glGetUniformLocation(shader_programme, "type"), 1);
+    else if (m->ortho)
+        glUniform1i(glGetUniformLocation(shader_programme, "type"), 2);
+    else
+        glUniform1i(glGetUniformLocation(shader_programme, "type"), 3);
+
+    // Loading Texture
+    glBindTexture(GL_TEXTURE_2D, m->gl_texture);
+    glUniform1i(glGetUniformLocation(shader_programme, "tex"), 0);
+
+    // Drawing
+    glDrawElements(m->gl_render_type, m->inds.size(), m->gl_data_type, (void*)0);
+
+    // Unloading Texture
+    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void Renderer::update() {
@@ -121,7 +184,7 @@ void Renderer::update() {
     c->view = lookAt(c->eye, c->look, c->up);
     c->proj = perspective(
         radians(45.0f),
-        (float)window_w/(float)window_h,
+        (float)window_w / (float)window_h,
         0.1f, 100.0f);
     c->norm = transpose(inverse(c->mode));
     c->mvp = c->proj * c->view * c->mode;
@@ -140,7 +203,7 @@ void Renderer::update() {
     glUniformMatrix4fv(view, 1, GL_FALSE, &c->view[0][0]);
     glUniformMatrix4fv(proj, 1, GL_FALSE, &c->proj[0][0]);
     glUniformMatrix4fv(norm, 1, GL_FALSE, &c->norm[0][0]);
-    glUniformMatrix4fv(mvp,  1, GL_FALSE, &c->mvp[0][0]);
+    glUniformMatrix4fv(mvp, 1, GL_FALSE, &c->mvp[0][0]);
 
     // DRAWING OBJECTS
 
@@ -158,19 +221,6 @@ void Renderer::update() {
     // REFRESHING WINDOW
 
     glfwSwapBuffers(WINDOW);
-}
-
-void Renderer::init() {
-    while (!glfwWindowShouldClose(WINDOW)) {
-        inputs->update();
-        inputs->mouse_ray = get_cam_ray();
-
-        for (auto& m : OBJS)
-            if (m && m->animate)
-                m->update();
-
-        update();
-    }
 }
 
 mat2x3 Renderer::get_cam_ray() {
@@ -199,56 +249,9 @@ mat2x3 Renderer::get_cam_ray() {
     vec4 ray = (look - eye);
     ray = normalize(ray);
 
-    mat2x3 ret = { vec3(eye), vec3(ray)*=-1000 };
+    mat2x3 ret = { vec3(eye), vec3(ray) *= -1000 };
 
     return ret;
-}
-
-void Renderer::render(Mesh* m) {
-    if (!m->show)
-        return;
-
-    glBindBuffer(GL_ARRAY_BUFFER, _vtxs);
-    glBufferData(
-        GL_ARRAY_BUFFER,
-        m->vtxs.size() * sizeof(Vtx),
-        m->vtxs.data(),
-        GL_DYNAMIC_DRAW);
-
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _inds);
-    glBufferData(
-        GL_ELEMENT_ARRAY_BUFFER,
-        m->inds.size() * sizeof(unsigned int),
-        m->inds.data(),
-        GL_DYNAMIC_DRAW);
-    
-    mat4 _mode = c->mode * m->trns;
-
-    if (m->ortho) {
-        _mode *= inverse(c->mode);
-        glUniformMatrix4fv(mode, 1, GL_FALSE, &_mode[0][0]);
-    } else
-        glUniformMatrix4fv(mode, 1, GL_FALSE, &_mode[0][0]);
-
-    // Determining how to draw
-    if (m->gl_render_type == GL_LINES)
-        glUniform1i(glGetUniformLocation(shader_programme, "type"), 0);
-    else if (!m->gl_texture)
-        glUniform1i(glGetUniformLocation(shader_programme, "type"), 1);
-    else if (m->ortho)
-        glUniform1i(glGetUniformLocation(shader_programme, "type"), 2);
-    else
-        glUniform1i(glGetUniformLocation(shader_programme, "type"), 3);
-
-    // Loading Texture
-    glBindTexture(GL_TEXTURE_2D, m->gl_texture);
-    glUniform1i(glGetUniformLocation(shader_programme, "tex"), 0);
-
-    // Drawing
-    glDrawElements(m->gl_render_type, m->inds.size(), m->gl_data_type, (void*)0);
-
-    // Unloading Texture
-    glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void Renderer::create_shader(std::string f1, std::string f2) {
@@ -311,8 +314,10 @@ void Renderer::create_shader(std::string f1, std::string f2, std::string f3) {
     glUseProgram(depth_shader);
 }
 
-Renderer* create_renderer() {
-    Renderer* r = new Renderer();
+void create_renderer() {
+    RENDERER = new Renderer();
+}
 
-    return r;
+void init_renderer() {
+    RENDERER->init();
 }

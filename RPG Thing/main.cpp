@@ -32,36 +32,34 @@ int main() {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
     // Allocation
+    create_renderer();
+    create_grid();
+
     auto clock = start_clock();
-    auto renderer = create_renderer();
     auto sprite = create_sprite();
-    auto grid = create_grid(renderer);
     auto unit = create_unit();
 
-    attach_neighbours(grid);
-    setup_camera_movement(renderer);
-    isometric_mount_camera(renderer);
+    grid_attach_neighbours();
+    setup_camera_movement();
+    isometric_mount_camera();
 
-    setup_grid(grid);
-
-    auto dialogue = create_dialogue(renderer);
+    setup_grid();
     //
     
     // Setting up
     unit->s = sprite;
-    grid->set(unit, 3, 3);
+    grid_set(unit, 3, 3);
 
     bind_texture(sprite);
     //
 
     // Execution
-    renderer->init();
+    init_renderer();
 
     // Deallocation
     do_timer = false;
 
-    delete renderer;
-    delete unit;
+    delete RENDERER;
 
     close_mesh();
     close_text();

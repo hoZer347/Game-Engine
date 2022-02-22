@@ -59,7 +59,9 @@
     <ClCompile Include="RendererActions.cpp">
       <Filter>Game\Actions\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Camera.cpp">
+      <Filter>Engine\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mesh.h">
@@ -119,7 +121,9 @@
     <ClInclude Include="RendererActions.h">
       <Filter>Game\Actions\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h" />
+    <ClInclude Include="Camera.h">
+      <Filter>Engine\Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\default.frag">
@@ -216,6 +220,9 @@
     </Filter>
     <Filter Include="Game\Actions\Renderer">
       <UniqueIdentifier>{12839904-ce9a-4b52-86b8-8053f8fe881c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Camera">
+      <UniqueIdentifier>{d61e56ae-717c-458f-a74d-acf61c8d0102}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

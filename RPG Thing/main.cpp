@@ -39,7 +39,6 @@ int main() {
     auto sprite = create_sprite();
     auto unit = create_unit();
 
-<<<<<<< HEAD
     grid_attach_neighbours();
     setup_camera_movement();
     isometric_mount_camera();
@@ -48,15 +47,8 @@ int main() {
     //
     
     // Setting up
-=======
-    setup_grid(grid);
-
->>>>>>> parent of 1c371e3 (Minor Bugfixes)
     unit->s = sprite;
     grid_set(unit, 3, 3);
-
-    setup_camera_movement(renderer);
-    isometric_mount_camera(renderer);
     //
     
     bind_texture(sprite);

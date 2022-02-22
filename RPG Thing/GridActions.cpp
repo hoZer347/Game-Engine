@@ -37,7 +37,11 @@ void grid_select() {
 					if (!c->u || c->u == g->selected->u)
 						c->change_color(g->selected->u->team);
 
+<<<<<<< HEAD
 				grid_unselect();
+=======
+				g_unselect(g);
+>>>>>>> parent of 1c371e3 (Minor Bugfixes)
 			}
 
 		// TODO: clicking an empty cell (terrain info / map otions)

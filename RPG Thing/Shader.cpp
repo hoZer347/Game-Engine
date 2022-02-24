@@ -7,6 +7,8 @@
 #include <fstream>
 #include <string>
 
+#include <iostream>
+
 namespace shader {
     std::unordered_map<const char*, unsigned int> shaders;
 
@@ -25,7 +27,7 @@ namespace shader {
 
         // .vert
         std::ifstream _v(f + ".vert");
-        if (!_v.good()) {
+        if (_v.good()) {
             std::string _vs((std::istreambuf_iterator<char>(_v)),
                 std::istreambuf_iterator<char>());
             const char* vert_shader = _vs.c_str();
@@ -57,6 +59,20 @@ namespace shader {
         }
 
         glLinkProgram(shader);
+
+        GLint isLinked = 0;
+        glGetProgramiv(shader, GL_LINK_STATUS, &isLinked);
+        if (isLinked == GL_FALSE) {
+            std::cout << "Test" << std::endl;
+
+            GLint maxLength = 0;
+            glGetProgramiv(shader, GL_INFO_LOG_LENGTH, &maxLength);
+
+            // The maxLength includes the NULL character
+            std::vector<GLchar> infoLog(maxLength);
+            glGetProgramInfoLog(shader, maxLength, &maxLength, &infoLog[0]);
+
+        }
 
         shaders[f.c_str()] = shader;
 

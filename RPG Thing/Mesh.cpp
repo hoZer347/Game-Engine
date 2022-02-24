@@ -78,6 +78,14 @@ namespace mesh {
 
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+		GLint i;
+		glGetProgramiv(shader, GL_VALIDATE_STATUS, &i);
+		std::cout << i << std::endl;
+		//glGetProgramiv(shader, GL_ATTACHED_SHADERS, &i);
+		//std::cout << i << std::endl;
+		//glGetProgramiv(shader, GL_ATTACHED_SHADERS, &i);
+		//std::cout << i << std::endl;
 	}
 	void Lines::update() {
 		glUniform4f(

@@ -25,21 +25,23 @@ namespace shader {
 
         // .vert
         std::ifstream _v(f + ".vert");
-        if (_v.good()) {
+        if (!_v.good()) {
             std::string _vs((std::istreambuf_iterator<char>(_v)),
                 std::istreambuf_iterator<char>());
             const char* vert_shader = _vs.c_str();
             glShaderSource(vs, 1, &vert_shader, NULL);
+            glCompileShader(vs);
             glAttachShader(shader, vs);
         }
 
         // .geom
         std::ifstream _g(f + ".geom");
-        if (!_g.good()) {
+        if (_g.good()) {
             std::string _gs((std::istreambuf_iterator<char>(_g)),
                 std::istreambuf_iterator<char>());
             const char* geom_shader = _gs.c_str();
             glShaderSource(gs, 1, &geom_shader, NULL);
+            glCompileShader(gs);
             glAttachShader(shader, gs);
         }
 
@@ -50,6 +52,7 @@ namespace shader {
                 std::istreambuf_iterator<char>());
             const char* frag_shader = _fs.c_str();
             glShaderSource(fs, 1, &frag_shader, NULL);
+            glCompileShader(fs);
             glAttachShader(shader, fs);
         }
 

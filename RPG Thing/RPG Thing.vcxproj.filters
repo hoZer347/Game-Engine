@@ -20,6 +20,9 @@
     <ClCompile Include="Cube.cpp">
       <Filter>Testing\Cube</Filter>
     </ClCompile>
+    <ClCompile Include="Sprite.cpp">
+      <Filter>Engine\Sprite</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -27,9 +30,6 @@
     </Filter>
     <Filter Include="Engine\Object">
       <UniqueIdentifier>{f79f4725-622f-49e6-93d3-d108050b3766}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Shaders">
-      <UniqueIdentifier>{a9ef2050-2084-4f31-bdaf-ad86b7f0dd01}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Mesh">
       <UniqueIdentifier>{961ef877-4bd1-4035-89af-1c4fd5f0e7c9}</UniqueIdentifier>
@@ -48,6 +48,18 @@
     </Filter>
     <Filter Include="Testing\Cube">
       <UniqueIdentifier>{08179602-d722-464f-96b4-cc5c42ada252}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Shaders">
+      <UniqueIdentifier>{19147621-0d11-4352-a637-0a84341de6cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Shaders\Lines">
+      <UniqueIdentifier>{3a811dc5-6e1a-4ab5-94aa-f8d93beae5d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game">
+      <UniqueIdentifier>{b32ea37f-74b5-4f54-acab-e81f290c1381}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Sprite">
+      <UniqueIdentifier>{613dccf2-b108-41f8-99e3-1c13876026c3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -69,16 +81,19 @@
     <ClInclude Include="Cube.h">
       <Filter>Testing\Cube</Filter>
     </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Engine\Sprite</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\Lines.frag">
-      <Filter>Engine\Shaders</Filter>
-    </None>
-    <None Include="Shaders\Lines.vert">
-      <Filter>Engine\Shaders</Filter>
+      <Filter>Engine\Shaders\Lines</Filter>
     </None>
     <None Include="Shaders\Lines.geom">
-      <Filter>Engine\Shaders</Filter>
+      <Filter>Engine\Shaders\Lines</Filter>
+    </None>
+    <None Include="Shaders\Lines.vert">
+      <Filter>Engine\Shaders\Lines</Filter>
     </None>
   </ItemGroup>
 </Project>

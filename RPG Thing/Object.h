@@ -17,8 +17,10 @@ namespace obj {
 		}
 	};
 
+	extern unsigned int new_texture(const char*, void* v);
+	extern void del_texture(const char*);
 	extern unsigned int new_attrib();
-	extern void del_attrib();
+	extern void del_attrib(unsigned int);
 
 	extern void setup();
 	extern void update();

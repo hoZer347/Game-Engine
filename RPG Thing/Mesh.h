@@ -17,6 +17,7 @@ namespace mesh {
 	class Mesh : public obj::Obj<Mesh> {
 	public:
 		~Mesh();
+		void add_attrib(unsigned char);
 		void pump(std::vector<float>&, unsigned int);
 		void pump(std::vector<unsigned int>&, unsigned int);
 		void setup();
@@ -35,14 +36,6 @@ namespace mesh {
 		std::vector<unsigned int> inds;
 		std::vector<float> vtxs;
 	};
-
-	class Normals {
-	public:
-	};
-
-	class Textures {
-	public:
-	};
 	
 	class Lines : public Mesh {
 	public:
@@ -51,7 +44,7 @@ namespace mesh {
 		void draw();
 
 		float width = 1;
-		vec4 color = vec4(0, 0, 1, 1);
+		vec4 color = vec4(0, 0, 0, 1);
 	};
 
 	class Triangles : public Mesh {

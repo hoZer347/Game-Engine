@@ -1,4 +1,4 @@
-#include "Shader.h"
+#include "Shaders.h"
 
 #include "GLFW/glew.h"
 #include "GLFW/glfw3.h"
@@ -15,7 +15,7 @@ namespace shader {
     unsigned int create(const char* file_name) {
         if (shaders[file_name])
             return shaders[file_name];
-        
+
         unsigned int shader = glCreateProgram();
 
         std::string f = file_name;
@@ -59,20 +59,6 @@ namespace shader {
         }
 
         glLinkProgram(shader);
-
-        GLint isLinked = 0;
-        glGetProgramiv(shader, GL_LINK_STATUS, &isLinked);
-        if (isLinked == GL_FALSE) {
-            std::cout << "Test" << std::endl;
-
-            GLint maxLength = 0;
-            glGetProgramiv(shader, GL_INFO_LOG_LENGTH, &maxLength);
-
-            // The maxLength includes the NULL character
-            std::vector<GLchar> infoLog(maxLength);
-            glGetProgramInfoLog(shader, maxLength, &maxLength, &infoLog[0]);
-
-        }
 
         shaders[f.c_str()] = shader;
 

@@ -1,17 +1,14 @@
 #pragma once
 
-#include "Mesh.h"
+#include "glm/glm.hpp"
+using namespace glm;
+
+#include <vector>
 
 namespace sprite {
-	class Sprite : public
-		mesh::Mesh,
-		mesh::Quads {
-	public:
-		void bind_texture(const char*);
-		void setup();
-		void update();
+	class Sprite;
 
-	private:
-		unsigned int texture=0;
-	};
+	extern Sprite* create(const char*, vec2, vec4);
+	extern void pump(Sprite*, std::vector<float>&);
+	extern void pump(Sprite*, std::vector<unsigned int>&);
 }

@@ -5,22 +5,38 @@
 
 // Native Imports
 #include "Object.h"
+using namespace obj;
+
 #include "Mesh.h"
+using namespace mesh;
+
+#include "Sprite.h"
+
+#include "Inputs.h"
 #include "Renderer.h"
 
 // Standard imports
 #include <iostream>
 
+#include "GLFW/glew.h"
+#include "GLFW/glfw3.h"
+
 int main() {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-    mesh::Lines* lines = new mesh::Lines();
+    std::vector<float> vtxs = {
+        0, 0, 0,
+    };
 
-    std::vector<float> v1({ 0, 0, 0, 1, 1, 0, 1, 0, 0 });
-    std::vector<unsigned int> v2({ 0, 1, 1, 2, 2, 0 });
+    std::vector<unsigned int> inds = {
+        0,
+    };
 
-    lines->pump(v1, 0);
-    lines->pump(v2, 0);
+    sprite::Sprite* s = sprite::create("Textures/Anna.png", vec2(32), vec4(0));
+    sprite::pump(s, vtxs);
+    sprite::pump(s, inds);
+
+    inputs::next();
 
     renderer::init();
 

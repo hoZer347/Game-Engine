@@ -2,23 +2,26 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Window.cpp">
+      <Filter>Engine\Window</Filter>
+    </ClCompile>
     <ClCompile Include="Object.cpp">
       <Filter>Engine\Object</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
       <Filter>Engine\Mesh</Filter>
     </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>Engine\Shader</Filter>
-    </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>Engine\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="Window.cpp">
-      <Filter>Engine\Window</Filter>
+    <ClCompile Include="Inputs.cpp">
+      <Filter>Engine\Inputs</Filter>
     </ClCompile>
-    <ClCompile Include="Cube.cpp">
-      <Filter>Testing\Cube</Filter>
+    <ClCompile Include="Shaders.cpp">
+      <Filter>Engine\Shaders</Filter>
+    </ClCompile>
+    <ClCompile Include="Textures.cpp">
+      <Filter>Engine\Textures</Filter>
     </ClCompile>
     <ClCompile Include="Sprite.cpp">
       <Filter>Engine\Sprite</Filter>
@@ -28,26 +31,8 @@
     <Filter Include="Engine">
       <UniqueIdentifier>{5bcd4434-e62c-4c42-8d7e-eb280885e00f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Object">
-      <UniqueIdentifier>{f79f4725-622f-49e6-93d3-d108050b3766}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Mesh">
-      <UniqueIdentifier>{961ef877-4bd1-4035-89af-1c4fd5f0e7c9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Shader">
-      <UniqueIdentifier>{c599ca2c-7a28-464f-b2f9-872f0d4fe021}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Renderer">
-      <UniqueIdentifier>{4bdd032f-924c-4c2e-9853-c43469f25378}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Window">
       <UniqueIdentifier>{7b4948c2-10da-444a-8426-ada526c69388}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Testing">
-      <UniqueIdentifier>{5134a135-f21b-45b5-b529-e483b8d710eb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Testing\Cube">
-      <UniqueIdentifier>{08179602-d722-464f-96b4-cc5c42ada252}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Shaders">
       <UniqueIdentifier>{19147621-0d11-4352-a637-0a84341de6cd}</UniqueIdentifier>
@@ -58,42 +43,74 @@
     <Filter Include="Game">
       <UniqueIdentifier>{b32ea37f-74b5-4f54-acab-e81f290c1381}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Inputs">
+      <UniqueIdentifier>{3d70056c-0163-4ba3-810a-bb0fbd6cab8e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Mesh">
+      <UniqueIdentifier>{9f0ae1c2-aabf-44fd-92a6-e8605fb3de04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object">
+      <UniqueIdentifier>{059bf161-db78-4800-9f72-8976b0a8f303}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Renderer">
+      <UniqueIdentifier>{2a5b2cba-7190-41f7-a47f-531bce0c6bd2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Shaders\Sprites">
+      <UniqueIdentifier>{708fe21a-36b0-428d-bca4-9ec82a796844}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Textures">
+      <UniqueIdentifier>{715337f1-9bd3-4e03-9713-f63e73fa499a}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Engine\Sprite">
-      <UniqueIdentifier>{613dccf2-b108-41f8-99e3-1c13876026c3}</UniqueIdentifier>
+      <UniqueIdentifier>{0b8135fb-ab3c-439c-906c-02e9954dfa00}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Window.h">
+      <Filter>Engine\Window</Filter>
+    </ClInclude>
     <ClInclude Include="Object.h">
       <Filter>Engine\Object</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
       <Filter>Engine\Mesh</Filter>
     </ClInclude>
-    <ClInclude Include="Shader.h">
-      <Filter>Engine\Shader</Filter>
-    </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>Engine\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Window.h">
-      <Filter>Engine\Window</Filter>
+    <ClInclude Include="Inputs.h">
+      <Filter>Engine\Inputs</Filter>
     </ClInclude>
-    <ClInclude Include="Cube.h">
-      <Filter>Testing\Cube</Filter>
+    <ClInclude Include="Shaders.h">
+      <Filter>Engine\Shaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Textures.h">
+      <Filter>Engine\Textures</Filter>
     </ClInclude>
     <ClInclude Include="Sprite.h">
       <Filter>Engine\Sprite</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\Lines.frag">
+    <None Include="Lines.frag">
       <Filter>Engine\Shaders\Lines</Filter>
     </None>
-    <None Include="Shaders\Lines.geom">
+    <None Include="Lines.geom">
       <Filter>Engine\Shaders\Lines</Filter>
     </None>
-    <None Include="Shaders\Lines.vert">
+    <None Include="Lines.vert">
       <Filter>Engine\Shaders\Lines</Filter>
     </None>
+    <None Include="Sprites_Basic.vert">
+      <Filter>Engine\Shaders\Sprites</Filter>
+    </None>
+    <None Include="Sprites_Basic.frag">
+      <Filter>Engine\Shaders\Sprites</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Sprites_Basic.geom">
+      <Filter>Engine\Shaders\Sprites</Filter>
+    </Text>
   </ItemGroup>
 </Project>

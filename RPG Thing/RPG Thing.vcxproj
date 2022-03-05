@@ -152,28 +152,35 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Cube.cpp" />
-    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Inputs.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="Shaders.cpp" />
     <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="Textures.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Cube.h" />
+    <ClInclude Include="Inputs.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Renderer.h" />
-    <ClInclude Include="Shader.h" />
+    <ClInclude Include="Shaders.h" />
     <ClInclude Include="Sprite.h" />
+    <ClInclude Include="Textures.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Shaders\Lines.frag" />
-    <None Include="Shaders\Lines.geom" />
-    <None Include="Shaders\Lines.vert" />
+    <None Include="Lines.frag" />
+    <None Include="Lines.geom" />
+    <None Include="Lines.vert" />
+    <None Include="Sprites_Basic.frag" />
+    <None Include="Sprites_Basic.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Sprites_Basic.geom" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

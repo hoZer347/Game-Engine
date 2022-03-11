@@ -35,6 +35,12 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Engine\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>Engine\Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="Geo.cpp">
+      <Filter>Engine\Mesh\Geometry</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -82,6 +88,12 @@
     <Filter Include="Engine\Camera">
       <UniqueIdentifier>{00430152-786f-4b1d-86da-a3443a09192f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Particle">
+      <UniqueIdentifier>{9c15dcfa-c4ee-4a69-96c0-3ff5a0be5c4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Mesh\Geometry">
+      <UniqueIdentifier>{d6111668-390d-46ac-aab6-ef4afc799aff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -116,6 +128,12 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Engine\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Engine\Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="Geo.h">
+      <Filter>Engine\Mesh\Geometry</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

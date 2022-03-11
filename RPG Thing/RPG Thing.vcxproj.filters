@@ -26,6 +26,15 @@
     <ClCompile Include="Sprite.cpp">
       <Filter>Engine\Sprite</Filter>
     </ClCompile>
+    <ClCompile Include="Unit.cpp">
+      <Filter>Game\Unit</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Game\Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Engine\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -64,6 +73,15 @@
     <Filter Include="Engine\Sprite">
       <UniqueIdentifier>{0b8135fb-ab3c-439c-906c-02e9954dfa00}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Unit">
+      <UniqueIdentifier>{aade6521-9913-4306-983e-827ca17f8527}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Grid">
+      <UniqueIdentifier>{d0168a44-5d0f-40ff-b26f-7890947d3e75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Camera">
+      <UniqueIdentifier>{00430152-786f-4b1d-86da-a3443a09192f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -89,6 +107,15 @@
     </ClInclude>
     <ClInclude Include="Sprite.h">
       <Filter>Engine\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Unit.h">
+      <Filter>Game\Unit</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Game\Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Engine\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

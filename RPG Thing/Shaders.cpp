@@ -10,15 +10,15 @@
 #include <iostream>
 
 namespace shader {
-    std::unordered_map<const char*, unsigned int> shaders;
+    std::unordered_map<std::string, unsigned int> shaders;
 
     unsigned int create(const char* file_name) {
-        if (shaders[file_name])
-            return shaders[file_name];
+        std::string f = file_name;
+        
+        //if (shaders[f])
+        //    return shaders[f];
 
         unsigned int shader = glCreateProgram();
-
-        std::string f = file_name;
 
         GLuint
             vs = glCreateShader(GL_VERTEX_SHADER),
@@ -60,7 +60,7 @@ namespace shader {
 
         glLinkProgram(shader);
 
-        shaders[f.c_str()] = shader;
+        shaders[f] = shader;
 
         return shader;
     }

@@ -9,6 +9,7 @@ namespace sprite {
 	class Sprite;
 
 	extern Sprite* create(const char*, vec2, vec4);
+	extern mat4& trns(Sprite*);
 	extern void pump(Sprite*, std::vector<float>&);
 	extern void pump(Sprite*, std::vector<unsigned int>&);
 }

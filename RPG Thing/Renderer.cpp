@@ -3,24 +3,25 @@
 #include "Object.h"
 #include "Inputs.h"
 #include "Window.h"
+#include "Camera.h"
 
 #include "GLFW/glew.h"
 #include "GLFW/glfw3.h"
 
-namespace renderer {
-	bool end = false;
+#include <iostream>
 
+namespace renderer {
 	void setup() {
 		glfwInit();
 		WINDOW = glfwCreateWindow(640, 640, "", NULL, NULL);
 		glfwMakeContextCurrent(WINDOW);
-		glewExperimental = GL_TRUE;
 		glfwSwapInterval(1);
 		glewInit();
 
 		glEnable(GL_TEXTURE_2D);
-		
-		glEnable(GL_CULL_FACE);
+
+		glEnable(GL_MULTISAMPLE);
+		glfwWindowHint(GLFW_SAMPLES, 4);
 
 		glEnable(GL_BLEND);
 		glEnable(GL_DEPTH_TEST);
@@ -30,7 +31,9 @@ namespace renderer {
 		glAlphaFunc(GL_GREATER, 0);
 		glEnable(GL_ALPHA_TEST);
 
-		obj::setup();
+		glEnable(GL_CULL_FACE);
+
+		inputs::next();
 
 		glClearColor(0.5, 0.5, 0.5, 1); // RMV
 	}
@@ -41,14 +44,14 @@ namespace renderer {
 	}
 
 	void init() {
-		setup();
+		obj::setup();
 
 		while (!glfwWindowShouldClose(WINDOW)) {
 			int w, h;
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 			glfwGetWindowSize(WINDOW, &w, &h);
 			glViewport(0, 0, w, h);
-
+			cam::update();
 			obj::update();
 			obj::render();
 

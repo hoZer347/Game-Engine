@@ -36,7 +36,9 @@ int main() {
 
     renderer::setup();
 
-    sprite::Sprite* s1 = sprite::create("Textures/Anna.png", vec2(32), vec4(0));
+    sprite::Sprite* s1 = sprite::create(
+        "Textures/Anna.png",
+        vec2(32), vec4(0));
     sprite::pump(s1, vtxs);
     sprite::pump(s1, inds);
     trns(s1) = translate(trns(s1), vec3(0, -.333, 0));

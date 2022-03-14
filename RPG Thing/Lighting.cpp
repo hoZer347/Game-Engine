@@ -16,21 +16,16 @@ using namespace glm;
 
 #include <iostream>
 
-/*
-
-Shadow Effect Pipeline:
-- Make a new framebuffer for depth
-	- Assign it to a texture output
-	- Draw all objects onto texture
-
-- Somehow add texture to the main frame
-*/
-
 namespace lighting {
 	class Lighting :
 		public obj::Obj {
 	public:
-		void setup();
+		~Lighting() {
+			geo::square::del((geo::square::Square*)m);
+			glDeleteBuffers(1, &depth_fbo);
+			glDeleteTextures(1, &depth_map);
+		};
+ 		void setup();
 		void update();
 		void render();
 		 
@@ -105,4 +100,7 @@ namespace lighting {
 		l = new Lighting();
 	};
 
+	void close() {
+		delete l;
+	};
 };

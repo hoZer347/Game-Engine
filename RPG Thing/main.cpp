@@ -32,10 +32,18 @@ using namespace glm;
 /* TODOS:
 Working on:
 - Add shadows
+    - Finished depth map
+    - Need to adapt current shaders to work with depth map
 
 Planned:
 - Add "shatter" effect onto sprites in particle
 - Add grid
+
+Small / Debug:
+- Add custom deletion to textures.h and shaders.h
+
+Might Implement:
+- Synchronize with time, not frames (Not Required)
 */
 
 int main() {
@@ -85,5 +93,9 @@ int main() {
     geo::square::del(f1);
     geo::square::del(f2);
 
+    sprite::del(s1);
+    sprite::del(s2);
+    sprite::del(s3);
+
     return 0;
-}
+};

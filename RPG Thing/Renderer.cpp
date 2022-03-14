@@ -4,6 +4,7 @@
 #include "Inputs.h"
 #include "Window.h"
 #include "Camera.h"
+#include "Lighting.h"
 
 #include "GLFW/glew.h"
 #include "GLFW/glfw3.h"
@@ -41,6 +42,8 @@ namespace renderer {
 	};
 
 	void close() {
+		lighting::close();
+		inputs::close();
 		glfwDestroyWindow(WINDOW);
 		glfwTerminate();
 	};
@@ -62,7 +65,6 @@ namespace renderer {
 			glfwSwapBuffers(WINDOW);
 		}
 
-		inputs::close();
 		close();
 	};
 };

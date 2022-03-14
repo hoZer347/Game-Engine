@@ -14,8 +14,6 @@ using namespace glm;
 
 #include <iostream>
 
-// TODO: syncronize with time, not framerate
-
 namespace sprite {
 	class Sprite :
 		public Mesh {

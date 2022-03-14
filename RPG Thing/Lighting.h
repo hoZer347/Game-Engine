@@ -1,7 +1,7 @@
 #pragma once
 
-namespace lighting {
-	class Lighting;
+namespace depth {
+	class DepthMapper;
 
 	extern void create();
 	extern void close();

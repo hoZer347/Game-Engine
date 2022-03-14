@@ -86,7 +86,7 @@ int main() {
     mesh::trns(f2) *= rotate(-90.f, vec3(1, 0, 0));
     mesh::trns(f1) *= scale(vec3(10, 10, 0));
 
-    lighting::create();
+    depth::create();
 
     renderer::init();
 

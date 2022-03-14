@@ -20,6 +20,7 @@ namespace sprite {
 	public:
 		Sprite();
 		void setup();
+		void update();
 		void render();
 		void next();
 
@@ -102,6 +103,9 @@ namespace sprite {
 			glGetUniformLocation(shader, "trns"),
 			1, GL_FALSE, &trns[0][0]);
 		Mesh::render();
+	};
+	void Sprite::update() {
+		Mesh::update();
 	};
 	void Sprite::next() {
 		glUseProgram(shader);

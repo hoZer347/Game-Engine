@@ -39,7 +39,7 @@
       <Filter>Engine\Particle</Filter>
     </ClCompile>
     <ClCompile Include="Geo.cpp">
-      <Filter>Game\Cube</Filter>
+      <Filter>Game\Geo</Filter>
     </ClCompile>
     <ClCompile Include="Lighting.cpp">
       <Filter>Engine\Lighting</Filter>
@@ -91,11 +91,11 @@
     <Filter Include="Engine\Particle">
       <UniqueIdentifier>{9c15dcfa-c4ee-4a69-96c0-3ff5a0be5c4c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Cube">
-      <UniqueIdentifier>{f6e96e19-fd73-467b-867d-9d0b362415eb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Lighting">
       <UniqueIdentifier>{fbde2f91-1847-45c2-90f1-95354d8dee27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Geo">
+      <UniqueIdentifier>{f6e96e19-fd73-467b-867d-9d0b362415eb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -136,7 +136,7 @@
       <Filter>Engine\Particle</Filter>
     </ClInclude>
     <ClInclude Include="Geo.h">
-      <Filter>Game\Cube</Filter>
+      <Filter>Game\Geo</Filter>
     </ClInclude>
     <ClInclude Include="Lighting.h">
       <Filter>Engine\Lighting</Filter>
@@ -161,19 +161,16 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Faces_Basic.vert">
-      <Filter>Game\Cube</Filter>
+      <Filter>Game\Geo</Filter>
     </Text>
     <Text Include="Faces_Basic.frag">
-      <Filter>Game\Cube</Filter>
+      <Filter>Game\Geo</Filter>
     </Text>
     <Text Include="Sprites_Basic.geom">
       <Filter>Engine\Sprite</Filter>
     </Text>
-    <Text Include="Depth_Basic.vert">
-      <Filter>Engine\Lighting</Filter>
-    </Text>
-    <Text Include="Depth_Basic.frag">
-      <Filter>Engine\Lighting</Filter>
+    <Text Include="Faces_Basic.geom">
+      <Filter>Game\Geo</Filter>
     </Text>
   </ItemGroup>
 </Project>

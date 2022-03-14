@@ -16,11 +16,11 @@ using namespace glm;
 
 #include <iostream>
 
-namespace lighting {
-	class Lighting :
+namespace depth {
+	class DepthMapper :
 		public obj::Obj {
 	public:
-		~Lighting() {
+		~DepthMapper() {
 			geo::square::del((geo::square::Square*)m);
 			glDeleteBuffers(1, &depth_fbo);
 			glDeleteTextures(1, &depth_map);
@@ -38,20 +38,19 @@ namespace lighting {
 			shader=0;
 
 		mat4
+			mode = mat4(1),
 			proj = mat4(1),
 			view = mat4(1),
 			vp   = mat4(1);
 	};
 
-	Lighting* l = NULL;
+	DepthMapper* l = NULL;
 
 
 
-	void Lighting::setup() {
+	void DepthMapper::setup() {
 		glGenFramebuffers(1, &depth_fbo);
 		glGenTextures(1, &depth_map);
-
-		shader = shader::create("Depth_Basic");
 
 		int w, h;
 		glfwGetWindowSize(WINDOW, &w, &h);
@@ -69,7 +68,6 @@ namespace lighting {
 			glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
-		m->set_shader(shader);
 		m->texs[0] = depth_map;
 
 		proj = perspective(radians(45.f), (float)w / (float)h, .1f, 100.f);
@@ -79,7 +77,7 @@ namespace lighting {
 		glUniformMatrix4fv(glGetUniformLocation(shader, "light"), 1, GL_FALSE, &vp[0][0]);
 		glUniformMatrix4fv(glGetUniformLocation(shader, "mode"), 1, GL_FALSE, &cam::mode[0][0]);
 	};
-	void Lighting::update() {
+	void DepthMapper::update() {
 		int w, h;
 		glfwGetWindowSize(WINDOW, &w, &h);
 
@@ -92,12 +90,12 @@ namespace lighting {
 
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	};
-	void Lighting::render() {
+	void DepthMapper::render() {
 
 	};
 
 	void create() {
-		l = new Lighting();
+		l = new DepthMapper();
 	};
 
 	void close() {

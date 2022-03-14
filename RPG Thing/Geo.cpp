@@ -16,33 +16,31 @@ namespace geo {
 		public:
 			Square() {
 				vtxs = {
-					0, 0, 0, 0, 0,
-					1, 0, 0, 1, 0,
-					1, 1, 0, 1, 1,
-					0, 1, 0, 0, 1,
+					0, 0, 0,
 				};
 
 				inds = {
-					0, 1, 2, 3
+					0,
 				};
 
 				add_attrib(3);
-				add_attrib(2);
 
 				set_shader("Faces_Basic");
 
 				add_texture("Textures/Stone.png");
 
-				drawing_mode = GL_QUADS;
+				drawing_mode = GL_POINTS;
 			};
 			void render();
 		};
 		void Square::render() {
 			glUseProgram(shader);
-			mat4 m = cam::mvp * trns;
+			glUniformMatrix4fv(
+				glGetUniformLocation(shader, "mvp"),
+				1, GL_FALSE, &cam::mvp[0][0]);
 			glUniformMatrix4fv(
 				glGetUniformLocation(shader, "trns"),
-				1, GL_FALSE, &m[0][0]);
+				1, GL_FALSE, &trns[0][0]);
 			mesh::Mesh::render();
 		};
 

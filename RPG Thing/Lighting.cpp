@@ -38,8 +38,6 @@ namespace lighting {
 		mesh::Mesh* m = (mesh::Mesh*)geo::square::create();
 
 		unsigned int
-			_vtxs=0,
-			_inds=0,
 			depth_map=0,
 			depth_fbo=0,
 			shader=0;
@@ -55,9 +53,6 @@ namespace lighting {
 
 
 	void Lighting::setup() {
-		glGenBuffers(1, &_vtxs);
-		glGenBuffers(1, &_inds);
-
 		glGenFramebuffers(1, &depth_fbo);
 		glGenTextures(1, &depth_map);
 
@@ -79,6 +74,7 @@ namespace lighting {
 			glBindFramebuffer(GL_FRAMEBUFFER, 0);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
+		m->set_shader(shader);
 		m->texs[0] = depth_map;
 
 		proj = perspective(radians(45.f), (float)w / (float)h, .1f, 100.f);
@@ -92,9 +88,6 @@ namespace lighting {
 		int w, h;
 		glfwGetWindowSize(WINDOW, &w, &h);
 
-		glBindBuffer(GL_ARRAY_BUFFER, _vtxs);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _inds);
-
 		glBindFramebuffer(GL_FRAMEBUFFER, depth_fbo);
 
 		glViewport(0, 0, w, h);
@@ -103,9 +96,6 @@ namespace lighting {
 		obj::render();
 
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	};
 	void Lighting::render() {
 

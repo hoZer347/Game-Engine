@@ -34,6 +34,9 @@ namespace mesh {
 	void Mesh::set_shader(const char* file_name) {
 		shader = shader::create(file_name);
 	};
+	void Mesh::set_shader(unsigned int s) {
+		shader = s;
+	};
 	vec4 Mesh::pos(unsigned int i) {
 		return vec4(vtxs[0], vtxs[1], vtxs[2], 1) * trns;
 	};
@@ -107,28 +110,6 @@ namespace mesh {
 			glActiveTexture(GL_TEXTURE0 + i);
 			glBindTexture(GL_TEXTURE_2D, 0);
 		};
-	};
-	void Mesh::depths() {
-		glEnableVertexAttribArray(atbs[0].first);
-
-		glBufferData(
-			GL_ARRAY_BUFFER,
-			vtxs.size() * sizeof(float),
-			vtxs.data(),
-			GL_DYNAMIC_DRAW);
-
-		glBufferData(
-			GL_ELEMENT_ARRAY_BUFFER,
-			inds.size() * sizeof(unsigned int),
-			inds.data(),
-			GL_DYNAMIC_DRAW);
-
-		glDisableVertexAttribArray(atbs[0].first);
-	};
-
-	void depths() {
-		for (auto& m : MESH)
-			m->depths();
 	};
 
 	mat4& trns(void* m) {

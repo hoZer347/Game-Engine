@@ -18,13 +18,13 @@ namespace mesh {
 		void add_texture(const char*);
 		void add_texture(unsigned int);
 		void set_shader(const char*);
+		void set_shader(unsigned int);
 		vec4 pos(unsigned int=0);
 		void pump(std::vector<float>&);
 		void pump(std::vector<unsigned int>&);
 		void setup();
 		void update();
 		void render();
-		void depths();
 
 		mat4 trns = mat4(1);
 
@@ -41,6 +41,5 @@ namespace mesh {
 		std::vector<std::pair<unsigned int, unsigned int>> atbs;
 	};
 
-	extern void depths();
 	extern mat4& trns(void*);
 }

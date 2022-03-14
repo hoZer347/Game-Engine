@@ -6,7 +6,12 @@ using namespace glm;
 namespace cam {
 	extern mat4
 		trns,
-		rotn,
+		roll,
+		ptch,
+		yaww,
+		mode,
+		view,
+		proj,
 		mvp;
 
 	extern void update();

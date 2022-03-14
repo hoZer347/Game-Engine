@@ -4,6 +4,7 @@
 #include "GLFW/glfw3.h"
 
 #include "Shaders.h"
+#include "Textures.h"
 
 #include <iostream>
 
@@ -12,12 +13,23 @@ namespace mesh {
 		_vtxs=0,
 		_inds=0;
 
+	std::vector<Mesh*> MESH;
+
+	Mesh::Mesh() {
+		MESH.push_back(this);
+	};
 	Mesh::~Mesh() {
 		glDeleteShader(shader);
-	}
+	};
 	void Mesh::add_attrib(unsigned char size) {
 		atbs.push_back({ atbs.size(), size });
 		stride += size;
+	};
+	void Mesh::add_texture(const char* file_name) {
+		texs.push_back(texture::create(file_name));
+	}
+	void Mesh::add_texture(unsigned int t) {
+		texs.push_back(t);
 	};
 	void Mesh::set_shader(const char* file_name) {
 		shader = shader::create(file_name);
@@ -69,6 +81,11 @@ namespace mesh {
 		for (auto& a : atbs)
 			glEnableVertexAttribArray(a.first);
 
+		for (unsigned int i = 0; i < texs.size(); i++) {
+			glActiveTexture(GL_TEXTURE0 + i);
+			glBindTexture(GL_TEXTURE_2D, texs[i]);
+		};
+
 		glBufferData(
 			GL_ARRAY_BUFFER,
 			vtxs.size() * sizeof(float),
@@ -86,7 +103,35 @@ namespace mesh {
 		for (auto& a : atbs)
 			glDisableVertexAttribArray(a.first);
 
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+		for (unsigned int i = 0; i < texs.size(); i++) {
+			glActiveTexture(GL_TEXTURE0 + i);
+			glBindTexture(GL_TEXTURE_2D, 0);
+		};
+	};
+	void Mesh::depths() {
+		glEnableVertexAttribArray(atbs[0].first);
+
+		glBufferData(
+			GL_ARRAY_BUFFER,
+			vtxs.size() * sizeof(float),
+			vtxs.data(),
+			GL_DYNAMIC_DRAW);
+
+		glBufferData(
+			GL_ELEMENT_ARRAY_BUFFER,
+			inds.size() * sizeof(unsigned int),
+			inds.data(),
+			GL_DYNAMIC_DRAW);
+
+		glDisableVertexAttribArray(atbs[0].first);
+	};
+
+	void depths() {
+		for (auto& m : MESH)
+			m->depths();
+	};
+
+	mat4& trns(void* m) {
+		return ((Mesh*)m)->trns;
 	};
 };

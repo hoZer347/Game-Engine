@@ -1,5 +1,6 @@
 #pragma once
 
+#define GLM_FORCE_RADIANS
 #include <glm/glm.hpp>
 using namespace glm;
 
@@ -11,17 +12,23 @@ using namespace obj;
 namespace mesh {
 	class Mesh : public Obj {
 	public:
+		Mesh();
 		~Mesh();
 		void add_attrib(unsigned char size);
+		void add_texture(const char*);
+		void add_texture(unsigned int);
 		void set_shader(const char*);
-		vec4 pos(unsigned int = 0);
+		vec4 pos(unsigned int=0);
 		void pump(std::vector<float>&);
 		void pump(std::vector<unsigned int>&);
 		void setup();
 		void update();
 		void render();
+		void depths();
 
 		mat4 trns = mat4(1);
+
+		std::vector<unsigned int> texs;
 
 	protected:
 		unsigned int
@@ -33,4 +40,7 @@ namespace mesh {
 		std::vector<unsigned int> inds;
 		std::vector<std::pair<unsigned int, unsigned int>> atbs;
 	};
+
+	extern void depths();
+	extern mat4& trns(void*);
 }

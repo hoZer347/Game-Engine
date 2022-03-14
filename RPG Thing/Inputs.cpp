@@ -3,7 +3,12 @@
 #include "GLFW/glew.h"
 #include "GLFW/glfw3.h"
 
+#include "glm/glm.hpp"
+#include "glm/gtx/transform.hpp"
+
 #include "Window.h"
+#include "Camera.h"
+#include "Particle.h"
 
 #include "Object.h"
 using namespace obj;
@@ -21,8 +26,46 @@ namespace inputs {
 
 		void update() {
 			glfwPollEvents();
+
+			if (glfwGetKey(WINDOW, GLFW_KEY_W))
+				cam::trns = translate(cam::trns,
+					vec3(inverse(cam::yaww) * vec4(  0,   0,  .1, 0)));
+			if (glfwGetKey(WINDOW, GLFW_KEY_A))
+				cam::trns = translate(cam::trns,
+					vec3(inverse(cam::yaww) * vec4( .1,   0,   0, 0)));
+			if (glfwGetKey(WINDOW, GLFW_KEY_S))
+				cam::trns = translate(cam::trns,
+					vec3(inverse(cam::yaww) * vec4(  0,   0, -.1, 0)));
+			if (glfwGetKey(WINDOW, GLFW_KEY_D))
+				cam::trns = translate(cam::trns,
+					vec3(inverse(cam::yaww) * vec4(-.1,   0,   0, 0)));
+			if (glfwGetKey(WINDOW, GLFW_KEY_LEFT_CONTROL))
+				cam::trns = translate(cam::trns,
+					vec3(inverse(cam::yaww) * vec4(  0,  .1,   0, 0)));
+			if (glfwGetKey(WINDOW, GLFW_KEY_SPACE))
+				cam::trns = translate(cam::trns,
+					vec3(inverse(cam::yaww) * vec4(  0, -.1,   0, 0)));
+
+			double
+				cx=0, cy=0;
+			glfwGetCursorPos(WINDOW, &cx, &cy);
+
+			dx = mx - cx;
+			dy = my - cy;
+
+			mx = cx;
+			my = cy;
+
+			if (glfwGetMouseButton(WINDOW, GLFW_MOUSE_BUTTON_RIGHT)) {
+				cam::roll = rotate(cam::roll, -radians((float)dy * 20), vec3(1, 0, 0));
+				cam::yaww = rotate(cam::yaww, -radians((float)dx * 20), vec3(0, 1, 0));
+			};
 		};
 		
+		double
+			dx=0, dy=0,
+			mx=0, my=0;
+
 		void render() {
 
 		};

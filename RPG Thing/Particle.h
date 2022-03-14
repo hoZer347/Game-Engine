@@ -1,5 +1,9 @@
 #pragma once
 
-namespace particle {
+#include "Sprite.h"
 
+namespace particle {
+	class Particle;
+
+	extern void shatter(sprite::Sprite*);
 };

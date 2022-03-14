@@ -156,6 +156,7 @@
     <ClCompile Include="Geo.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Inputs.cpp" />
+    <ClCompile Include="Lighting.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Object.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="Geo.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="Inputs.h" />
+    <ClInclude Include="Lighting.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Particle.h" />
@@ -191,6 +193,10 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Sprites_Basic.geom" />
+    <Text Include="Faces_Basic.vert" />
+    <Text Include="Faces_Basic.frag" />
+    <Text Include="Depth_Basic.vert" />
+    <Text Include="Depth_Basic.frag" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

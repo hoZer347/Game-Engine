@@ -1,21 +1,15 @@
 #pragma once
 
-#include "Mesh.h"
+#define GLM_FORCE_RADIANS
+#include <glm/glm.hpp>
+using namespace glm;
 
 namespace geo {
-	class Geo :
-		public mesh::Mesh {
+	namespace square {
+		class Square;
 
+		extern Square* create();
+		extern void del(Square*);
 	};
-	
-	class Cube :
-		public Geo {
-	public:
-		
-
-	private:
-
-	};
-
-
 };
+

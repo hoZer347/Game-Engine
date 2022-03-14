@@ -21,19 +21,15 @@ namespace sprite {
 		public Mesh {
 	public:
 		Sprite();
-		void set_texture(const char*);
 		void setup();
 		void render();
 		void next();
 
-		unsigned int
-			texture=0;
 		ivec2
 			dims;
 		vec2
+			curr,
 			stride;
-		vec4
-			curr;
 	};
 
 
@@ -56,18 +52,16 @@ namespace sprite {
 
 
 	Sprite::Sprite() {
-		drawing_mode = GL_POINTS;
-
 		add_attrib(3);
 
 		set_shader("Sprites_Basic");
-	};
-	void Sprite::set_texture(const char* file_name) {
-		texture = texture::create(file_name);
+
+		drawing_mode = GL_POINTS;
 	};
 	void Sprite::setup() {
 		Mesh::setup();
-		glBindTexture(GL_TEXTURE_2D, texture);
+
+		glBindTexture(GL_TEXTURE_2D, texs[0]);
 		glGetTexLevelParameteriv(
 			GL_TEXTURE_2D, 0,
 			GL_TEXTURE_WIDTH,
@@ -98,15 +92,11 @@ namespace sprite {
 		glUniform2fv(
 			glGetUniformLocation(shader, "start"),
 			1, &curr[0]);
-		glUniform1i(
-			glGetUniformLocation(shader, "tex"),
-			GL_TEXTURE0 + texture);
 
 		glBindTexture(GL_TEXTURE_2D, 0);
 	};
 	void Sprite::render() {
 		glUseProgram(shader);
-		glBindTexture(GL_TEXTURE_2D, texture);
 		glUniformMatrix4fv(
 			glGetUniformLocation(shader, "mvp"),
 			1, GL_FALSE, &cam::mvp[0][0]);
@@ -114,8 +104,7 @@ namespace sprite {
 			glGetUniformLocation(shader, "trns"),
 			1, GL_FALSE, &trns[0][0]);
 		Mesh::render();
-		glBindTexture(GL_TEXTURE_2D, 0);
-	}
+	};
 	void Sprite::next() {
 		glUseProgram(shader);
 		curr.x += stride.x;
@@ -139,22 +128,25 @@ namespace sprite {
 
 
 
-	Sprite* create(const char* file_name, vec2 stride, vec4 start) {
+	Sprite* create(const char* file_name, vec2 stride, vec2 start) {
 		Sprite* s = SPRITE.create();
 
-		s->set_texture(file_name);
+		s->add_texture(file_name);
+
 		s->stride = stride;
 		s->curr = start;
 
 		return s;
 	};
-	mat4& trns(Sprite* s) {
-		return s->trns;
-	}
+	void del(Sprite* s) {
+		SPRITE.del(s);
+	};
+	vec2& curr(Sprite* s) {
+		return s->curr;
+	};
 	void pump(Sprite* s, std::vector<float>& vtxs) {
 		s->pump(vtxs);
 	};
-
 	void pump(Sprite* s, std::vector<unsigned int>& inds) {
 		s->pump(inds);
 	};

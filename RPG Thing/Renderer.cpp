@@ -13,9 +13,11 @@
 namespace renderer {
 	void setup() {
 		glfwInit();
+
 		WINDOW = glfwCreateWindow(640, 640, "", NULL, NULL);
 		glfwMakeContextCurrent(WINDOW);
 		glfwSwapInterval(1);
+
 		glewInit();
 
 		glEnable(GL_TEXTURE_2D);
@@ -36,23 +38,25 @@ namespace renderer {
 		inputs::next();
 
 		glClearColor(0.5, 0.5, 0.5, 1); // RMV
-	}
+	};
 
 	void close() {
 		glfwDestroyWindow(WINDOW);
 		glfwTerminate();
-	}
+	};
 
 	void init() {
 		obj::setup();
 
 		while (!glfwWindowShouldClose(WINDOW)) {
-			int w, h;
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			int w=0, h=0;
 			glfwGetWindowSize(WINDOW, &w, &h);
-			glViewport(0, 0, w, h);
+
 			cam::update();
 			obj::update();
+
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			glViewport(0, 0, w, h);
 			obj::render();
 
 			glfwSwapBuffers(WINDOW);
@@ -60,5 +64,5 @@ namespace renderer {
 
 		inputs::close();
 		close();
-	}
+	};
 };

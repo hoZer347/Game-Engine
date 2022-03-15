@@ -193,9 +193,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="Sprites_Basic.geom" />
-    <Text Include="Faces_Basic.vert" />
-    <Text Include="Faces_Basic.frag" />
-    <Text Include="Faces_Basic.geom" />
+    <Text Include="Quads_Basic.vert" />
+    <Text Include="Quads_Basic.frag" />
+    <Text Include="Quads_Basic.geom" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

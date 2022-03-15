@@ -14,5 +14,7 @@ namespace cam {
 		proj,
 		mvp;
 
+	extern void create();
 	extern void update();
+	extern void close();
 };

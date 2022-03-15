@@ -30,19 +30,29 @@ namespace renderer {
 		glEnable(GL_DEPTH_TEST);
 		glDepthFunc(GL_LESS);
 
+		glEnable(GL_CULL_FACE);
+
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glAlphaFunc(GL_GREATER, 0);
 		glEnable(GL_ALPHA_TEST);
 
-		glEnable(GL_CULL_FACE);
-
 		inputs::next();
 
-		glClearColor(0.5, 0.5, 0.5, 1); // RMV
+		depth::create();
+		cam::create();
+
+		int value;
+		glGetIntegerv(GL_MAX_TEXTURE_SIZE, &value);
+		std::cout << value << std::endl;
+		glGetIntegerv(GL_MAX_TEXTURE_UNITS, &value);
+		std::cout << value << std::endl;
+
+		glClearColor(0.1, 0.1, 0.1, 1);
 	};
 
 	void close() {
-		lighting::close();
+		cam::close();
+		depth::close();
 		inputs::close();
 		glfwDestroyWindow(WINDOW);
 		glfwTerminate();
@@ -55,7 +65,6 @@ namespace renderer {
 			int w=0, h=0;
 			glfwGetWindowSize(WINDOW, &w, &h);
 
-			cam::update();
 			obj::update();
 
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

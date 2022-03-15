@@ -16,8 +16,8 @@ namespace texture {
 	unsigned int create(const char* file_name) {
 		std::string s = std::string(file_name);
 
-		if (TEXS[s])
-			return TEXS[s];
+		//if (TEXS[s])
+		//	return TEXS[s];
 
 		unsigned int texture = SOIL_load_OGL_texture(
 			file_name,

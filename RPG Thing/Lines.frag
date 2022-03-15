@@ -1,4 +1,4 @@
-#version 400
+#version 450
 
 uniform vec4 color = vec4(1, 0, 0, 1);
 

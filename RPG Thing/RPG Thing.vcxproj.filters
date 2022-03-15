@@ -39,7 +39,7 @@
       <Filter>Engine\Particle</Filter>
     </ClCompile>
     <ClCompile Include="Geo.cpp">
-      <Filter>Game\Geo</Filter>
+      <Filter>Engine\Geo</Filter>
     </ClCompile>
     <ClCompile Include="Lighting.cpp">
       <Filter>Engine\Lighting</Filter>
@@ -94,8 +94,14 @@
     <Filter Include="Engine\Lighting">
       <UniqueIdentifier>{fbde2f91-1847-45c2-90f1-95354d8dee27}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game\Geo">
+    <Filter Include="Engine\Sprite\Shaders">
+      <UniqueIdentifier>{b96fca27-4ca8-4529-8644-7c1895dafffb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Geo">
       <UniqueIdentifier>{f6e96e19-fd73-467b-867d-9d0b362415eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Geo\Shaders">
+      <UniqueIdentifier>{7371af7c-ad54-4392-ad65-903388ae1630}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -136,7 +142,7 @@
       <Filter>Engine\Particle</Filter>
     </ClInclude>
     <ClInclude Include="Geo.h">
-      <Filter>Game\Geo</Filter>
+      <Filter>Engine\Geo</Filter>
     </ClInclude>
     <ClInclude Include="Lighting.h">
       <Filter>Engine\Lighting</Filter>
@@ -153,24 +159,24 @@
       <Filter>Engine\Shaders\Lines</Filter>
     </None>
     <None Include="Sprites_Basic.frag">
-      <Filter>Engine\Sprite</Filter>
+      <Filter>Engine\Sprite\Shaders</Filter>
     </None>
     <None Include="Sprites_Basic.vert">
-      <Filter>Engine\Sprite</Filter>
+      <Filter>Engine\Sprite\Shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Faces_Basic.vert">
-      <Filter>Game\Geo</Filter>
+    <Text Include="Quads_Basic.frag">
+      <Filter>Engine\Geo\Shaders</Filter>
     </Text>
-    <Text Include="Faces_Basic.frag">
-      <Filter>Game\Geo</Filter>
+    <Text Include="Quads_Basic.vert">
+      <Filter>Engine\Geo\Shaders</Filter>
+    </Text>
+    <Text Include="Quads_Basic.geom">
+      <Filter>Engine\Geo\Shaders</Filter>
     </Text>
     <Text Include="Sprites_Basic.geom">
-      <Filter>Engine\Sprite</Filter>
-    </Text>
-    <Text Include="Faces_Basic.geom">
-      <Filter>Game\Geo</Filter>
+      <Filter>Engine\Sprite\Shaders</Filter>
     </Text>
   </ItemGroup>
 </Project>

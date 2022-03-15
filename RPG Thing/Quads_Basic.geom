@@ -1,12 +1,12 @@
-#version 400
+#version 450
 
 layout(points) in;
 layout(triangle_strip, max_vertices=6) out;
 
-uniform mat4 mvp    = mat4(1);
-uniform mat4 trns   = mat4(1);
-
 out vec2 ftexCoords;
+
+uniform mat4 trns;
+uniform mat4 mvp;
 
 void main() {
     mat4 m = mvp * trns;

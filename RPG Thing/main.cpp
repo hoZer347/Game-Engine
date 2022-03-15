@@ -37,13 +37,15 @@ Working on:
 
 Planned:
 - Add "shatter" effect onto sprites in particle
-- Add grid
+- Add Grid
 
 Small / Debug:
+- Changing lighting.x files to depth.x
 - Add custom deletion to textures.h and shaders.h
 
 Might Implement:
 - Synchronize with time, not frames (Not Required)
+
 */
 
 int main() {
@@ -85,8 +87,6 @@ int main() {
     mesh::trns(f1) *= rotate(-90.f, vec3(1, 0, 0));
     mesh::trns(f2) *= rotate(-90.f, vec3(1, 0, 0));
     mesh::trns(f1) *= scale(vec3(10, 10, 0));
-
-    depth::create();
 
     renderer::init();
 

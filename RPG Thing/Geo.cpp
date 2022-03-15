@@ -40,9 +40,6 @@ namespace geo {
 				glGetUniformLocation(shader, "mvp"),
 				1, GL_FALSE, &cam::mvp[0][0]);
 			glUniformMatrix4fv(
-				glGetUniformLocation(shader, "lightMat"),
-				1, GL_FALSE, &depth::lightMat[0][0]);
-			glUniformMatrix4fv(
 				glGetUniformLocation(shader, "trns"),
 				1, GL_FALSE, &trns[0][0]);
 			mesh::Mesh::render();

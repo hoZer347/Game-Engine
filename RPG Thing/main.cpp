@@ -3,15 +3,19 @@
 #include <stdlib.h>
 #include <crtdbg.h>
 
+// GL imports
+#include "GLFW/glew.h"
+#include "GLFW/glfw3.h"
+
+#define GLM_FORCE_RADIANS
+#include <glm/glm.hpp>
+#include <glm/gtx/transform.hpp>
+using namespace glm;
+
 // Native Imports
 #include "Object.h"
-using namespace obj;
-
 #include "Mesh.h"
-using namespace mesh;
-
 #include "Sprite.h"
-
 #include "Inputs.h"
 #include "Renderer.h"
 #include "Particle.h"
@@ -20,14 +24,6 @@ using namespace mesh;
 
 // Standard imports
 #include <iostream>
-
-#include "GLFW/glew.h"
-#include "GLFW/glfw3.h"
-
-#define GLM_FORCE_RADIANS
-#include <glm/glm.hpp>
-#include <glm/gtx/transform.hpp>
-using namespace glm;
 
 /* TODOS:
 Working on:

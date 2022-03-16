@@ -84,8 +84,8 @@ int main() {
     auto f2 = geo::square::create();
 
     mesh::trns(f1) *= translate(vec3(-5, -5, 5));
-    mesh::trns(f1) *= rotate(-90.f, vec3(1, 0, 0));
-    mesh::trns(f2) *= rotate(-90.f, vec3(1, 0, 0));
+    mesh::trns(f1) *= rotate(radians(-90.f), vec3(1, 0, 0));
+    mesh::trns(f2) *= rotate(radians(-90.f), vec3(1, 0, 0));
     mesh::trns(f1) *= scale(vec3(10, 10, 0));
 
     renderer::init();

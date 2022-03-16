@@ -3,6 +3,7 @@
 #include "GLFW/glew.h"
 #include "GLFW/glfw3.h"
 
+#define GLM_FORCE_RADIANS
 #include "glm/glm.hpp"
 #include "glm/gtx/transform.hpp"
 
@@ -57,8 +58,8 @@ namespace inputs {
 			my = cy;
 
 			if (glfwGetMouseButton(WINDOW, GLFW_MOUSE_BUTTON_RIGHT)) {
-				cam::roll = rotate(cam::roll, -radians((float)dy * 20), vec3(1, 0, 0));
-				cam::yaww = rotate(cam::yaww, -radians((float)dx * 20), vec3(0, 1, 0));
+				cam::roll = rotate(cam::roll, -(float)dy * .01f, vec3(1, 0, 0));
+				cam::yaww = rotate(cam::yaww, -(float)dx * .01f, vec3(0, 1, 0));
 			};
 		};
 		

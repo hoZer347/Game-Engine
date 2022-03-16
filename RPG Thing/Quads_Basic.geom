@@ -3,13 +3,18 @@
 layout(points) in;
 layout(triangle_strip, max_vertices=6) out;
 
-out vec2 ftexCoords;
-
 uniform mat4 trns;
 uniform mat4 mvp;
 
+layout (binding = 1) uniform sampler2D depth_map;
+
+out vec2 ftexCoords;
+out vec4 fcolor;
+
 void main() {
     mat4 m = mvp * trns;
+
+    fcolor = vec4(1);
 
     vec4
         p00 = m * (gl_in[0].gl_Position + vec4(0, 0, 0, 0)),

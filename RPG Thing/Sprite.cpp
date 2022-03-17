@@ -1,10 +1,8 @@
 #include "Sprite.h"
 
 #include "Mesh.h"
-using namespace mesh;
 
 #include "Camera.h"
-#include "Textures.h"
 
 #include "GLFW/glew.h"
 
@@ -16,7 +14,7 @@ using namespace glm;
 
 namespace sprite {
 	class Sprite :
-		public Mesh {
+		public mesh::Mesh {
 	public:
 		Sprite();
 		void setup();
@@ -34,7 +32,7 @@ namespace sprite {
 
 
 	class SpriteManager :
-		public Manager<Sprite> {
+		public obj::Manager<Sprite> {
 	public:
 		void update();
 
@@ -53,12 +51,23 @@ namespace sprite {
 	Sprite::Sprite() {
 		add_attrib(3);
 
-		set_shader("Sprites_Basic");
+		set_shader(
+			"Position_Basic.vert",
+			"Sprites_Basic.geom",
+			"Texture_Basic.frag");
 
 		drawing_mode = GL_POINTS;
 	};
 	void Sprite::setup() {
-		Mesh::setup();
+		glUseProgram(shader);
+
+		vtxs = {
+			0, 0, 0
+		};
+
+		inds = {
+			0
+		};
 
 		glBindTexture(GL_TEXTURE_2D, texs[0]);
 		glGetTexLevelParameteriv(
@@ -93,6 +102,8 @@ namespace sprite {
 			1, &curr[0]);
 
 		glBindTexture(GL_TEXTURE_2D, 0);
+
+		Mesh::setup();
 	};
 	void Sprite::render() {
 		glUseProgram(shader);
@@ -145,11 +156,5 @@ namespace sprite {
 	};
 	vec2& curr(Sprite* s) {
 		return s->curr;
-	};
-	void pump(Sprite* s, std::vector<float>& vtxs) {
-		s->pump(vtxs);
-	};
-	void pump(Sprite* s, std::vector<unsigned int>& inds) {
-		s->pump(inds);
 	};
 };

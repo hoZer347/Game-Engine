@@ -4,7 +4,7 @@
 #include "Inputs.h"
 #include "Window.h"
 #include "Camera.h"
-#include "Lighting.h"
+#include "Depth.h"
 
 #include "GLFW/glew.h"
 #include "GLFW/glfw3.h"
@@ -36,23 +36,15 @@ namespace renderer {
 		glAlphaFunc(GL_GREATER, 0);
 		glEnable(GL_ALPHA_TEST);
 
-		inputs::next();
-
-		depth::create();
-		cam::create();
-
 		int value;
 		glGetIntegerv(GL_MAX_TEXTURE_SIZE, &value);
 		std::cout << value << std::endl;
 		glGetIntegerv(GL_MAX_TEXTURE_UNITS, &value);
 		std::cout << value << std::endl;
-
-		glClearColor(0.1, 0.1, 0.1, 1);
 	};
 
 	void close() {
 		cam::close();
-		depth::close();
 		inputs::close();
 		glfwDestroyWindow(WINDOW);
 		glfwTerminate();

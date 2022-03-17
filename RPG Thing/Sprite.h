@@ -12,6 +12,4 @@ namespace sprite {
 	extern void del(Sprite*);
 	extern mat4& trns(Sprite*);
 	extern vec2& curr(Sprite*);
-	extern void pump(Sprite*, std::vector<float>&);
-	extern void pump(Sprite*, std::vector<unsigned int>&);
 }

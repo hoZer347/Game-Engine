@@ -48,7 +48,7 @@ namespace particle {
 
 
 	class ParticleManager :
-		public Manager<Particle> {
+		public obj::Manager<Particle> {
 	public:
 		void update();
 	private:

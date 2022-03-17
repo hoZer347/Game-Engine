@@ -20,6 +20,8 @@ namespace cam {
 		proj = mat4(1),
 		mvp  = mat4(1);
 
+	std::vector<lightSource*> LIGHT;
+
 	class Cam :
 		public obj::Obj{
 	public:
@@ -38,6 +40,9 @@ namespace cam {
 				vec3(0, 1, 0));
 			proj = perspective(radians(90.f), (float)w / (float)h, .1f, 1000.f);
 			mvp = proj * view * mode;
+
+			for (auto& l : LIGHT)
+				l->mvp = l->proj * l->view * l->mode;
 		};
 		void render() {
 
@@ -46,15 +51,26 @@ namespace cam {
 
 	Cam* cam = NULL;
 
-	void update() {
-		cam->update();
-	};
-
 	void create() {
+		if (cam) {
+			delete cam;
+			cam = NULL;
+		};
+
 		cam = new Cam();
 	};
 
 	void close() {
 		delete cam;
+	};
+
+	namespace light {
+		lightSource* create() {
+			lightSource* l = new lightSource();
+
+			LIGHT.push_back(l);
+
+			return l;
+		};
 	};
 };

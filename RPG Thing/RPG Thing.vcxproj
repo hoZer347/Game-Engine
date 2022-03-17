@@ -153,10 +153,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Depth.cpp" />
     <ClCompile Include="Geo.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="Inputs.cpp" />
-    <ClCompile Include="Lighting.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Object.cpp" />
@@ -170,10 +170,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Depth.h" />
     <ClInclude Include="Geo.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="Inputs.h" />
-    <ClInclude Include="Lighting.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="Particle.h" />
@@ -185,17 +185,11 @@
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Lines.frag" />
-    <None Include="Lines.geom" />
-    <None Include="Lines.vert" />
-    <None Include="Sprites_Basic.frag" />
-    <None Include="Sprites_Basic.vert" />
-  </ItemGroup>
-  <ItemGroup>
     <Text Include="Sprites_Basic.geom" />
-    <Text Include="Quads_Basic.vert" />
-    <Text Include="Quads_Basic.frag" />
+    <Text Include="Position_Basic.vert" />
+    <Text Include="Texture_Basic.frag" />
     <Text Include="Quads_Basic.geom" />
+    <Text Include="Cubes_Basic.geom" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

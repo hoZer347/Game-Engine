@@ -9,7 +9,7 @@
       <Filter>Engine\Object</Filter>
     </ClCompile>
     <ClCompile Include="Mesh.cpp">
-      <Filter>Engine\Mesh</Filter>
+      <Filter>Engine\Object\Mesh</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>Engine\Renderer</Filter>
@@ -24,7 +24,7 @@
       <Filter>Engine\Textures</Filter>
     </ClCompile>
     <ClCompile Include="Sprite.cpp">
-      <Filter>Engine\Sprite</Filter>
+      <Filter>Engine\Object\Mesh\Sprite</Filter>
     </ClCompile>
     <ClCompile Include="Unit.cpp">
       <Filter>Game\Unit</Filter>
@@ -39,10 +39,10 @@
       <Filter>Engine\Particle</Filter>
     </ClCompile>
     <ClCompile Include="Geo.cpp">
-      <Filter>Engine\Geo</Filter>
+      <Filter>Engine\Object\Mesh\Geo</Filter>
     </ClCompile>
-    <ClCompile Include="Lighting.cpp">
-      <Filter>Engine\Lighting</Filter>
+    <ClCompile Include="Depth.cpp">
+      <Filter>Engine\Object\Mesh\Depth</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -55,17 +55,11 @@
     <Filter Include="Engine\Shaders">
       <UniqueIdentifier>{19147621-0d11-4352-a637-0a84341de6cd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Shaders\Lines">
-      <UniqueIdentifier>{3a811dc5-6e1a-4ab5-94aa-f8d93beae5d2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game">
       <UniqueIdentifier>{b32ea37f-74b5-4f54-acab-e81f290c1381}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Inputs">
       <UniqueIdentifier>{3d70056c-0163-4ba3-810a-bb0fbd6cab8e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Mesh">
-      <UniqueIdentifier>{9f0ae1c2-aabf-44fd-92a6-e8605fb3de04}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Object">
       <UniqueIdentifier>{059bf161-db78-4800-9f72-8976b0a8f303}</UniqueIdentifier>
@@ -75,9 +69,6 @@
     </Filter>
     <Filter Include="Engine\Textures">
       <UniqueIdentifier>{715337f1-9bd3-4e03-9713-f63e73fa499a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Sprite">
-      <UniqueIdentifier>{0b8135fb-ab3c-439c-906c-02e9954dfa00}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\Unit">
       <UniqueIdentifier>{aade6521-9913-4306-983e-827ca17f8527}</UniqueIdentifier>
@@ -91,16 +82,19 @@
     <Filter Include="Engine\Particle">
       <UniqueIdentifier>{9c15dcfa-c4ee-4a69-96c0-3ff5a0be5c4c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Lighting">
-      <UniqueIdentifier>{fbde2f91-1847-45c2-90f1-95354d8dee27}</UniqueIdentifier>
+    <Filter Include="Engine\Object\Mesh">
+      <UniqueIdentifier>{9f0ae1c2-aabf-44fd-92a6-e8605fb3de04}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Sprite\Shaders">
-      <UniqueIdentifier>{b96fca27-4ca8-4529-8644-7c1895dafffb}</UniqueIdentifier>
+    <Filter Include="Engine\Object\Mesh\Sprite">
+      <UniqueIdentifier>{0b8135fb-ab3c-439c-906c-02e9954dfa00}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Geo">
+    <Filter Include="Engine\Object\Mesh\Geo">
       <UniqueIdentifier>{f6e96e19-fd73-467b-867d-9d0b362415eb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Geo\Shaders">
+    <Filter Include="Engine\Object\Mesh\Depth">
+      <UniqueIdentifier>{fbde2f91-1847-45c2-90f1-95354d8dee27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Shaders\Shaders">
       <UniqueIdentifier>{7371af7c-ad54-4392-ad65-903388ae1630}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -112,7 +106,7 @@
       <Filter>Engine\Object</Filter>
     </ClInclude>
     <ClInclude Include="Mesh.h">
-      <Filter>Engine\Mesh</Filter>
+      <Filter>Engine\Object\Mesh</Filter>
     </ClInclude>
     <ClInclude Include="Renderer.h">
       <Filter>Engine\Renderer</Filter>
@@ -127,7 +121,7 @@
       <Filter>Engine\Textures</Filter>
     </ClInclude>
     <ClInclude Include="Sprite.h">
-      <Filter>Engine\Sprite</Filter>
+      <Filter>Engine\Object\Mesh\Sprite</Filter>
     </ClInclude>
     <ClInclude Include="Unit.h">
       <Filter>Game\Unit</Filter>
@@ -142,41 +136,27 @@
       <Filter>Engine\Particle</Filter>
     </ClInclude>
     <ClInclude Include="Geo.h">
-      <Filter>Engine\Geo</Filter>
+      <Filter>Engine\Object\Mesh\Geo</Filter>
     </ClInclude>
-    <ClInclude Include="Lighting.h">
-      <Filter>Engine\Lighting</Filter>
+    <ClInclude Include="Depth.h">
+      <Filter>Engine\Object\Mesh\Depth</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Lines.frag">
-      <Filter>Engine\Shaders\Lines</Filter>
-    </None>
-    <None Include="Lines.geom">
-      <Filter>Engine\Shaders\Lines</Filter>
-    </None>
-    <None Include="Lines.vert">
-      <Filter>Engine\Shaders\Lines</Filter>
-    </None>
-    <None Include="Sprites_Basic.frag">
-      <Filter>Engine\Sprite\Shaders</Filter>
-    </None>
-    <None Include="Sprites_Basic.vert">
-      <Filter>Engine\Sprite\Shaders</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Quads_Basic.frag">
-      <Filter>Engine\Geo\Shaders</Filter>
+    <Text Include="Texture_Basic.frag">
+      <Filter>Engine\Shaders\Shaders</Filter>
     </Text>
-    <Text Include="Quads_Basic.vert">
-      <Filter>Engine\Geo\Shaders</Filter>
+    <Text Include="Position_Basic.vert">
+      <Filter>Engine\Shaders\Shaders</Filter>
     </Text>
     <Text Include="Quads_Basic.geom">
-      <Filter>Engine\Geo\Shaders</Filter>
+      <Filter>Engine\Shaders\Shaders</Filter>
     </Text>
     <Text Include="Sprites_Basic.geom">
-      <Filter>Engine\Sprite\Shaders</Filter>
+      <Filter>Engine\Shaders\Shaders</Filter>
+    </Text>
+    <Text Include="Cubes_Basic.geom">
+      <Filter>Engine\Shaders\Shaders</Filter>
     </Text>
   </ItemGroup>
 </Project>

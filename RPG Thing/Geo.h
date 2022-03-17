@@ -5,11 +5,16 @@
 using namespace glm;
 
 namespace geo {
-	namespace square {
-		class Square;
+	class Geo;
 
-		extern Square* create();
-		extern void del(Square*);
+	namespace square {
+		extern Geo* create();
 	};
+
+	namespace cube {
+		extern Geo* create();
+	};
+
+	extern void add_texture(Geo*, const char*);
 };
 

@@ -1,26 +1,24 @@
 #pragma once
 
-#include <unordered_set>
+#include <vector>
 
 namespace obj {
-	
 	class Obj {
 	public:
 		Obj(bool=true);
 		~Obj();
-		virtual void setup()=0;
-		virtual void update()=0;
-		virtual void render()=0;
+		virtual void setup() {};
+		virtual void update() {};
+		virtual void render() {};
+
+		unsigned int index;
 	};
 
 	extern void setup();
 	extern void update();
 	extern void render();
-
 	extern void rmv(Obj*);
 	extern void close();
-
-	extern std::unordered_set<Obj*> OBJS;
 
 	template <class T>
 	class Manager : public Obj {
@@ -31,17 +29,16 @@ namespace obj {
 		}
 		T* create() {
 			T* t = new T();
-			objs.insert(t);
+			objs.push_back(t);
 			return t;
 		}
 		void del(T* t) {
-			objs.erase(t);
 			delete t;
 		}
 		void setup() {};
 		void update() {};
 		void render() {};
 
-		std::unordered_set<T*> objs;
+		std::vector<T*> objs;
 	};
 }

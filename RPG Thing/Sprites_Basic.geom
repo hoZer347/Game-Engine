@@ -9,12 +9,15 @@ uniform mat4 mvp    = mat4(1);
 uniform mat4 trns   = mat4(1);
 
 out vec2 ftexCoords;
+out vec4 fcolor;
 
 void main() {
     float x1 = start.x, y1 = start.y;
     float x2 = stride.x, y2 = stride.y;
 
     mat4 m = mvp * trns;
+
+    fcolor = vec4(1);
 
     vec4
         p00 = m * (gl_in[0].gl_Position + vec4(0, 0, 0, 0)),

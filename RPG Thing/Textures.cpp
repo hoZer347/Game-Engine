@@ -10,7 +10,6 @@
 #include <iostream>
 
 namespace texture {
-	unsigned int intex=0;
 	std::unordered_map<std::string, unsigned int> TEXS;
 
 	unsigned int create(const char* file_name) {

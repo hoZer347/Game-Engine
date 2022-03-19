@@ -57,7 +57,6 @@ namespace shader {
 
         return program;
     };
-
     unsigned int create(
         const char* vs_file_name,
         const char* fs_file_name) {
@@ -79,7 +78,6 @@ namespace shader {
 
         return program;
     };
-
     unsigned int create(
         const char* vs_file_name,
         const char* gs_file_name,
@@ -104,10 +102,5 @@ namespace shader {
         shaders[f] = program;
 
         return program;
-    };
-
-    void resources() {
-        std::cout << shaders.size() << std::endl;
-        std::cout << programs.size() << std::endl;
     };
 };

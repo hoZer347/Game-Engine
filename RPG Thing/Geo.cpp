@@ -15,18 +15,7 @@ namespace geo {
 	class Geo : 
 		public mesh::Mesh {
 	public:
-		Geo() {
-			vtxs = {
-				0, 0, 0,
-			};
-
-			inds = {
-				0,
-			};
-
-			add_attrib(3);
-			drawing_mode = GL_POINTS;
-		};
+		Geo();
 		void setup();
 		void render();
 
@@ -43,13 +32,21 @@ namespace geo {
 
 	GeoManager GEO;
 
+
+
+	Geo::Geo() {
+		vtxs = { 0, 0, 0, };
+		inds = { 0, };
+
+		add_attrib(3);
+		drawing_mode = GL_POINTS;
+	}
 	void Geo::setup() {
 		_mvp = glGetUniformLocation(shader, "mvp");
 		_trns = glGetUniformLocation(shader, "trns");
 
 		Mesh::setup();
 	};
-
 	void Geo::render() {
 		glUseProgram(shader);
 		glUniformMatrix4fv(_mvp, 1, GL_FALSE, &cam::mvp[0][0]);

@@ -18,10 +18,7 @@ namespace depth {
 		public mesh::Mesh {
 	public:
 		DepthMapper();
-		~DepthMapper() {
-			glDeleteBuffers(1, &depth_fbo);
-			glDeleteTextures(1, &depth_map);
-		};
+		~DepthMapper();
 		void bind();
 		void bind(cam::lightSource*);
  		void setup();
@@ -79,6 +76,10 @@ namespace depth {
 		drawing_mode = GL_POINTS;
 
 		opaque = false;
+	};
+	DepthMapper::~DepthMapper() {
+		glDeleteBuffers(1, &depth_fbo);
+		glDeleteTextures(1, &depth_map);
 	};
 	void DepthMapper::bind() {
 		mode = cam::mode,

@@ -57,7 +57,6 @@ int main() {
 
     inputs::next();
     auto l1 = cam::light::create();
-    //auto d1 = depth::create();
     auto d2 = depth::create(l1);
 
     cam::create();

@@ -31,4 +31,3 @@ namespace perspective {
 		extern void del(Perspective*);
 	};
 };
-

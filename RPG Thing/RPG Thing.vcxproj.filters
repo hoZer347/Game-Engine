@@ -44,6 +44,9 @@
     <ClCompile Include="Depth.cpp">
       <Filter>Engine\Object\Mesh\Depth</Filter>
     </ClCompile>
+    <ClCompile Include="Perspective.cpp">
+      <Filter>Engine\Object\Perspective</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -97,6 +100,9 @@
     <Filter Include="Engine\Shaders\Shaders">
       <UniqueIdentifier>{7371af7c-ad54-4392-ad65-903388ae1630}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Object\Perspective">
+      <UniqueIdentifier>{fe309fea-cb0d-43c6-a1bc-d167977dcec7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -140,6 +146,9 @@
     </ClInclude>
     <ClInclude Include="Depth.h">
       <Filter>Engine\Object\Mesh\Depth</Filter>
+    </ClInclude>
+    <ClInclude Include="Perspective.h">
+      <Filter>Engine\Object\Perspective</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

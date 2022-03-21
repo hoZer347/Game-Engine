@@ -5,16 +5,18 @@ using namespace glm;
 
 namespace perspective {
 	struct Perspective {
+		mat4
 
 		// Perspective Variables
-		mat4
 			mode = mat4(1),
 			view = mat4(1),
 			proj = mat4(1),
-			mvp  = mat4(1);
+			mvp  = mat4(1),
 
 		// Rendering Quad Variables
-		mat4
+			roll = mat4(1),
+			yaww = mat4(1),
+			ptch = mat4(1),
 			trns = mat4(1),
 			rotn = mat4(1);
 	};

@@ -21,8 +21,6 @@ namespace mesh {
 		void set_shader(const char*, const char*, const char*);
 		void set_shader(unsigned int);
 		vec4 pos(unsigned int=0);
-		void pump(std::vector<float>&);
-		void pump(std::vector<unsigned int>&);
 		void setup();
 		void update();
 		void render();
@@ -32,7 +30,9 @@ namespace mesh {
 		bool
 			opaque = true;
 
-	protected:
+		std::vector<float> vtxs;
+		std::vector<unsigned int> inds;
+
 		unsigned int
 			drawing_mode = 0,
 			_vtxs=0,
@@ -40,8 +40,6 @@ namespace mesh {
 			stride=0,
 			shader=0;
 
-		std::vector<float> vtxs;
-		std::vector<unsigned int> inds;
 		std::vector<unsigned int> texs;
 		std::vector<std::pair<unsigned int, unsigned int>> atbs;
 	};

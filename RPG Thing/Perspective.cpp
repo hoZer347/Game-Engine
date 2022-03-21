@@ -13,18 +13,32 @@ namespace perspective {
 	public:
 		_Perspective() {
 			glGenBuffers(1, &fbo);
+			glGenBuffers(1, &ubo);
 			glGenTextures(1, &texture);
 		};
 		~_Perspective() {
 			glDeleteBuffers(1, &fbo);
+			glDeleteBuffers(1, &ubo);
 			glDeleteTextures(1, &texture);
 		};
+		void update();
+		void render();
 
 	protected:
+		int
+			x_size=0,
+			y_size=0;
+
 		unsigned int
-			fbo=0,
+			fbo=0, ubo=0,
 			texture=0,
 			shader=0;
+	};
+	void _Perspective::update() {
+
+	};
+	void _Perspective::render() {
+		
 	};
 
 	void load(Perspective* p) {

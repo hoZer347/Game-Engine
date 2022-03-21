@@ -7,14 +7,12 @@ namespace obj {
 	public:
 		Obj(bool=true);
 		~Obj();
-		virtual void setup() {};
 		virtual void update() {};
 		virtual void render() {};
 
 		unsigned int index;
 	};
 
-	extern void setup();
 	extern void update();
 	extern void render();
 	extern void rmv(Obj*);
@@ -35,7 +33,6 @@ namespace obj {
 		void del(T* t) {
 			delete t;
 		}
-		void setup() {};
 		void update() {};
 		void render() {};
 

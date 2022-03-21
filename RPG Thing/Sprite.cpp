@@ -1,7 +1,6 @@
 #include "Sprite.h"
 
 #include "Mesh.h"
-
 #include "Camera.h"
 
 #include "GLFW/glew.h"
@@ -148,6 +147,8 @@ namespace sprite {
 
 		s->stride = stride;
 		s->curr = start;
+
+		s->setup();
 
 		return s;
 	};

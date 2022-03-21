@@ -12,17 +12,12 @@
 #include "Particle.h"
 
 #include "Object.h"
-using namespace obj;
 
 namespace inputs {
-	class Inputs : public Obj {
+	class Inputs : public obj::Obj {
 	public:
 		~Inputs() {
 			delete _prev;
-		};
-
-		void setup() {
-
 		};
 
 		void update() {

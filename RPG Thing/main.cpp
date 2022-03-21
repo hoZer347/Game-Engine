@@ -15,13 +15,11 @@ using namespace glm;
 // Native Imports
 #include "Object.h"
 #include "Camera.h"
-#include "Mesh.h"
 #include "Sprite.h"
-#include "Shaders.h"
+#include "Perspective.h"
+#include "Mesh.h"
 #include "Inputs.h"
 #include "Renderer.h"
-#include "Particle.h"
-#include "Depth.h"
 #include "Geo.h"
 
 // Standard imports
@@ -54,42 +52,23 @@ int main() {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
     renderer::setup();
-
     inputs::next();
-    auto l1 = cam::light::create();
-    auto d2 = depth::create(l1);
-
     cam::create();
 
-    sprite::Sprite* s1 = sprite::create(
-        "Textures/Anna.png",
-        vec2(32), vec2(0));
-    sprite::Sprite* s2 = sprite::create(
-        "Textures/Anna.png",
-        vec2(32), vec2(0));
-    sprite::Sprite* s3 = sprite::create(
-        "Textures/Anna.png",
-        vec2(32), vec2(0));
-
-    mesh::trns(s1) = translate(mesh::trns(s1), vec3(2, 0, -1));
-    mesh::trns(s2) = translate(mesh::trns(s2), vec3(2, 0, -2));
-    mesh::trns(s3) = translate(mesh::trns(s3), vec3(2, 0, -3));
-
-    auto f1 = geo::square::create();
-    auto f2 = geo::square::create();
-
-    geo::add_texture(f1, "Textures/Stone.png");
-    geo::add_texture(f2, "Textures/Stone.png");
-
-    mesh::trns(f1) *= translate(vec3(-5, -5, 5));
-    mesh::trns(f1) *= rotate(radians(-90.f), vec3(1, 0, 0));
-    mesh::trns(f2) *= rotate(radians(-90.f), vec3(1, 0, 0));
-    mesh::trns(f1) *= scale(vec3(10, 10, 0));
+    mesh::Mesh m;
+    m.vtxs = { 0, 0, 0 };
+    m.inds = { 0 };
+    m.add_attrib(3);
+    m.drawing_mode = GL_POINTS;
+    m.set_shader(
+        "Position_Basic.vert",
+        "Quads_Basic.geom",
+        "Texture_Basic.frag"
+    );
+    m.add_texture("DK.png");
+    m.setup();
 
     renderer::init();
-
-    //depth::del(d1);
-    depth::del(d2);
 
     return 0;
 };

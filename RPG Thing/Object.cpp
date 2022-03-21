@@ -21,11 +21,6 @@ namespace obj {
 	Obj::~Obj() {
 
 	};
-	void setup() {
-		for (auto& o : OBJS)
-			if (o)
-				o->setup();
-	};
 	void update() {
 		for (auto& o : OBJS)
 			if (o)

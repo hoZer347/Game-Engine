@@ -22,7 +22,6 @@ namespace mesh {
 		if (!_inds)
 			glGenBuffers(1, &_inds);
 	};
-
 	Mesh::~Mesh() {
 		glDeleteShader(shader);
 	};
@@ -56,13 +55,9 @@ namespace mesh {
 	vec4 Mesh::pos(unsigned int i) {
 		return vec4(vtxs[0], vtxs[1], vtxs[2], 1) * trns;
 	};
-	void Mesh::pump(std::vector<float>& V) {
-		vtxs.insert(vtxs.end(), vtxs.begin(), vtxs.end());
-	};
-	void Mesh::pump(std::vector<unsigned int>& I) {
-		inds.insert(inds.end(), I.begin(), I.end());
-	};
 	void Mesh::setup() {
+		glUseProgram(shader);
+
 		glBindBuffer(GL_ARRAY_BUFFER, _vtxs);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _inds);
 
@@ -96,6 +91,8 @@ namespace mesh {
 
 	};
 	void Mesh::render() {
+		glUseProgram(shader);
+
 		glBindBuffer(GL_ARRAY_BUFFER, _vtxs);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _inds);
 

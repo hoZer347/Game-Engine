@@ -25,8 +25,4 @@ namespace cam {
 	extern void create();
 
 	extern void close();
-
-	namespace light {
-		extern lightSource* create();
-	};
 };

@@ -36,11 +36,7 @@ namespace renderer {
 		glAlphaFunc(GL_GREATER, 0);
 		glEnable(GL_ALPHA_TEST);
 
-		int value;
-		glGetIntegerv(GL_MAX_TEXTURE_SIZE, &value);
-		std::cout << value << std::endl;
-		glGetIntegerv(GL_MAX_TEXTURE_UNITS, &value);
-		std::cout << value << std::endl;
+		glClearColor(.1, .1, .1, 1);
 	};
 
 	void close() {
@@ -51,8 +47,6 @@ namespace renderer {
 	};
 
 	void init() {
-		obj::setup();
-
 		while (!glfwWindowShouldClose(WINDOW)) {
 			int w=0, h=0;
 			glfwGetWindowSize(WINDOW, &w, &h);

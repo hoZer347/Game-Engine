@@ -88,7 +88,9 @@ namespace mesh {
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	};
 	void Mesh::update() {
-
+		glUseProgram(shader);
+		glUniformMatrix4fv(glGetUniformLocation(shader, "trns"),
+		1, GL_FALSE, &trns[0][0]);
 	};
 	void Mesh::render() {
 		glUseProgram(shader);

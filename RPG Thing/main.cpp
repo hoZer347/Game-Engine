@@ -65,8 +65,11 @@ int main() {
         "Quads_Basic.geom",
         "Texture_Basic.frag"
     );
+    m.trns = translate(vec3(-1, 0, 0));
     m.add_texture("DK.png");
     m.setup();
+
+    auto c = perspective::camera::create();
 
     renderer::init();
 

@@ -12,6 +12,9 @@
 #include <iostream>
 
 namespace renderer {
+	unsigned int
+		fbo=0;
+
 	void setup() {
 		glfwInit();
 

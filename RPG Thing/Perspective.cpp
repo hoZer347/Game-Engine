@@ -6,15 +6,30 @@
 #include "Geo.h"
 
 #include "GLFW/glew.h"
+#include "glm/glm.hpp"
+#include "glm/gtx/transform.hpp"
+using namespace glm;
 
 namespace perspective {
 	class _Perspective :
+		public mesh::Mesh,
 		Perspective {
 	public:
 		_Perspective() {
 			glGenBuffers(1, &fbo);
 			glGenBuffers(1, &ubo);
 			glGenTextures(1, &texture);
+
+			m.vtxs = { 0, 0, 0 };
+			m.inds = { 0 };
+			m.add_attrib(3);
+			m.drawing_mode = GL_POINTS;
+			m.set_shader(
+				"Position_Basic.vert",
+				"Quads_Basic.geom",
+				"Texture_Basic.frag"
+			);
+			m.setup();
 		};
 		~_Perspective() {
 			glDeleteBuffers(1, &fbo);
@@ -28,6 +43,8 @@ namespace perspective {
 		int
 			x_size=0,
 			y_size=0;
+
+		Mesh m;
 
 		unsigned int
 			fbo=0, ubo=0,
@@ -46,8 +63,7 @@ namespace perspective {
 	};
 
 	class Camera :
-		_Perspective,
-		public obj::Obj {
+		_Perspective {
 	public:
 		Camera();
 		~Camera();
@@ -63,7 +79,18 @@ namespace perspective {
 	Camera::Camera() {
 		this->_Perspective::_Perspective();
 
-
+		glBindTexture(GL_TEXTURE_2D, texture);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, x_size, y_size, 0, GL_RGBA, GL_FLOAT, NULL);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+			glBindFramebuffer(GL_FRAMEBUFFER, fbo);
+				glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, fbo, 0);
+				glDrawBuffer(GL_NONE);
+				glReadBuffer(GL_NONE);
+			glBindFramebuffer(GL_FRAMEBUFFER, 0);
+		glBindTexture(GL_TEXTURE_2D, 0);
 	};
 	Camera::~Camera() {
 		this->_Perspective::~_Perspective();
@@ -88,8 +115,7 @@ namespace perspective {
 	};
 
 	class Light :
-		_Perspective,
-		public obj::Obj {
+		_Perspective {
 	public:
 		Light();
 		~Light();

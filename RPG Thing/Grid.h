@@ -1,7 +1,25 @@
 #pragma once
 
-namespace grid {
-	struct Cell;
+#include "Mesh.h"
+#include "Object.h"
 
-	extern Cell* at(unsigned int x, unsigned int y);
+namespace grid {
+	class Cell :
+		public obj::Obj {
+	public:
+		~Cell();
+		void update() {};
+		void render() {};
+
+		mesh::Mesh* m = NULL;
+	};
+
+	class Grid :
+		public obj::Manager<Cell> {
+	public:
+
+	private:
+	};
+
+	extern Grid* GRID;
 };

@@ -4,7 +4,6 @@
 #include "Camera.h"
 #include "Shaders.h"
 #include "Textures.h"
-#include "Depth.h"
 
 #include "GLFW/glew.h"
 #include "GLFW/glfw3.h"
@@ -17,6 +16,7 @@ namespace geo {
 	public:
 		Geo();
 		void setup();
+		void update();
 		void render();
 
 	private:
@@ -42,10 +42,15 @@ namespace geo {
 		drawing_mode = GL_POINTS;
 	}
 	void Geo::setup() {
+		glUseProgram(shader);
 		_mvp = glGetUniformLocation(shader, "mvp");
 		_trns = glGetUniformLocation(shader, "trns");
 
 		Mesh::setup();
+	};
+	void Geo::update() {
+		glUseProgram(shader);
+		Mesh::update();
 	};
 	void Geo::render() {
 		glUseProgram(shader);
@@ -63,6 +68,8 @@ namespace geo {
 				"Quads_Basic.geom",
 				"Texture_Basic.frag");
 
+			g->setup();
+
 			return g;
 		};
 	};
@@ -75,6 +82,8 @@ namespace geo {
 				"Position_Basic.vert",
 				"Cubes_Basic.geom",
 				"Texture_Basic.frag");
+
+			g->setup();
 
 			return g;
 		};

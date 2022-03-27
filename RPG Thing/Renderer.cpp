@@ -4,7 +4,6 @@
 #include "Inputs.h"
 #include "Window.h"
 #include "Camera.h"
-#include "Depth.h"
 
 #include "GLFW/glew.h"
 #include "GLFW/glfw3.h"
@@ -40,11 +39,14 @@ namespace renderer {
 		glEnable(GL_ALPHA_TEST);
 
 		glClearColor(.1, .1, .1, 1);
+
+		inputs::next();
+		cam::create();
 	};
 
 	void close() {
-		cam::close();
 		inputs::close();
+		cam::close();
 		glfwDestroyWindow(WINDOW);
 		glfwTerminate();
 	};
@@ -62,7 +64,5 @@ namespace renderer {
 
 			glfwSwapBuffers(WINDOW);
 		}
-
-		close();
 	};
 };

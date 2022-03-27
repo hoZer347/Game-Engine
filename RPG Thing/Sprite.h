@@ -8,8 +8,7 @@ using namespace glm;
 namespace sprite {
 	class Sprite;
 
-	extern Sprite* create(const char*, vec2, vec2);
+	extern Sprite* create(const char*, vec2=vec2(32), vec2=vec2(0));
 	extern void del(Sprite*);
-	extern mat4& trns(Sprite*);
 	extern vec2& curr(Sprite*);
 }

@@ -153,9 +153,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Depth.cpp" />
+    <ClCompile Include="CameraMovement.cpp" />
     <ClCompile Include="Geo.cpp" />
     <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="GridFactory.cpp" />
     <ClCompile Include="Inputs.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Mesh.cpp" />
@@ -171,9 +172,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="Depth.h" />
+    <ClInclude Include="CameraMovement.h" />
     <ClInclude Include="Geo.h" />
     <ClInclude Include="Grid.h" />
+    <ClInclude Include="GridFactory.h" />
     <ClInclude Include="Inputs.h" />
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="Object.h" />

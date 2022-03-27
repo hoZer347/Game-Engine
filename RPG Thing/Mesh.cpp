@@ -56,8 +56,6 @@ namespace mesh {
 		return vec4(vtxs[0], vtxs[1], vtxs[2], 1) * trns;
 	};
 	void Mesh::setup() {
-		glUseProgram(shader);
-
 		glBindBuffer(GL_ARRAY_BUFFER, _vtxs);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _inds);
 
@@ -88,13 +86,10 @@ namespace mesh {
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	};
 	void Mesh::update() {
-		glUseProgram(shader);
 		glUniformMatrix4fv(glGetUniformLocation(shader, "trns"),
 		1, GL_FALSE, &trns[0][0]);
 	};
 	void Mesh::render() {
-		glUseProgram(shader);
-
 		glBindBuffer(GL_ARRAY_BUFFER, _vtxs);
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _inds);
 

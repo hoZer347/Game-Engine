@@ -1,6 +1,6 @@
 // Memory Tracking
 #define _CRTDBG_MAP_ALLOC
-#include <stdlib.h>
+//#include <stdlib.h>
 #include <crtdbg.h>
 
 // GL imports
@@ -21,6 +21,7 @@ using namespace glm;
 #include "Inputs.h"
 #include "Renderer.h"
 #include "Geo.h"
+#include "GridFactory.h"
 
 // Standard imports
 #include <iostream>
@@ -52,26 +53,14 @@ int main() {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
     renderer::setup();
-    inputs::next();
-    cam::create();
 
-    mesh::Mesh m;
-    m.vtxs = { 0, 0, 0 };
-    m.inds = { 0 };
-    m.add_attrib(3);
-    m.drawing_mode = GL_POINTS;
-    m.set_shader(
-        "Position_Basic.vert",
-        "Quads_Basic.geom",
-        "Texture_Basic.frag"
-    );
-    m.trns = translate(vec3(-1, 0, 0));
-    m.add_texture("DK.png");
-    m.setup();
-
-    auto c = perspective::camera::create();
+    auto s = sprite::create("Anna.png");
+    cam::mvp *= translate(vec3(0, -.5, 0));
+    mesh::trns(s) *= translate(vec3(0, 0, 0));
 
     renderer::init();
+
+    renderer::close();
 
     return 0;
 };

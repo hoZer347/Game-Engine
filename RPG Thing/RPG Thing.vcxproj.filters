@@ -41,11 +41,14 @@
     <ClCompile Include="Geo.cpp">
       <Filter>Engine\Object\Mesh\Geo</Filter>
     </ClCompile>
-    <ClCompile Include="Depth.cpp">
-      <Filter>Engine\Object\Mesh\Depth</Filter>
-    </ClCompile>
     <ClCompile Include="Perspective.cpp">
       <Filter>Engine\Object\Perspective</Filter>
+    </ClCompile>
+    <ClCompile Include="GridFactory.cpp">
+      <Filter>Game\Grid\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraMovement.cpp">
+      <Filter>Engine\Inputs\Inputs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -94,14 +97,17 @@
     <Filter Include="Engine\Object\Mesh\Geo">
       <UniqueIdentifier>{f6e96e19-fd73-467b-867d-9d0b362415eb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Object\Mesh\Depth">
-      <UniqueIdentifier>{fbde2f91-1847-45c2-90f1-95354d8dee27}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine\Shaders\Shaders">
       <UniqueIdentifier>{7371af7c-ad54-4392-ad65-903388ae1630}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Object\Perspective">
       <UniqueIdentifier>{fe309fea-cb0d-43c6-a1bc-d167977dcec7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Grid\Factory">
+      <UniqueIdentifier>{fa5206bf-f22d-431e-bb82-d4d74c59f02e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Inputs\Inputs">
+      <UniqueIdentifier>{91de964e-e528-474e-940d-ccf5a432b6ca}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -144,11 +150,14 @@
     <ClInclude Include="Geo.h">
       <Filter>Engine\Object\Mesh\Geo</Filter>
     </ClInclude>
-    <ClInclude Include="Depth.h">
-      <Filter>Engine\Object\Mesh\Depth</Filter>
-    </ClInclude>
     <ClInclude Include="Perspective.h">
       <Filter>Engine\Object\Perspective</Filter>
+    </ClInclude>
+    <ClInclude Include="GridFactory.h">
+      <Filter>Game\Grid\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraMovement.h">
+      <Filter>Engine\Inputs\Inputs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

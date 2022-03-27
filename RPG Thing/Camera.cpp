@@ -8,6 +8,8 @@
 #include "glm/gtx/transform.hpp"
 using namespace glm;
 
+#include <iostream>
+
 namespace cam {
 	mat4
 		trns = mat4(1),
@@ -20,11 +22,12 @@ namespace cam {
 		proj = mat4(1),
 		mvp  = mat4(1);
 
-	std::vector<lightSource*> LIGHT;
-
 	class Cam :
-		public obj::Obj{
+		public obj::Obj {
 	public:
+		Cam() {
+			obj::add(this);
+		}
 		void update() {
 			int w, h;
 			glfwGetWindowSize(WINDOW, &w, &h);
@@ -45,15 +48,11 @@ namespace cam {
 
 	Cam* cam = NULL;
 
-	void create() {
-		if (cam) {
-			delete cam;
-			cam = NULL;
-		};
 
+
+	void create() {
 		cam = new Cam();
 	};
-
 	void close() {
 		delete cam;
 	};

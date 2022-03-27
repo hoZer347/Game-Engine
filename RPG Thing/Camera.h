@@ -4,14 +4,6 @@
 using namespace glm;
 
 namespace cam {
-	struct lightSource {
-		mat4
-			mode = mat4(1),
-			view = mat4(1),
-			proj = mat4(1),
-			mvp  = mat4(1);
-	};
-
 	extern mat4
 		trns,
 		roll,
@@ -23,6 +15,5 @@ namespace cam {
 		mvp;
 
 	extern void create();
-
 	extern void close();
 };

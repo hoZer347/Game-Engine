@@ -2,6 +2,7 @@
 
 #include "Mesh.h"
 #include "Camera.h"
+#include "shaders.h"
 
 #include "GLFW/glew.h"
 
@@ -27,39 +28,12 @@ namespace sprite {
 			curr,
 			stride;
 	};
-
-
-
-	class SpriteManager :
-		public obj::Manager<Sprite> {
-	public:
-		void update();
-
-	private:
-		unsigned char
-			interval=15,
-			curr=0;
-		bool
-			animate=true;
-	};
-
-	SpriteManager SPRITE;
-
-
-
 	Sprite::Sprite() {
 		add_attrib(3);
-
-		set_shader(
-			"Position_Basic.vert",
-			"Sprites_Basic.geom",
-			"Texture_Basic.frag");
 
 		drawing_mode = GL_POINTS;
 	};
 	void Sprite::setup() {
-		glUseProgram(shader);
-
 		vtxs = {
 			0, 0, 0
 		};
@@ -93,22 +67,17 @@ namespace sprite {
 		stride /= dims;
 		curr.y += 1 - stride.y;
 
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		Mesh::setup();
+	};
+	void Sprite::render() {
 		glUniform2fv(
 			glGetUniformLocation(shader, "stride"),
 			1, &stride[0]);
 		glUniform2fv(
 			glGetUniformLocation(shader, "start"),
 			1, &curr[0]);
-
-		glBindTexture(GL_TEXTURE_2D, 0);
-
-		Mesh::setup();
-	};
-	void Sprite::render() {
-		glUseProgram(shader);
-		glUniformMatrix4fv(
-			glGetUniformLocation(shader, "mvp"),
-			1, GL_FALSE, &cam::mvp[0][0]);
 		glUniformMatrix4fv(
 			glGetUniformLocation(shader, "trns"),
 			1, GL_FALSE, &trns[0][0]);
@@ -118,16 +87,26 @@ namespace sprite {
 		Mesh::update();
 	};
 	void Sprite::next() {
-		glUseProgram(shader);
 		curr.x += stride.x;
-		glUniform2fv(
-			glGetUniformLocation(shader, "start"),
-			1, &curr[0]);
 	};
 
 
 
+	class SpriteManager :
+		public obj::Manager<Sprite> {
+	public:
+		void update();
+		void render();
+
+		unsigned char
+			interval=15,
+			shader=0,
+			curr=0;
+		bool
+			animate=true;
+	};
 	void SpriteManager::update() {
+		glUseProgram(shader);
 		if (animate) {
 			curr++;
 			if (curr > interval) {
@@ -137,6 +116,17 @@ namespace sprite {
 			}
 		}
 	};
+	void SpriteManager::render() {
+		glUseProgram(shader);
+
+		glUniformMatrix4fv(
+			glGetUniformLocation(shader, "mvp"),
+			1, GL_FALSE, &cam::mvp[0][0]);
+
+		obj::Manager<Sprite>::render();
+	};
+
+	SpriteManager SPRITE;
 
 
 
@@ -144,7 +134,12 @@ namespace sprite {
 		Sprite* s = SPRITE.create();
 
 		s->add_texture(file_name);
-
+		if (!SPRITE.shader)
+			SPRITE.shader = shader::create(
+				"Position_Basic.vert",
+				"Sprites_Basic.geom",
+				"Texture_Basic.frag");
+		s->shader = SPRITE.shader;
 		s->stride = stride;
 		s->curr = start;
 

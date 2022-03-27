@@ -6,21 +6,6 @@ namespace obj {
 	std::vector<Obj*> OBJS;
 	std::vector<unsigned int> _OBJS;
 
-	Obj::Obj(bool add) {
-		if (add) {
-			if (_OBJS.empty()) {
-				index = OBJS.size();
-				OBJS.push_back(this);
-			} else {
-				index = _OBJS.back();
-				OBJS[index] = this;
-				_OBJS.pop_back();
-			}
-		} else index = -1;
-	};
-	Obj::~Obj() {
-
-	};
 	void update() {
 		for (auto& o : OBJS)
 			if (o)
@@ -30,6 +15,16 @@ namespace obj {
 		for (auto& o : OBJS)
 			if (o)
 				o->render();
+	};
+	void add(Obj* o) {
+		if (_OBJS.empty()) {
+			o->index = OBJS.size();
+			OBJS.push_back(o);
+		} else {
+			o->index = _OBJS.back();
+			OBJS[o->index] = o;
+			_OBJS.pop_back();
+		}
 	};
 	void rmv(Obj* o) {
 		OBJS[o->index] = NULL;

@@ -13,9 +13,14 @@
 
 #include "Object.h"
 
+#include <iostream>
+
 namespace inputs {
 	class Inputs : public obj::Obj {
 	public:
+		Inputs() {
+			obj::add(this);
+		};
 		~Inputs() {
 			delete _prev;
 		};

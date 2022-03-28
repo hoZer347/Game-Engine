@@ -38,7 +38,7 @@ namespace cam {
 				vec3(0, 0, 0),
 				vec3(0, 0, -1),
 				vec3(0, 1, 0));
-			proj = perspective(radians(90.f), (float)w / (float)h, .1f, 1000.f);
+			proj = perspective(90.f, (float)w / (float)h, .1f, 1000.f);
 			mvp = proj * view * mode;
 		};
 		void render() {

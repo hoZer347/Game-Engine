@@ -55,12 +55,17 @@ int main() {
     renderer::setup();
 
     auto s = sprite::create("Anna.png");
-    cam::mvp *= translate(vec3(0, -.5, 0));
+    cam::trns *= translate(vec3(0, -1, -1));
+    cam::roll *= rotate(45.f, vec3(1, 0, 0));
     mesh::trns(s) *= translate(vec3(0, 0, 0));
 
     renderer::init();
 
+    grid::load();
+
     renderer::close();
+
+    grid::close();
 
     return 0;
 };

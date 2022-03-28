@@ -8,7 +8,8 @@ namespace obj {
 		virtual void update()=0;
 		virtual void render()=0;
 
-		unsigned int index;
+		unsigned int
+			index=0;
 	};
 
 	extern void update();

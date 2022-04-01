@@ -2,179 +2,21 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Window.cpp">
-      <Filter>Engine\Window</Filter>
-    </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>Engine\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Mesh.cpp">
-      <Filter>Engine\Object\Mesh</Filter>
-    </ClCompile>
-    <ClCompile Include="Renderer.cpp">
-      <Filter>Engine\Renderer</Filter>
-    </ClCompile>
-    <ClCompile Include="Inputs.cpp">
-      <Filter>Engine\Inputs</Filter>
-    </ClCompile>
-    <ClCompile Include="Shaders.cpp">
-      <Filter>Engine\Shaders</Filter>
-    </ClCompile>
-    <ClCompile Include="Textures.cpp">
-      <Filter>Engine\Textures</Filter>
-    </ClCompile>
-    <ClCompile Include="Sprite.cpp">
-      <Filter>Engine\Object\Mesh\Sprite</Filter>
-    </ClCompile>
-    <ClCompile Include="Unit.cpp">
-      <Filter>Game\Unit</Filter>
-    </ClCompile>
-    <ClCompile Include="Grid.cpp">
-      <Filter>Game\Grid</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Engine\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Particle.cpp">
-      <Filter>Engine\Particle</Filter>
-    </ClCompile>
-    <ClCompile Include="Geo.cpp">
-      <Filter>Engine\Object\Mesh\Geo</Filter>
-    </ClCompile>
-    <ClCompile Include="Perspective.cpp">
-      <Filter>Engine\Object\Perspective</Filter>
-    </ClCompile>
-    <ClCompile Include="GridFactory.cpp">
-      <Filter>Game\Grid\Factory</Filter>
-    </ClCompile>
-    <ClCompile Include="CameraMovement.cpp">
-      <Filter>Engine\Inputs\Inputs</Filter>
+    <ClCompile Include="Spooler.cpp">
+      <Filter>Engine\Spooler</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
-      <UniqueIdentifier>{5bcd4434-e62c-4c42-8d7e-eb280885e00f}</UniqueIdentifier>
+      <UniqueIdentifier>{3e70d852-65e5-40b6-b490-f96810d9e457}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine\Window">
-      <UniqueIdentifier>{7b4948c2-10da-444a-8426-ada526c69388}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Shaders">
-      <UniqueIdentifier>{19147621-0d11-4352-a637-0a84341de6cd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game">
-      <UniqueIdentifier>{b32ea37f-74b5-4f54-acab-e81f290c1381}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Inputs">
-      <UniqueIdentifier>{3d70056c-0163-4ba3-810a-bb0fbd6cab8e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Object">
-      <UniqueIdentifier>{059bf161-db78-4800-9f72-8976b0a8f303}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Renderer">
-      <UniqueIdentifier>{2a5b2cba-7190-41f7-a47f-531bce0c6bd2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Textures">
-      <UniqueIdentifier>{715337f1-9bd3-4e03-9713-f63e73fa499a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Unit">
-      <UniqueIdentifier>{aade6521-9913-4306-983e-827ca17f8527}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Grid">
-      <UniqueIdentifier>{d0168a44-5d0f-40ff-b26f-7890947d3e75}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Camera">
-      <UniqueIdentifier>{00430152-786f-4b1d-86da-a3443a09192f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Particle">
-      <UniqueIdentifier>{9c15dcfa-c4ee-4a69-96c0-3ff5a0be5c4c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Object\Mesh">
-      <UniqueIdentifier>{9f0ae1c2-aabf-44fd-92a6-e8605fb3de04}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Object\Mesh\Sprite">
-      <UniqueIdentifier>{0b8135fb-ab3c-439c-906c-02e9954dfa00}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Object\Mesh\Geo">
-      <UniqueIdentifier>{f6e96e19-fd73-467b-867d-9d0b362415eb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Shaders\Shaders">
-      <UniqueIdentifier>{7371af7c-ad54-4392-ad65-903388ae1630}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Object\Perspective">
-      <UniqueIdentifier>{fe309fea-cb0d-43c6-a1bc-d167977dcec7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Grid\Factory">
-      <UniqueIdentifier>{fa5206bf-f22d-431e-bb82-d4d74c59f02e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Inputs\Inputs">
-      <UniqueIdentifier>{91de964e-e528-474e-940d-ccf5a432b6ca}</UniqueIdentifier>
+    <Filter Include="Engine\Spooler">
+      <UniqueIdentifier>{4bf40a87-5056-41ff-8a6a-810e4293afd6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Window.h">
-      <Filter>Engine\Window</Filter>
+    <ClInclude Include="Spooler.h">
+      <Filter>Engine\Spooler</Filter>
     </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>Engine\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>Engine\Object\Mesh</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>Engine\Renderer</Filter>
-    </ClInclude>
-    <ClInclude Include="Inputs.h">
-      <Filter>Engine\Inputs</Filter>
-    </ClInclude>
-    <ClInclude Include="Shaders.h">
-      <Filter>Engine\Shaders</Filter>
-    </ClInclude>
-    <ClInclude Include="Textures.h">
-      <Filter>Engine\Textures</Filter>
-    </ClInclude>
-    <ClInclude Include="Sprite.h">
-      <Filter>Engine\Object\Mesh\Sprite</Filter>
-    </ClInclude>
-    <ClInclude Include="Unit.h">
-      <Filter>Game\Unit</Filter>
-    </ClInclude>
-    <ClInclude Include="Grid.h">
-      <Filter>Game\Grid</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Engine\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle.h">
-      <Filter>Engine\Particle</Filter>
-    </ClInclude>
-    <ClInclude Include="Geo.h">
-      <Filter>Engine\Object\Mesh\Geo</Filter>
-    </ClInclude>
-    <ClInclude Include="Perspective.h">
-      <Filter>Engine\Object\Perspective</Filter>
-    </ClInclude>
-    <ClInclude Include="GridFactory.h">
-      <Filter>Game\Grid\Factory</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraMovement.h">
-      <Filter>Engine\Inputs\Inputs</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Texture_Basic.frag">
-      <Filter>Engine\Shaders\Shaders</Filter>
-    </Text>
-    <Text Include="Position_Basic.vert">
-      <Filter>Engine\Shaders\Shaders</Filter>
-    </Text>
-    <Text Include="Quads_Basic.geom">
-      <Filter>Engine\Shaders\Shaders</Filter>
-    </Text>
-    <Text Include="Sprites_Basic.geom">
-      <Filter>Engine\Shaders\Shaders</Filter>
-    </Text>
-    <Text Include="Cubes_Basic.geom">
-      <Filter>Engine\Shaders\Shaders</Filter>
-    </Text>
   </ItemGroup>
 </Project>

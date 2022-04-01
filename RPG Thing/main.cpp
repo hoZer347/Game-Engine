@@ -1,6 +1,5 @@
 // Memory Tracking
 #define _CRTDBG_MAP_ALLOC
-//#include <stdlib.h>
 #include <crtdbg.h>
 
 // GL imports
@@ -12,60 +11,31 @@
 #include <glm/gtx/transform.hpp>
 using namespace glm;
 
-// Native Imports
-#include "Object.h"
-#include "Camera.h"
-#include "Sprite.h"
-#include "Perspective.h"
-#include "Mesh.h"
-#include "Inputs.h"
-#include "Renderer.h"
-#include "Geo.h"
-#include "GridFactory.h"
-
-// Standard imports
+// STD Imports
 #include <iostream>
-#include <thread>
 
-/* TODOS:
-Working on:
-- Add shadows
-    - Finished depth map
-    - Need to adapt current shaders to work with depth map
+// Local Imports
+#include "Spooler.h"
 
-Planned:
-- Add "shatter" effect onto sprites in particle
-- Add Grid
-- Add deletion-optimized std::vector wrapper
-- Add thread task system
+void test0() {
+    int i = 0;
+};
 
-Small / Debug:
-- Changing lighting.x files to depth.x
-- Add custom deletion to textures.h and shaders.h
-- Fix crashing after closing
-
-Might Implement:
-- Synchronize with time, not frames (Not Required)
-
-*/
+void test1() {
+    int i = 0;
+};
 
 int main() {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+    
+    spooler::push(test0);
+    spooler::push(test1);
+    spooler::push(test0);
 
-    renderer::setup();
+    spooler::close();
 
-    auto s = sprite::create("Anna.png");
-    cam::trns *= translate(vec3(0, -1, -1));
-    cam::roll *= rotate(45.f, vec3(1, 0, 0));
-    mesh::trns(s) *= translate(vec3(0, 0, 0));
-
-    renderer::init();
-
-    grid::load();
-
-    renderer::close();
-
-    grid::close();
+    for (auto i = 0; i < 10000000; i++)
+        std::cout << "hi" << std::endl;
 
     return 0;
 };

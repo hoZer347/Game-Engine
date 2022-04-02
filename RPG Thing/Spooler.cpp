@@ -16,36 +16,42 @@ namespace spooler {
 	;
 
 	/**/
-	std::queue<std::thread*> threads;
-	
-	void init() {
-
-	};
+	std::vector<std::thread*> threads;
 
 	void push(Task& t) {
-		threads.push(new std::thread(t));
+		threads.push_back(new std::thread(t));
 		threads.back()->detach();
 	};
 
-	void push(Task& t, double interval) {
-		threads.push(new std::thread([t, interval]() {
+	bool* push(Task& t, double interval) {
+		bool* flag = new bool();
+		*flag = true;
+
+		threads.push_back(new std::thread([t, interval, flag]() {
 			std::clock_t
 				c1 = std::clock(),
 				c2 = std::clock();
 
-			while (THREAD_BUNDY) {
+			while (THREAD_BUNDY && flag) {
 				c1 = c2;
 
-				while ((double)(c2 - c1) < interval)
+				while ((double)(c2 - c1) < interval) {
 					c2 = std::clock();
+				}
 
 				t();
 			};
 			}));
 		threads.back()->detach();
+
+		return flag;
 	};
 
 	void close() {
 		THREAD_BUNDY = false;
+		
+		while (threads.size())
+			if (threads.back()->joinable())
+				threads.pop_back();
 	};
 };

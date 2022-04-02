@@ -5,6 +5,9 @@
     <ClCompile Include="Spooler.cpp">
       <Filter>Engine\Spooler</Filter>
     </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Engine\Window</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -13,10 +16,16 @@
     <Filter Include="Engine\Spooler">
       <UniqueIdentifier>{4bf40a87-5056-41ff-8a6a-810e4293afd6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Window">
+      <UniqueIdentifier>{7532bb53-e9ce-4751-a1c3-b288521d9aa0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Spooler.h">
       <Filter>Engine\Spooler</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Engine\Window</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

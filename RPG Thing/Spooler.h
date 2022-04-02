@@ -22,7 +22,7 @@ namespace spooler { // TODO: add comments
 	extern void push(Task&);
 
 	/**/
-	extern void push(Task&, double);
+	extern bool* push(Task&, double);
 
 	/**/
 	extern void close();

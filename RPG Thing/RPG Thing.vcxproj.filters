@@ -8,6 +8,21 @@
     <ClCompile Include="Window.cpp">
       <Filter>Engine\Window</Filter>
     </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Engine\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>Engine\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Inputs.cpp">
+      <Filter>Engine\Inputs</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Engine\Object</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage.cpp">
+      <Filter>Engine\Stage</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
@@ -19,6 +34,21 @@
     <Filter Include="Engine\Window">
       <UniqueIdentifier>{7532bb53-e9ce-4751-a1c3-b288521d9aa0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine\Texture">
+      <UniqueIdentifier>{4ffe3681-6013-4f6b-9b92-50cc3d86e468}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Shader">
+      <UniqueIdentifier>{9c424ec1-8e14-4114-a9c7-c2a9f44ab219}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Inputs">
+      <UniqueIdentifier>{7081e31a-4f43-4cb9-af6f-1f3756d15b16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object">
+      <UniqueIdentifier>{b2d18cdc-5165-447d-8012-790b5cc0be16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Stage">
+      <UniqueIdentifier>{f691b3af-de44-4334-89a0-9d7d4b33c3d6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Spooler.h">
@@ -26,6 +56,21 @@
     </ClInclude>
     <ClInclude Include="Window.h">
       <Filter>Engine\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Engine\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>Engine\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Inputs.h">
+      <Filter>Engine\Inputs</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Engine\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage.h">
+      <Filter>Engine\Stage</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

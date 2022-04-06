@@ -13,18 +13,19 @@ using namespace glm;
 
 #include <vector>
 
-namespace window {
+namespace window  {
 	std::vector<GLFWwindow*> WINDOWS;
-
-	void manage() {
-
-	};
-
+	 
 	void* create(int x, int y, const char* name) {
+		glfwInit();
 		GLFWwindow* w = glfwCreateWindow(x, y, name, NULL, NULL);
-
+		glewInit();
 		WINDOWS.push_back(w);
 
 		return w;
+	};
+
+	extern void init_openGL() {
+
 	};
 };

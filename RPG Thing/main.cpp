@@ -11,24 +11,59 @@
 #include <glm/gtx/transform.hpp>
 using namespace glm;
 
+#include <cuda_runtime.h>
+
 // STD Imports
 #include <iostream>
 
 // Local Imports
 #include "Spooler.h"
+#include "Object.h"
+#include "Window.h"
 
-void test() {
-    std::cout << "hi" << std::endl;
+#include <stack>
+#include <thread>
+
+__global__ void kernel() {
+
 };
 
 int main() {
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-    spooler::push(test, 0);
+    bool b = false;
 
+    std::vector<std::thread> v;
 
+    std::stack<size_t> s;
+    s.push(s.size());
+    s.push(s.size());
+    s.push(s.size());
+    s.push(s.size());
+    s.push(s.size());
+    s.push(s.size());
+    s.push(s.size());
+    s.push(s.size());
+    s.push(s.size());
+    s.push(s.size());
+    s.push(s.size());
+    s.push(s.size());
+    s.push(s.size());
+    s.push(s.size());
+    s.push(s.size());
+    std::stack<size_t> _s;
 
-    spooler::close();
+    v.push_back(std::thread([&b, &s]() {
+        while (!b) {}
+
+        while (s.size()) {
+            std::cout << s.top();
+            s.pop();
+        };
+
+        }));
+
+    b = true;
 
     return 0;
 };

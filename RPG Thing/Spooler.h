@@ -1,10 +1,6 @@
 #pragma once
 
-#include <chrono>
-
-namespace spooler { // TODO: add comments
-	using namespace std::chrono_literals;
-
+namespace spooler {
 	/**/
 	enum {
 		CONTROL,
@@ -14,6 +10,7 @@ namespace spooler { // TODO: add comments
 	/**/
 	extern const unsigned char MAX_CORES;
 	extern	     unsigned char CURR_THREADS;
+	extern				  bool THREAD_BUNDY;
 
 	/**/
 	typedef void(&Task)();
@@ -22,7 +19,7 @@ namespace spooler { // TODO: add comments
 	extern void push(Task&);
 
 	/**/
-	extern bool* push(Task&, double);
+	extern void push(Task&, double);
 
 	/**/
 	extern void close();

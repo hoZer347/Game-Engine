@@ -1,69 +1,43 @@
-// Memory Tracking
-#define _CRTDBG_MAP_ALLOC
-#include <crtdbg.h>
 
-// GL imports
-#include <GLFW/glew.h>
-#include <GLFW/glfw3.h>
-
-#define GLM_FORCE_RADIANS
-#include <glm/glm.hpp>
-#include <glm/gtx/transform.hpp>
-using namespace glm;
-
-#include <cuda_runtime.h>
-
-// STD Imports
-#include <iostream>
-
-// Local Imports
+#include "Inputs.h"
+#include "Stage.h"
 #include "Spooler.h"
 #include "Object.h"
-#include "Window.h"
 
-#include <stack>
 #include <thread>
+#include <chrono>
+#include <iostream>
 
-__global__ void kernel() {
-
+struct test : obj::Obj {
+	void stage(size_t& t) {
+		switch (t) {
+		case 0:
+			std::cout << "stage0" << std::endl;
+			break;
+		case 1:
+			std::cout << "stage1" << std::endl;
+			break;
+		case 2:
+			std::cout << "stage2" << std::endl;
+			break;
+		};
+	};
 };
-
+                      
 int main() {
-    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	obj::OBJS.push_back(new test());
+	obj::OBJS.push_back(new test());
+	obj::OBJS.push_back(new test());
+	obj::OBJS.push_back(new test());
 
-    bool b = false;
+	inputs::init();
+	stage::init();
 
-    std::vector<std::thread> v;
+	std::this_thread::sleep_for(std::chrono::milliseconds(5000));
 
-    std::stack<size_t> s;
-    s.push(s.size());
-    s.push(s.size());
-    s.push(s.size());
-    s.push(s.size());
-    s.push(s.size());
-    s.push(s.size());
-    s.push(s.size());
-    s.push(s.size());
-    s.push(s.size());
-    s.push(s.size());
-    s.push(s.size());
-    s.push(s.size());
-    s.push(s.size());
-    s.push(s.size());
-    s.push(s.size());
-    std::stack<size_t> _s;
+	stage::close();
+	inputs::close();
+	spooler::close();
 
-    v.push_back(std::thread([&b, &s]() {
-        while (!b) {}
-
-        while (s.size()) {
-            std::cout << s.top();
-            s.pop();
-        };
-
-        }));
-
-    b = true;
-
-    return 0;
+	return 0;
 };

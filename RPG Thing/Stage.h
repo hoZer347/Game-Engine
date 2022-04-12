@@ -1,14 +1,8 @@
 #pragma once
 
-#include "Object.h"
-
-#include <stack>
-
 namespace stage {
-	struct Stage {
-		std::stack<obj::Obj*> objs;
-		Stage* next = this;
-	};
+	void init(unsigned char=2);
+	void close();
 
-	extern Stage* create();
+	extern size_t STAGE;
 };

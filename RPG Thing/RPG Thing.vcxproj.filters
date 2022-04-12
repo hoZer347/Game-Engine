@@ -2,75 +2,84 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Spooler.cpp">
-      <Filter>Engine\Spooler</Filter>
+    <ClCompile Include="Stage.cpp">
+      <Filter>Engine\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Textures.cpp">
+      <Filter>Engine\Textures</Filter>
+    </ClCompile>
+    <ClCompile Include="Shaders.cpp">
+      <Filter>Engine\Shaders</Filter>
     </ClCompile>
     <ClCompile Include="Window.cpp">
       <Filter>Engine\Window</Filter>
     </ClCompile>
-    <ClCompile Include="Shader.cpp">
-      <Filter>Engine\Shader</Filter>
-    </ClCompile>
-    <ClCompile Include="Texture.cpp">
-      <Filter>Engine\Texture</Filter>
+    <ClCompile Include="App.cpp">
+      <Filter>Engine\App</Filter>
     </ClCompile>
     <ClCompile Include="Inputs.cpp">
       <Filter>Engine\Inputs</Filter>
     </ClCompile>
+    <ClCompile Include="Spooler.cpp">
+      <Filter>Engine\Spooler</Filter>
+    </ClCompile>
     <ClCompile Include="Object.cpp">
       <Filter>Engine\Object</Filter>
-    </ClCompile>
-    <ClCompile Include="Stage.cpp">
-      <Filter>Engine\Stage</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Engine">
-      <UniqueIdentifier>{3e70d852-65e5-40b6-b490-f96810d9e457}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Spooler">
-      <UniqueIdentifier>{4bf40a87-5056-41ff-8a6a-810e4293afd6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Window">
-      <UniqueIdentifier>{7532bb53-e9ce-4751-a1c3-b288521d9aa0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Texture">
-      <UniqueIdentifier>{4ffe3681-6013-4f6b-9b92-50cc3d86e468}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Shader">
-      <UniqueIdentifier>{9c424ec1-8e14-4114-a9c7-c2a9f44ab219}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Inputs">
-      <UniqueIdentifier>{7081e31a-4f43-4cb9-af6f-1f3756d15b16}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine\Object">
-      <UniqueIdentifier>{b2d18cdc-5165-447d-8012-790b5cc0be16}</UniqueIdentifier>
+      <UniqueIdentifier>{2a02024a-3c1f-4022-bc05-0205f26c1314}</UniqueIdentifier>
     </Filter>
     <Filter Include="Engine\Stage">
-      <UniqueIdentifier>{f691b3af-de44-4334-89a0-9d7d4b33c3d6}</UniqueIdentifier>
+      <UniqueIdentifier>{1a092f51-fa9a-4a20-b5eb-7c5858c39c0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Textures">
+      <UniqueIdentifier>{5887b35f-5f76-4f4c-87dd-bd2c6b5bb409}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Shaders">
+      <UniqueIdentifier>{034d52f2-1a40-4858-a1d6-64c46ed3d0d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Window">
+      <UniqueIdentifier>{2c1c4b94-2407-45bf-8375-3ea8e83aeecb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\App">
+      <UniqueIdentifier>{ac0f4651-23a6-4a8a-b5d9-52855e4c69cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Inputs">
+      <UniqueIdentifier>{3e299c10-027f-4b1d-936a-7cf8816a8e20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Spooler">
+      <UniqueIdentifier>{72d22076-3e56-42b9-96f0-87acb954b0ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine\Object">
+      <UniqueIdentifier>{b3bb8bee-5338-4c16-8c2a-45e9c9812a48}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Spooler.h">
-      <Filter>Engine\Spooler</Filter>
+    <ClInclude Include="Stage.h">
+      <Filter>Engine\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Textures.h">
+      <Filter>Engine\Textures</Filter>
+    </ClInclude>
+    <ClInclude Include="Shaders.h">
+      <Filter>Engine\Shaders</Filter>
     </ClInclude>
     <ClInclude Include="Window.h">
       <Filter>Engine\Window</Filter>
     </ClInclude>
-    <ClInclude Include="Shader.h">
-      <Filter>Engine\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="Texture.h">
-      <Filter>Engine\Texture</Filter>
+    <ClInclude Include="App.h">
+      <Filter>Engine\App</Filter>
     </ClInclude>
     <ClInclude Include="Inputs.h">
       <Filter>Engine\Inputs</Filter>
     </ClInclude>
+    <ClInclude Include="Spooler.h">
+      <Filter>Engine\Spooler</Filter>
+    </ClInclude>
     <ClInclude Include="Object.h">
       <Filter>Engine\Object</Filter>
-    </ClInclude>
-    <ClInclude Include="Stage.h">
-      <Filter>Engine\Stage</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

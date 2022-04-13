@@ -23,7 +23,7 @@ struct test : obj::Obj {
 		};
 	};
 };
-                      
+
 int main() {
 	obj::OBJS.push_back(new test());
 	obj::OBJS.push_back(new test());

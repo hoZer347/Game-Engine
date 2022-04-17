@@ -1,43 +1,23 @@
+// Memory Tracking
+#define _CRTDBG_MAP_ALLOC
+#include <crtdbg.h>
 
-#include "Inputs.h"
-#include "Stage.h"
+#include <GLFW/glew.h>
+#include <GLFW/glfw3.h>
+
 #include "Spooler.h"
-#include "Object.h"
+#include "Window.h"
 
-#include <thread>
-#include <chrono>
 #include <iostream>
 
-struct test : obj::Obj {
-	void stage(size_t& t) {
-		switch (t) {
-		case 0:
-			std::cout << "stage0" << std::endl;
-			break;
-		case 1:
-			std::cout << "stage1" << std::endl;
-			break;
-		case 2:
-			std::cout << "stage2" << std::endl;
-			break;
-		};
-	};
-};
-
 int main() {
-	obj::OBJS.push_back(new test());
-	obj::OBJS.push_back(new test());
-	obj::OBJS.push_back(new test());
-	obj::OBJS.push_back(new test());
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 
-	inputs::init();
-	stage::init();
+	auto g = window::game::create();
+	
+	window::init(g);
 
-	std::this_thread::sleep_for(std::chrono::milliseconds(5000));
-
-	stage::close();
-	inputs::close();
-	spooler::close();
+	while (true) glfwPollEvents();
 
 	return 0;
 };

@@ -3,8 +3,13 @@
 #include <vector>
 
 namespace obj {
+	extern const unsigned char
+		STG_RENDER;
+
 	struct Obj {
-		virtual void stage(size_t&)=0;
+		Obj();
+
+		virtual void stage(const unsigned char&) { };
 	};
 
 	extern std::vector<Obj*> OBJS;

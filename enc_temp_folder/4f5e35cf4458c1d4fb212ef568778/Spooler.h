@@ -52,7 +52,7 @@ namespace spooler {
 		};
 
 	protected:
-		std::atomic<size_t> index = 0;
+		size_t index = 0;
 		std::vector<void(*)(thread<T>*)> v;
 	};
 
@@ -111,4 +111,7 @@ namespace spooler {
 		clock_t c;
 		long interval = 0;
 	};
+
+	void close();
+	void wait_for_close();
 };

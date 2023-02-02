@@ -1,32 +1,36 @@
 #include "Mesh.h"
 
-#include <glm/gtx/transform.hpp>
+#include <GLFW/glew.h>
+#include <GLFW/glfw3.h>
 
-std::vector<Mesh*> MESH;
-std::vector<unsigned int> _MESH;
-std::vector<_MeshObj*> OBJS;
-std::vector<unsigned int> _OBJS;
-std::map<const char*, unsigned int> TEXS;
+#include <iostream>
 
-Mesh* create_mesh(
-	std::vector<Vtx>& vtxs,
-	std::vector<unsigned int>& inds,
-	bool add,
-	unsigned int gl_render_type,
-	unsigned int gl_data_type,
-	unsigned int gl_texture) {
+namespace mesh {
+	Mesh::Mesh() {
+		glGenBuffers(1, &fbo);
+		glGenBuffers(1, &ebo);
+		
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, NULL);
+		glEnableVertexAttribArray(0);
+	};
+	Mesh::~Mesh() {
+		glDeleteBuffers(1, &fbo);
+		glDeleteBuffers(1, &ebo);
+	};
+	void Mesh::stage(unsigned char& stg) {
+		
+	};
+	void Mesh::update_buffers() {
+		glUseProgram(shader);
 
-	Mesh* m = new Mesh();
+		glBindBuffer(GL_ARRAY_BUFFER, fbo);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 
-	for (auto& i : vtxs)
-		m->vtxs.push_back(i);
-
-	for (auto& i : inds)
-		m->inds.push_back(i);
-
-	m->gl_render_type = gl_render_type;
-	m->gl_data_type = gl_data_type;
-	m->gl_texture = gl_texture;
+		glBufferData(
+			GL_ARRAY_BUFFER,
+			data.size() * sizeof(float),
+			data.data(),
+			GL_DYNAMIC_DRAW);
 
 	if (add) {
 		if (!_MESH.empty()) {
@@ -68,138 +72,38 @@ void make_meshobj(_MeshObj* m) {
 void delete_meshobj(_MeshObj* m) {
 	if (!m) return;
 
-	_OBJS.push_back(m->index);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	};
+	void Mesh::pump(std::vector<float>& v) {
+		data.insert(data.end(), v.begin(), v.end());
+		update_buffers();
+	};
+	void Mesh::pump(std::vector<unsigned int>& v) {
+		inds.insert(inds.end(), v.begin(), v.end());
+		update_buffers();
+	};
+	void Mesh::stg_update() {
 
-	OBJS[m->index] = NULL;
+	};
+	void Mesh::stg_render() {
+		glUseProgram(shader);
 
-	m->del();
-}
+		glBindBuffer(GL_ARRAY_BUFFER, fbo);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
 
-Mesh* blank_mesh(bool add) {
-	Mesh* m = new Mesh();
+		for (auto& t : texs)
+			glBindTexture(GL_TEXTURE_2D, t);
 
-	if (add) {
-		if (!_MESH.empty()) {
-			MESH[_MESH.back()] = m;
-			m->index = _MESH.back();
-			_MESH.pop_back();
-		}
-		else {
-			m->index = MESH.size();
-			MESH.push_back(m);
-		}
-	}
-
-	return m;
-}
-
-Mesh* create_square(bool add) {
-	std::vector<Vtx> vtxs = { Vtx(), Vtx(), Vtx(), Vtx() };
-
-	vtxs[0] = Vtx({ vec3(0, 0, 0), vec4(1), vec3(0, 0, 1), vec2(0, 0) });
-	vtxs[1] = Vtx({ vec3(1, 0, 0), vec4(1), vec3(0, 0, 1), vec2(1, 0) });
-	vtxs[2] = Vtx({ vec3(1, 1, 0), vec4(1), vec3(0, 0, 1), vec2(1, 1) });
-	vtxs[3] = Vtx({ vec3(0, 1, 0), vec4(1), vec3(0, 0, 1), vec2(0, 1) });
-
-	std::vector<unsigned int> inds = { 0, 1, 2, 3 };
-
-	return create_mesh(vtxs, inds, add);
-}
-
-Mesh* create_plane(unsigned int x, unsigned int y) {
-	std::vector<Vtx> vtxs;
-	std::vector<unsigned int> inds;
-
-	unsigned int index = 0;
-
-	for (unsigned int i = 0; i < x; i++)
-		for (unsigned int j = 0; j < y; j++) {
-			vtxs.push_back(Vtx({ vec3(i    , j    , 0), vec4(1), vec3(0, 0, 1), vec2(0, 0) }));
-			vtxs.push_back(Vtx({ vec3(i + 1, j    , 0), vec4(1), vec3(0, 0, 1), vec2(1, 0) }));
-			vtxs.push_back(Vtx({ vec3(i + 1, j + 1, 0), vec4(1), vec3(0, 0, 1), vec2(1, 1) }));
-			vtxs.push_back(Vtx({ vec3(i    , j + 1, 0), vec4(1), vec3(0, 0, 1), vec2(0, 1) }));
-			inds.push_back(index++);
-			inds.push_back(index++);
-			inds.push_back(index++);
-			inds.push_back(index++);
-		}
-
-	return create_mesh(vtxs, inds);
-}
-
-void bind_texture(Mesh* m, const char* file_name) {
-	if (TEXS[file_name]) {
-		m->gl_texture = TEXS[file_name];
-		return;
-	}
-
-	m->gl_texture = SOIL_load_OGL_texture(file_name, SOIL_LOAD_AUTO, SOIL_CREATE_NEW_ID, SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_MULTIPLY_ALPHA);
-
-	if (m->gl_texture) {
-		glBindTexture(GL_TEXTURE_2D, m->gl_texture);
-		glGenerateMipmap(GL_TEXTURE_2D);
+		glDrawElements(gl_render_type, inds.size(), GL_UNSIGNED_INT, NULL);
+		
 		glBindTexture(GL_TEXTURE_2D, 0);
 
-		TEXS[file_name] = m->gl_texture;
-	}
-}
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	};
 
-void change_rendering(Mesh* m, unsigned int gl_render_type) {
-	if (m->gl_render_type == gl_render_type)
-		return;
-
-	std::vector<unsigned int> new_inds;
-
-	unsigned int index = 0;
-
-	switch (m->gl_render_type) {
-
-	case GL_QUADS:
-		switch (gl_render_type) {
-		case GL_LINES:
-			for (unsigned int i = 0; i < m->inds.size(); i += 4) {
-				new_inds.push_back(m->inds[index++]);
-				new_inds.push_back(m->inds[index]);
-				new_inds.push_back(m->inds[index++]);
-				new_inds.push_back(m->inds[index]);
-				new_inds.push_back(m->inds[index++]);
-				new_inds.push_back(m->inds[index]);
-				new_inds.push_back(m->inds[index++]);
-				new_inds.push_back(m->inds[index - 4]);
-			}
-			break;
-		default:
-			break;
-		}
-		break;
-
-	case GL_LINES:
-		switch (gl_render_type) {
-		case GL_QUADS:
-			for (unsigned int i = 0; i < m->inds.size(); i += 2)
-				new_inds.push_back(m->inds[i]);
-			break;
-		default:
-			break;
-		}
-		break;
-	default:
-		break;
-	}
-
-	m->inds = new_inds;
-	m->gl_render_type = gl_render_type;
-}
-
-void close_mesh() {
-	for (auto& m : MESH)
-		if (m)
-			delete m;
-
-	for (auto& o : OBJS)
-		if (o)
-			o->del();
-
-	for (auto& i : TEXS)
-		glDeleteTextures(1, &i.second);
-}
+	void create() {
+		mesh::Mesh();
+	};
+};

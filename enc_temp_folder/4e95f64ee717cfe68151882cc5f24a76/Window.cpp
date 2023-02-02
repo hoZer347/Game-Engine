@@ -11,7 +11,7 @@
 namespace window {
 	const unsigned char STG_RENDER = 1;
 
-	struct Window : spooler::q_thread<std::vector<obj::Obj*>> {
+	struct Window : spooler::thread<std::vector<obj::Obj*>> {
 		Window() {
 			obj = &obj::OBJS;
 			_t = std::thread(manage, this);
@@ -19,6 +19,11 @@ namespace window {
 		~Window() {
 			glfwDestroyWindow(w);
 			glfwTerminate();
+		};
+		void render() {
+			PAUSE = false;
+
+			while (!PAUSE);
 		};
 		static void manage(Window* w) {
 			glfwInit();
@@ -32,12 +37,9 @@ namespace window {
 			glEnable(GL_TEXTURE_2D);
 
 			while (w->ON && !glfwWindowShouldClose(w->w)) {
-				while (w->q.size() && !w->PAUSE) {
-					w->q.front()(w);
-					w->q.pop();
-				};
-
 				if (!w->PAUSE) {
+					glfwPollEvents();
+
 					glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 					for (auto& o : *w->obj)
@@ -68,4 +70,11 @@ namespace window {
 			return new Window();
 		};
 	}
+
+	void init(Window* w) {
+
+	};
+	void reset(Window* w) {
+
+	};
 };

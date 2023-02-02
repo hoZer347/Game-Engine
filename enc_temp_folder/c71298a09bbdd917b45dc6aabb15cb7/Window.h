@@ -10,4 +10,7 @@ namespace window {
 	namespace res {
 		Window* create();
 	}
+
+	void init(Window*);
+	void reset(Window*);
 };

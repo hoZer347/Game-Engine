@@ -102,7 +102,7 @@ static Font* create_font(
 		FT_Load_Char(face, c, FT_LOAD_RENDER);
 
 		w +=          face->glyph->bitmap.width + 1;
-		h  = std::max(face->glyph->bitmap.rows, h);
+		h  = std::max((int)face->glyph->bitmap.rows, (int)h);
 	}
 
 	glTexImage2D(

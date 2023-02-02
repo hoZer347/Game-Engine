@@ -88,14 +88,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Dev\irrKlang\include;C:\Dev\freetype-windows-binaries-master\include;C:\Dev\OpenGL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Dev\irrKlang\include;C:\Dev\freetype\windows\freetype;C:\Dev\OpenGL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>Default</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Dev\irrKlang\lib\Win32-visualStudio;C:\Windows\System32\Visual Studio 2019;C:\Dev\freetype-windows-binaries-master\release static\vs2015-2019\win32;C:\Dev\freetype-windows-binaries-master\release dll\win32;C:\Dev\OpenGL\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>freeglut.lib;freeglut_static.lib;glew32.lib;glew32d.lib;glew32s.lib;glew32sd.lib;glfw3.lib;glfw3d.lib;OpenGL32.lib;SOIL.lib;SOILd.lib;irrKlang.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Dev\irrKlang\lib\Win32-visualStudio;C:\Windows\System32\Visual Studio 2019;C:\Dev\freetype\windows\freetype;C:\Dev\OpenGL\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>freeglut.lib;freeglut_static.lib;glew32.lib;glew32d.lib;glew32s.lib;glew32sd.lib;glfw3.lib;glfw3d.lib;OpenGL32.lib;SOIL.lib;SOILd.lib;freetype.lib;irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -106,15 +106,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Dev\irrKlang\include;C:\Dev\freetype-windows-binaries-master\include;C:\Dev\OpenGL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Dev\irrKlang\include;C:\Dev\freetype\windows\freetype;C:\Dev\OpenGL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Dev\irrKlang\lib\Win32-visualStudio;C:\Windows\System32\Visual Studio 2019;C:\Dev\freetype-windows-binaries-master\release static\vs2015-2019\win32;C:\Dev\freetype-windows-binaries-master\release dll\win32;C:\Dev\OpenGL\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>freeglut.lib;freeglut_static.lib;glew32.lib;glew32d.lib;glew32s.lib;glew32sd.lib;glfw3.lib;glfw3d.lib;OpenGL32.lib;SOIL.lib;SOILd.lib;irrKlang.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Dev\irrKlang\lib\Win32-visualStudio;C:\Windows\System32\Visual Studio 2019;C:\Dev\freetype\windows\freetype;C:\Dev\OpenGL\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>freeglut.lib;freeglut_static.lib;glew32.lib;glew32d.lib;glew32s.lib;glew32sd.lib;glfw3.lib;glfw3d.lib;OpenGL32.lib;SOIL.lib;SOILd.lib;freetype.lib;irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -123,13 +123,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Dev\irrKlang\include;C:\Dev\freetype-windows-binaries-master\include;C:\Dev\OpenGL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Dev\irrKlang\include;C:\Dev\freetype\windows\freetype;C:\Dev\OpenGL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Dev\irrKlang\lib\Win32-visualStudio;C:\Windows\System32\Visual Studio 2019;C:\Dev\freetype-windows-binaries-master\release static\vs2015-2019\win32;C:\Dev\freetype-windows-binaries-master\release dll\win32;C:\Dev\OpenGL\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>freeglut.lib;freeglut_static.lib;glew32.lib;glew32d.lib;glew32s.lib;glew32sd.lib;glfw3.lib;glfw3d.lib;OpenGL32.lib;SOIL.lib;SOILd.lib;irrKlang.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Dev\irrKlang\lib\Win32-visualStudio;C:\Windows\System32\Visual Studio 2019;C:\Dev\freetype\windows\freetype;C:\Dev\OpenGL\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>freeglut.lib;freeglut_static.lib;glew32.lib;glew32d.lib;glew32s.lib;glew32sd.lib;glfw3.lib;glfw3d.lib;OpenGL32.lib;SOIL.lib;SOILd.lib;freetype.lib;irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -140,19 +140,20 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Dev\irrKlang\include;C:\Dev\freetype-windows-binaries-master\include;C:\Dev\OpenGL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Dev\irrKlang\include;C:\Dev\freetype\windows\freetype;C:\Dev\OpenGL\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Dev\irrKlang\lib\Win32-visualStudio;C:\Windows\System32\Visual Studio 2019;C:\Dev\freetype-windows-binaries-master\release static\vs2015-2019\win32;C:\Dev\freetype-windows-binaries-master\release dll\win32;C:\Dev\OpenGL\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>freeglut.lib;freeglut_static.lib;glew32.lib;glew32d.lib;glew32s.lib;glew32sd.lib;glfw3.lib;glfw3d.lib;OpenGL32.lib;SOIL.lib;SOILd.lib;irrKlang.lib;freetype.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Dev\irrKlang\lib\Win32-visualStudio;C:\Windows\System32\Visual Studio 2019;C:\Dev\freetype\windows\freetype;C:\Dev\OpenGL\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>freeglut.lib;freeglut_static.lib;glew32.lib;glew32d.lib;glew32s.lib;glew32sd.lib;glfw3.lib;glfw3d.lib;OpenGL32.lib;SOIL.lib;SOILd.lib;freetype.lib;irrKlang.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="HealthBar.cpp" />
     <ClCompile Include="UnitMenuActions.cpp" />
     <ClCompile Include="AI.cpp" />
     <ClCompile Include="Animation.cpp" />
@@ -176,6 +177,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="HealthBar.h" />
     <ClInclude Include="UnitMenuActions.h" />
     <ClInclude Include="AI.h" />
     <ClInclude Include="Animation.h" />

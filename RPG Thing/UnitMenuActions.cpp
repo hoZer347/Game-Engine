@@ -9,7 +9,6 @@ void attack() {
 	// Showing Attack Range
 	Cell* c = (Cell*)inputs->mem["Hovered"];
 	MENU->change_focus(false);
-
 	for (auto& _c : GRID->C)
 		for (auto& __c : _c)
 			__c->change_color(TEAM_NULL);

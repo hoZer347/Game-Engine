@@ -65,7 +65,7 @@ void make_meshobj(_MeshObj* m) {
 	}
 }
 
-extern void delete_meshobj(_MeshObj* m) {
+void delete_meshobj(_MeshObj* m) {
 	if (!m) return;
 
 	_OBJS.push_back(m->index);

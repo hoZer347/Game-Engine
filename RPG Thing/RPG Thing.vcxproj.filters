@@ -62,6 +62,9 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Engine\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="HealthBar.cpp">
+      <Filter>Game\Renderables\Unit</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Mesh.h">
@@ -123,6 +126,9 @@
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Engine\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthBar.h">
+      <Filter>Game\Renderables\Unit</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

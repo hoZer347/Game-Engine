@@ -62,17 +62,17 @@ Renderer::Renderer() {
 
     // GENERATING DEPTH BUFFER
 
-    glGenFramebuffers(1, &depth_map);
+    //glGenFramebuffers(1, &depth_map);
 
     // GENERATING VERTEX BUFFER
 
-    glGenVertexArrays(1, &vao);
+    //glGenVertexArrays(1, &vao);
 
     glGenBuffers(1, &_vtxs);
     glBindBuffer(GL_ARRAY_BUFFER, _vtxs);
 
     glGenBuffers(1, &_inds);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _vtxs);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _inds);
 
     // Position
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vtx), NULL);
